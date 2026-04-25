@@ -1,9 +1,12 @@
-// ─── CONFIG — remplace par tes vraies clés Supabase ───────────────────────
+// ─── SUPABASE ──────────────────────────────────────────────────────────────
 const SUPABASE_URL = 'https://rmayoabnbbcyhkmaorpp.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_m7Fev0bGSkzazz600_x48Q_jn5obw8V';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const { createClient } = supabase;
-const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+// ─── EMAILJS — remplace avec tes clés (voir README ci-dessous) ────────────
+const EJS_SERVICE  = 'YOUR_SERVICE_ID';   // ex: service_abc123
+const EJS_TEMPLATE = 'YOUR_TEMPLATE_ID';  // ex: template_xyz789
+const EJS_KEY      = 'YOUR_PUBLIC_KEY';   // ex: abcDEF123456
 
 // ─── FORM ──────────────────────────────────────────────────────────────────
 async function handleForm(e) {
@@ -12,7 +15,6 @@ async function handleForm(e) {
   const btn  = document.getElementById('f-btn');
   const orig = btn.innerHTML;
 
-  // Lecture des champs
   const name    = document.getElementById('f-name').value.trim();
   const email   = document.getElementById('f-email').value.trim();
   const phone   = document.getElementById('f-phone').value.trim();
@@ -20,39 +22,52 @@ async function handleForm(e) {
   const budget  = document.getElementById('f-budget').value;
   const message = document.getElementById('f-message').value.trim();
 
-  // Validation locale
+  // Validation
   if (!name || !email || !message)
-    return showAlert('error', '⚠ Veuillez remplir tous les champs obligatoires (*).');
-
+    return showAlert('error', '⚠ Veuillez remplir les champs obligatoires (*).');
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
     return showAlert('error', '⚠ Adresse email invalide.');
 
-  // Loading
   btn.innerHTML = '<span style="opacity:.65">Envoi en cours…</span>';
   btn.disabled  = true;
   hideAlert();
 
-  // Insert Supabase
+  // 1 — Sauvegarde Supabase
   const { error } = await sb.from('contacts').insert([{
-    name, email, phone: phone || null,
+    name, email,
+    phone:   phone   || null,
     service: service || null,
     budget:  budget  || null,
     message,
   }]);
 
   if (error) {
+    console.error('Supabase:', error);
     showAlert('error', '⚠ Erreur lors de l\'envoi. Réessayez dans un instant.');
-    console.error(error);
-  } else {
-    showAlert('success', '✓ Message envoyé ! On vous contacte sous 24h.');
-    e.target.reset();
+    btn.innerHTML = orig;
+    btn.disabled  = false;
+    return;
   }
 
+  // 2 — Notification email (EmailJS)
+  if (EJS_SERVICE !== 'YOUR_SERVICE_ID') {
+    emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
+      from_name:  name,
+      from_email: email,
+      phone:      phone   || 'Non renseigné',
+      service:    service || 'Non renseigné',
+      budget:     budget  || 'Non renseigné',
+      message,
+    }, EJS_KEY).catch(err => console.warn('EmailJS:', err));
+  }
+
+  showAlert('success', '✓ Message envoyé ! On vous contacte sous 24h.');
+  e.target.reset();
   btn.innerHTML = orig;
   btn.disabled  = false;
 }
 
-// ─── UI HELPERS ────────────────────────────────────────────────────────────
+// ─── HELPERS ───────────────────────────────────────────────────────────────
 function showAlert(type, msg) {
   const el = document.getElementById('form-alert');
   el.style.cssText = type === 'success'
