@@ -4,7 +4,7 @@ const SUPABASE_KEY = 'sb_publishable_m7Fev0bGSkzazz600_x48Q_jn5obw8V';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // ─── WEB3FORMS — clé d'accès ───────────────────────────────────────────────
-const W3F_KEY = 'REMPLACE_PAR_TA_CLE_WEB3FORMS';
+const W3F_KEY = '90ec5463-89c0-4c20-8adb-3f412a4c4132';
 
 // ─── FORM ──────────────────────────────────────────────────────────────────
 async function handleForm(e) {
