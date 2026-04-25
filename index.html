@@ -171,35 +171,44 @@ section{padding:6rem 5%;position:relative;}
 .stat-num em{color:#818CF8;font-style:normal;}
 .stat-lbl{font-size:0.72rem;color:rgba(255,255,255,0.38);margin-top:0.4rem;display:block;letter-spacing:0.3px;}
 
-/* SERVICES */
+/* ═══ FLIP SERVICE CARDS ═══ */
 #services{background:var(--bg);}
-.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;}
-.svc-card{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r2);padding:2rem;transition:all 0.3s;position:relative;overflow:hidden;cursor:pointer;}
-.svc-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--accent-soft),transparent);opacity:0;transition:opacity 0.3s;}
-.svc-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform 0.35s;}
-.svc-card:hover{border-color:var(--line2);transform:translateY(-4px);box-shadow:var(--sh3);}
-.svc-card:hover::before{opacity:1;}
-.svc-card:hover::after{transform:scaleX(1);}
-.svc-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;}
-.svc-icon{width:52px;height:52px;background:var(--accent-soft);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;transition:transform 0.3s;}
-.svc-card:hover .svc-icon{transform:scale(1.08);}
-.svc-arrow{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.85rem;transition:all 0.3s;flex-shrink:0;}
-.svc-card:hover .svc-arrow{background:var(--accent);border-color:var(--accent);color:#fff;transform:rotate(-45deg);}
-.svc-title{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;color:var(--ink);letter-spacing:-0.2px;margin-bottom:0.25rem;}
-.svc-title-ar{font-family:'Noto Naskh Arabic',serif;font-size:0.8rem;color:var(--muted);direction:rtl;margin-bottom:0.8rem;}
-.svc-desc{font-size:0.87rem;color:var(--muted);line-height:1.72;margin-bottom:1.2rem;}
-.svc-tags{display:flex;gap:0.4rem;flex-wrap:wrap;}
-.stag{padding:0.2rem 0.6rem;border-radius:100px;font-size:0.69rem;font-weight:600;border:1.5px solid;transition:all 0.2s;}
-.stag.ig{color:#E1306C;border-color:rgba(225,48,108,0.25);background:rgba(225,48,108,0.05);}
-.stag.fb{color:#1877F2;border-color:rgba(24,119,242,0.25);background:rgba(24,119,242,0.05);}
-.stag.tk{color:#111;border-color:rgba(0,0,0,0.14);background:rgba(0,0,0,0.04);}
-.stag.li{color:#0A66C2;border-color:rgba(10,102,194,0.25);background:rgba(10,102,194,0.05);}
-.stag.plain{color:var(--muted);border-color:var(--line);background:transparent;}
-.svc-foot{display:flex;align-items:center;justify-content:space-between;margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--line);}
-.svc-price{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:700;color:var(--accent);}
-.svc-price small{font-family:'Plus Jakarta Sans',sans-serif;font-size:0.72rem;color:var(--muted);font-weight:400;}
-.svc-cta{font-size:0.78rem;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:0.3rem;transition:gap 0.2s;}
-.svc-card:hover .svc-cta{gap:0.55rem;}
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.8rem;}
+.flip-card{height:340px;perspective:1400px;cursor:pointer;}
+.flip-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 0.72s cubic-bezier(0.34,1.1,0.64,1);}
+.flip-card:hover .flip-inner,.flip-card.flipped .flip-inner{transform:rotateY(180deg);}
+.flip-front,.flip-back{position:absolute;inset:0;border-radius:20px;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;}
+/* FRONT */
+.flip-front{background:var(--surface);border:1.5px solid var(--line);display:flex;flex-direction:column;padding:2rem;transition:border-color 0.3s,box-shadow 0.3s;}
+.flip-card:hover .flip-front{border-color:var(--line2);box-shadow:var(--sh3);}
+.flip-front-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.1rem;}
+.flip-icon{width:60px;height:60px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;flex-shrink:0;}
+.flip-hint-tag{display:flex;align-items:center;gap:0.3rem;font-size:0.67rem;font-weight:700;color:var(--muted);background:var(--bg);border:1px solid var(--line);padding:0.22rem 0.65rem;border-radius:100px;transition:all 0.3s;white-space:nowrap;}
+.flip-card:hover .flip-hint-tag{color:var(--accent);border-color:var(--line2);background:var(--accent-soft);}
+.flip-title{font-family:'Fraunces',serif;font-size:1.18rem;font-weight:700;color:var(--ink);letter-spacing:-0.2px;margin-bottom:0.2rem;}
+.flip-title-ar{font-family:'Noto Naskh Arabic',serif;font-size:0.76rem;color:var(--muted);direction:rtl;margin-bottom:0.8rem;}
+.flip-desc{font-size:0.83rem;color:var(--muted);line-height:1.72;flex:1;}
+.flip-foot{display:flex;align-items:center;justify-content:space-between;padding-top:1rem;border-top:1px solid var(--line);margin-top:auto;}
+.flip-price{font-family:'Fraunces',serif;font-size:0.98rem;font-weight:700;color:var(--accent);}
+.flip-price small{font-family:'Plus Jakarta Sans',sans-serif;font-size:0.68rem;font-weight:400;color:var(--muted);}
+.flip-cta-hint{font-size:0.72rem;color:var(--muted);display:flex;align-items:center;gap:0.3rem;transition:all 0.3s;}
+.flip-card:hover .flip-cta-hint{color:var(--accent);}
+/* BACK */
+.flip-back{transform:rotateY(180deg);padding:1.8rem;display:flex;flex-direction:column;position:relative;}
+.flip-back::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top right,rgba(255,255,255,0.18),transparent 60%);pointer-events:none;}
+.fb-1{background:linear-gradient(145deg,#4338CA 0%,#0EA5E9 100%);}
+.fb-2{background:linear-gradient(145deg,#7C3AED 0%,#EC4899 100%);}
+.fb-3{background:linear-gradient(145deg,#D97706 0%,#EF4444 100%);}
+.fb-4{background:linear-gradient(145deg,#059669 0%,#0EA5E9 100%);}
+.flip-back-head{display:flex;align-items:center;gap:0.8rem;margin-bottom:1rem;}
+.flip-back-emoji{font-size:1.9rem;filter:drop-shadow(0 3px 6px rgba(0,0,0,0.25));}
+.flip-back-title{font-family:'Fraunces',serif;font-size:1.12rem;font-weight:700;color:#fff;letter-spacing:-0.2px;}
+.flip-back-feats{display:flex;flex-direction:column;gap:0.48rem;flex:1;margin-bottom:0.9rem;}
+.flip-back-feat{display:flex;align-items:flex-start;gap:0.55rem;font-size:0.79rem;color:rgba(255,255,255,0.92);line-height:1.35;}
+.flip-back-feat::before{content:'✓';font-weight:800;color:#fff;flex-shrink:0;width:16px;height:16px;min-width:16px;background:rgba(255,255,255,0.22);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.6rem;margin-top:1px;}
+.flip-back-note{font-size:0.71rem;color:rgba(255,255,255,0.62);font-weight:600;margin-bottom:0.8rem;}
+.flip-back-btn{display:block;background:rgba(255,255,255,0.2);color:#fff;border:1.5px solid rgba(255,255,255,0.38);border-radius:10px;padding:0.68rem 1rem;text-align:center;font-weight:700;font-size:0.83rem;transition:all 0.25s;backdrop-filter:blur(4px);font-family:'Plus Jakarta Sans',sans-serif;}
+.flip-back-btn:hover{background:rgba(255,255,255,0.3);border-color:rgba(255,255,255,0.6);transform:translateY(-1px);}
 
 /* PORTFOLIO */
 #portfolio{background:var(--bg);}
@@ -236,7 +245,14 @@ section{padding:6rem 5%;position:relative;}
 #process .h2{color:#fff;}
 #process .h2-ar{color:rgba(255,255,255,0.3);}
 .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;position:relative;}
-.process-grid::before{content:'';position:absolute;top:30px;left:calc(12.5% + 0px);right:calc(12.5% + 0px);height:1px;background:linear-gradient(90deg,var(--accent),#818CF8);opacity:0.4;}
+.process-grid::before{
+  content:'';position:absolute;top:30px;
+  left:calc(12.5% + 26px);right:calc(12.5% + 26px);
+  height:2px;
+  background:linear-gradient(90deg,rgba(67,56,202,0.6),rgba(129,140,248,0.8),rgba(14,165,233,0.6));
+  border-radius:2px;
+  box-shadow:0 0 10px rgba(129,140,248,0.35);
+}
 .pstep{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:var(--r2);padding:1.6rem;text-align:center;position:relative;z-index:1;transition:all 0.3s;}
 .pstep:hover{background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.15);transform:translateY(-4px);}
 .pnum{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-family:'Fraunces',serif;font-size:1rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 1.1rem;box-shadow:0 4px 14px rgba(67,56,202,0.4);}
@@ -427,10 +443,13 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
 }
 @media(max-width:768px){
   .nav-links{display:none;}
+  .lang-switcher{display:none;}
   .hamburger{display:flex;}
   section{padding:4.5rem 4%;}
   .hero{padding:calc(64px + 2.5rem) 4% 2.5rem;}
   .services-grid{grid-template-columns:1fr;}
+  .flip-card{height:360px;}
+  .flip-hint-tag::before{content:'Tap · ';}
   .portfolio-grid{grid-template-columns:1fr;}
   .process-grid{grid-template-columns:1fr;}
   .testi-grid{grid-template-columns:1fr;}
@@ -775,43 +794,139 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
     <p class="h2-ar">خدمات مصممة لنمو أعمالك</p>
   </div>
   <div class="services-grid">
-    <div class="svc-card reveal" onclick="openService('web')">
-      <div class="svc-head"><div class="svc-icon">🌐</div><div class="svc-arrow">↗</div></div>
-      <div class="svc-title">Création de Sites Web</div>
-      <div class="svc-title-ar">إنشاء المواقع الإلكترونية</div>
-      <p class="svc-desc">Sites vitrines professionnels, rapides et optimisés SEO. De la maquette à la mise en ligne, on s'occupe de tout.</p>
-      <div class="svc-tags"><span class="stag plain">WordPress</span><span class="stag plain">SEO</span><span class="stag plain">Responsive</span><span class="stag plain">SSL</span></div>
-      <div class="svc-foot"><div class="svc-price">À partir de 50 000 DZD <small>/ site</small></div><div class="svc-cta">Voir les offres <span>→</span></div></div>
-    </div>
-    <div class="svc-card reveal" onclick="openService('social')">
-      <div class="svc-head"><div class="svc-icon">📱</div><div class="svc-arrow">↗</div></div>
-      <div class="svc-title">Gestion Réseaux Sociaux</div>
-      <div class="svc-title-ar">إدارة وسائل التواصل الاجتماعي</div>
-      <p class="svc-desc">Community management professionnel sur les principales plateformes. Contenu, planification et rapports mensuels.</p>
-      <div class="svc-tags">
-        <span class="stag ig"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="#E1306C" stroke-width="2.5" style="display:inline;vertical-align:middle;margin-right:2px"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="#E1306C" stroke="none"/></svg>Instagram</span>
-        <span class="stag fb"><svg viewBox="0 0 24 24" width="10" height="10" fill="#1877F2" style="display:inline;vertical-align:middle;margin-right:2px"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Facebook</span>
-        <span class="stag tk"><svg viewBox="0 0 24 24" width="10" height="10" fill="#111" style="display:inline;vertical-align:middle;margin-right:2px"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.77 0 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-6.13 6.33 6.34 6.34 0 0 0 12.67 0V8.69a8.18 8.18 0 0 0 4.78 1.52V6.78a4.85 4.85 0 0 1-1.01-.09z"/></svg>TikTok</span>
-        <span class="stag li"><svg viewBox="0 0 24 24" width="10" height="10" fill="#0A66C2" style="display:inline;vertical-align:middle;margin-right:2px"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</span>
+
+    <!-- ── Création de Sites Web ── -->
+    <div class="flip-card reveal">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-front-top">
+            <div class="flip-icon" style="background:rgba(67,56,202,0.1)">🌐</div>
+            <span class="flip-hint-tag">↻ Survolez</span>
+          </div>
+          <div class="flip-title">Création de Sites Web</div>
+          <div class="flip-title-ar">إنشاء المواقع الإلكترونية</div>
+          <p class="flip-desc">Sites vitrines professionnels, rapides et optimisés SEO. De la maquette à la mise en ligne, on s'occupe de tout.</p>
+          <div class="flip-foot">
+            <div class="flip-price">Dès 50 000 DZD <small>/ site</small></div>
+            <div class="flip-cta-hint">Voir les formules ↗</div>
+          </div>
+        </div>
+        <div class="flip-back fb-1">
+          <div class="flip-back-head">
+            <div class="flip-back-emoji">🌐</div>
+            <div class="flip-back-title">Création de Sites Web</div>
+          </div>
+          <div class="flip-back-feats">
+            <div class="flip-back-feat">Starter 50 000 DZD — 3 à 5 pages</div>
+            <div class="flip-back-feat">Pro 80 000 DZD — 10 pages + SEO complet</div>
+            <div class="flip-back-feat">Premium 130 000 DZD — pages illimitées</div>
+            <div class="flip-back-feat">Livraison garantie en 7 jours</div>
+          </div>
+          <div class="flip-back-note">💳 Paiement en DZD · Virement ou espèces</div>
+          <a href="#contact" class="flip-back-btn" onclick="event.stopPropagation()">Demander un devis gratuit →</a>
+        </div>
       </div>
-      <div class="svc-foot"><div class="svc-price">À partir de 12 000 DZD <small>/ mois</small></div><div class="svc-cta">Voir les offres <span>→</span></div></div>
     </div>
-    <div class="svc-card reveal" onclick="openService('ads')">
-      <div class="svc-head"><div class="svc-icon">🎯</div><div class="svc-arrow">↗</div></div>
-      <div class="svc-title">Marketing Digital & Ads</div>
-      <div class="svc-title-ar">التسويق الرقمي والإعلانات</div>
-      <p class="svc-desc">Campagnes publicitaires ciblées sur Meta, TikTok et Google. Génération de leads qualifiés avec ROI mesurable.</p>
-      <div class="svc-tags"><span class="stag ig">Meta Ads</span><span class="stag fb">Facebook Ads</span><span class="stag tk">TikTok Ads</span><span class="stag plain">Google Ads</span></div>
-      <div class="svc-foot"><div class="svc-price">À partir de 12 000 DZD <small>/ mois</small></div><div class="svc-cta">Voir les offres <span>→</span></div></div>
+
+    <!-- ── Gestion Réseaux Sociaux ── -->
+    <div class="flip-card reveal">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-front-top">
+            <div class="flip-icon" style="background:rgba(124,58,237,0.1)">📱</div>
+            <span class="flip-hint-tag">↻ Survolez</span>
+          </div>
+          <div class="flip-title">Gestion Réseaux Sociaux</div>
+          <div class="flip-title-ar">إدارة وسائل التواصل الاجتماعي</div>
+          <p class="flip-desc">Community management professionnel sur Instagram, Facebook, TikTok et LinkedIn. Contenu visuel de qualité et rapports mensuels.</p>
+          <div class="flip-foot">
+            <div class="flip-price">Dès 12 000 DZD <small>/ mois</small></div>
+            <div class="flip-cta-hint">Voir les formules ↗</div>
+          </div>
+        </div>
+        <div class="flip-back fb-2">
+          <div class="flip-back-head">
+            <div class="flip-back-emoji">📱</div>
+            <div class="flip-back-title">Gestion Réseaux Sociaux</div>
+          </div>
+          <div class="flip-back-feats">
+            <div class="flip-back-feat">Essentiel 12 000 DZD — 2 réseaux, 8 posts</div>
+            <div class="flip-back-feat">Croissance 20 000 DZD — 3 réseaux + Meta Ads</div>
+            <div class="flip-back-feat">Accélération 35 000 DZD — 4 réseaux + TikTok</div>
+            <div class="flip-back-feat">Visuels premium inclus dans chaque formule</div>
+          </div>
+          <div class="flip-back-note">📅 Sans engagement · Résiliable à tout moment</div>
+          <a href="#contact" class="flip-back-btn" onclick="event.stopPropagation()">Demander un devis gratuit →</a>
+        </div>
+      </div>
     </div>
-    <div class="svc-card reveal" onclick="openService('brand')">
-      <div class="svc-head"><div class="svc-icon">🎨</div><div class="svc-arrow">↗</div></div>
-      <div class="svc-title">Identité Visuelle</div>
-      <div class="svc-title-ar">الهوية البصرية</div>
-      <p class="svc-desc">Logo professionnel, charte graphique et supports print & digital. Une image de marque mémorable et cohérente.</p>
-      <div class="svc-tags"><span class="stag plain">Logo</span><span class="stag plain">Charte graphique</span><span class="stag plain">Print</span><span class="stag plain">Digital</span></div>
-      <div class="svc-foot"><div class="svc-price">À partir de 15 000 DZD</div><div class="svc-cta">Voir les offres <span>→</span></div></div>
+
+    <!-- ── Marketing Digital & Ads ── -->
+    <div class="flip-card reveal">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-front-top">
+            <div class="flip-icon" style="background:rgba(217,119,6,0.1)">🎯</div>
+            <span class="flip-hint-tag">↻ Survolez</span>
+          </div>
+          <div class="flip-title">Marketing Digital & Ads</div>
+          <div class="flip-title-ar">التسويق الرقمي والإعلانات</div>
+          <p class="flip-desc">Campagnes Meta, TikTok et Google ciblées sur l'Algérie. Génération de leads qualifiés avec ROI 100% mesurable.</p>
+          <div class="flip-foot">
+            <div class="flip-price">Dès 12 000 DZD <small>/ mois</small></div>
+            <div class="flip-cta-hint">Voir les formules ↗</div>
+          </div>
+        </div>
+        <div class="flip-back fb-3">
+          <div class="flip-back-head">
+            <div class="flip-back-emoji">🎯</div>
+            <div class="flip-back-title">Marketing Digital & Ads</div>
+          </div>
+          <div class="flip-back-feats">
+            <div class="flip-back-feat">Essentiel 12 000 DZD — Meta Ads Algérie</div>
+            <div class="flip-back-feat">Croissance 20 000 DZD — A/B Testing + ROI</div>
+            <div class="flip-back-feat">Accélération 35 000 DZD — Meta+Google+TikTok</div>
+            <div class="flip-back-feat">Rapport ROI mensuel détaillé inclus</div>
+          </div>
+          <div class="flip-back-note">📊 Ciblage géolocalisé Algérie garanti</div>
+          <a href="#contact" class="flip-back-btn" onclick="event.stopPropagation()">Demander un devis gratuit →</a>
+        </div>
+      </div>
     </div>
+
+    <!-- ── Identité Visuelle ── -->
+    <div class="flip-card reveal">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-front-top">
+            <div class="flip-icon" style="background:rgba(5,150,105,0.1)">🎨</div>
+            <span class="flip-hint-tag">↻ Survolez</span>
+          </div>
+          <div class="flip-title">Identité Visuelle</div>
+          <div class="flip-title-ar">الهوية البصرية</div>
+          <p class="flip-desc">Logo professionnel, charte graphique et supports print & digital. Une image de marque mémorable et cohérente.</p>
+          <div class="flip-foot">
+            <div class="flip-price">Dès 15 000 DZD</div>
+            <div class="flip-cta-hint">Voir les formules ↗</div>
+          </div>
+        </div>
+        <div class="flip-back fb-4">
+          <div class="flip-back-head">
+            <div class="flip-back-emoji">🎨</div>
+            <div class="flip-back-title">Identité Visuelle</div>
+          </div>
+          <div class="flip-back-feats">
+            <div class="flip-back-feat">Logo Essentiel 15 000 DZD — 3 propositions</div>
+            <div class="flip-back-feat">Pack Identité 30 000 DZD — Logo + charte</div>
+            <div class="flip-back-feat">Branding Complet 40 000 DZD — tout inclus</div>
+            <div class="flip-back-feat">Livrables HD vectoriels print & digital</div>
+          </div>
+          <div class="flip-back-note">🖼 Formats web + print + réseaux sociaux</div>
+          <a href="#contact" class="flip-back-btn" onclick="event.stopPropagation()">Demander un devis gratuit →</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1605,6 +1720,15 @@ function setLang(lang) {
 
 // Appliquer la langue sauvegardée au chargement
 setLang(currentLang);
+
+/* ── FLIP CARDS — TOUCH SUPPORT ────────────────────────────────────── */
+document.querySelectorAll('.flip-card').forEach(card => {
+  card.addEventListener('click', function(e) {
+    if (window.matchMedia('(hover:hover)').matches) return;
+    if (e.target.closest('a')) return;
+    this.classList.toggle('flipped');
+  });
+});
 
 /* ── PWA INSTALL PROMPT ─────────────────────────────────────────────── */
 let deferredPrompt = null;
