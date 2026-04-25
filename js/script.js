@@ -3,8 +3,8 @@ const SUPABASE_URL = 'https://rmayoabnbbcyhkmaorpp.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_m7Fev0bGSkzazz600_x48Q_jn5obw8V';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// ─── EMAILJS ───────────────────────────────────────────────────────────────
-emailjs.init({ publicKey: 'tIjEFu_YDuyQsi6-9' });
+// ─── WEB3FORMS — clé d'accès ───────────────────────────────────────────────
+const W3F_KEY = 'REMPLACE_PAR_TA_CLE_WEB3FORMS';
 
 // ─── FORM ──────────────────────────────────────────────────────────────────
 async function handleForm(e) {
@@ -31,7 +31,7 @@ async function handleForm(e) {
   hideAlert();
 
   // 1 — Sauvegarde Supabase
-  const { error } = await sb.from('contacts').insert([{
+  const { error: sbError } = await sb.from('contacts').insert([{
     name, email,
     phone:   phone   || null,
     service: service || null,
@@ -39,35 +39,32 @@ async function handleForm(e) {
     message,
   }]);
 
-  if (error) {
-    console.error('Supabase:', error);
+  if (sbError) {
+    console.error('Supabase:', sbError);
     showAlert('error', '⚠ Erreur lors de l\'envoi. Réessayez.');
     btn.innerHTML = orig;
     btn.disabled  = false;
     return;
   }
 
-  // 2 — Email via EmailJS (variables calées sur template par défaut)
-  const emailBody = [
-    `Nom     : ${name}`,
-    `Email   : ${email}`,
-    `Tél     : ${phone || 'Non renseigné'}`,
-    `Service : ${service || 'Non renseigné'}`,
-    `Budget  : ${budget || 'Non renseigné'}`,
-    ``,
-    `Message :`,
-    message,
-  ].join('\n');
-
-  emailjs.send('service_emhh5lt', 'template_v5f61wc', {
-    name,           // {{name}}  → affiché dans le template
-    email,          // {{email}} → reply-to
-    title:  'DevelopMe Agency — Nouvelle demande',  // {{title}} → sujet
-    message: emailBody,   // {{message}} → corps complet
-  }).then(
-    () => console.log('Email OK'),
-    (err) => console.error('EmailJS:', JSON.stringify(err))
-  );
+  // 2 — Notification email via Web3Forms
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      access_key: W3F_KEY,
+      subject:   `🔔 Nouvelle demande — ${name} | DevelopMe`,
+      name,
+      email,
+      phone:   phone   || 'Non renseigné',
+      service: service || 'Non renseigné',
+      budget:  budget  || 'Non renseigné',
+      message,
+    }),
+  })
+  .then(r => r.json())
+  .then(d => console.log('Web3Forms:', d.message))
+  .catch(err => console.error('Web3Forms:', err));
 
   showAlert('success', '✓ Message envoyé ! On vous contacte sous 24h.');
   e.target.reset();
