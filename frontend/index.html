@@ -1235,9 +1235,50 @@ function openService(k){
   `);
 }
 
-/* handleForm défini dans js/script.js */
+/* FORM — connected to backend */
+const API = 'http://localhost:3000';
+
+async function handleForm(e){
+  e.preventDefault();
+  const btn   = document.getElementById('f-btn');
+  const alert = document.getElementById('form-alert');
+  const orig  = btn.innerHTML;
+
+  btn.innerHTML = '<span style="opacity:.7">Envoi en cours…</span>';
+  btn.disabled  = true;
+  alert.style.display = 'none';
+
+  try {
+    const res  = await fetch(`${API}/contact`, {
+      method:  'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        name:    document.getElementById('f-name').value,
+        email:   document.getElementById('f-email').value,
+        phone:   document.getElementById('f-phone').value,
+        service: document.getElementById('f-service').value,
+        budget:  document.getElementById('f-budget').value,
+        message: document.getElementById('f-message').value,
+      })
+    });
+    const data = await res.json();
+
+    if(data.success){
+      alert.style.cssText='display:flex;align-items:center;gap:0.5rem;background:rgba(16,185,129,0.1);color:#059669;border:1px solid rgba(16,185,129,0.25);padding:0.75rem 1rem;border-radius:10px;font-size:0.84rem;font-weight:600;';
+      alert.innerHTML='✓ Message envoyé ! On vous contacte sous 24h.';
+      e.target.reset();
+      btn.innerHTML = orig;
+      btn.disabled  = false;
+    } else {
+      throw new Error(data.error || 'Erreur inconnue');
+    }
+  } catch(err){
+    alert.style.cssText='display:flex;align-items:center;gap:0.5rem;background:rgba(239,68,68,0.08);color:#DC2626;border:1px solid rgba(239,68,68,0.2);padding:0.75rem 1rem;border-radius:10px;font-size:0.84rem;font-weight:600;';
+    alert.innerHTML='⚠ ' + (err.message === 'Failed to fetch' ? 'Serveur inaccessible. Vérifiez que le backend tourne.' : err.message);
+    btn.innerHTML = orig;
+    btn.disabled  = false;
+  }
+}
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/script.js"></script>
 </body>
 </html>
