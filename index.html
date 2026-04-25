@@ -369,18 +369,17 @@ footer{background:var(--ink);padding:3.5rem 5% 2rem;}
 }
 @keyframes waPulse{0%{transform:scale(1);opacity:1;}100%{transform:scale(1.5);opacity:0;}}
 
-.btt-btn{
-  position:fixed;bottom:1.8rem;right:5.6rem;z-index:400;
-  width:46px;height:46px;border-radius:13px;
-  background:var(--surface);border:1.5px solid var(--line);
-  color:var(--muted);font-size:1rem;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  box-shadow:var(--sh2);
-  opacity:0;pointer-events:none;transform:translateY(10px);
-  transition:all 0.3s;font-family:'Plus Jakarta Sans',sans-serif;
-}
-.btt-btn.visible{opacity:1;pointer-events:all;transform:translateY(0);}
-.btt-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent);transform:translateY(-2px);}
+/* LANG SWITCHER */
+.lang-switcher{display:flex;gap:2px;background:var(--bg);border:1.5px solid var(--line);border-radius:9px;padding:3px;margin-right:0.5rem;}
+.lang-btn{background:transparent;border:none;border-radius:6px;padding:4px 9px;font-size:0.72rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all 0.2s;font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:0.5px;}
+.lang-btn:hover:not(.active){color:var(--ink);background:var(--accent-soft);}
+.lang-btn.active{background:var(--accent);color:#fff;}
+/* RTL support */
+body.rtl{direction:rtl;font-family:'Noto Naskh Arabic','Plus Jakarta Sans',sans-serif;}
+body.rtl .nav-links{flex-direction:row-reverse;}
+body.rtl .hero-left{padding-left:0;padding-right:5%;}
+body.rtl .chip::before{display:none;}
+body.rtl .wa-float{right:auto;left:1.8rem;}
 
 /* MODAL */
 .moverlay{position:fixed;inset:0;z-index:500;background:rgba(13,15,28,0.72);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;padding:1.5rem;}
@@ -443,24 +442,34 @@ footer{background:var(--ink);padding:3.5rem 5% 2rem;}
 <nav id="navbar">
   <div class="logo" onclick="scrollTo({top:0,behavior:'smooth'})">Develop<em>Me</em></div>
   <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="#process">Processus</a></li>
-    <li><a href="#pricing">Tarifs</a></li>
-    <li><a href="#testimonials">Avis</a></li>
-    <li><a href="#contact" class="nav-btn">Contact</a></li>
+    <li><a href="#services"     data-i18n="nav_services">Services</a></li>
+    <li><a href="#portfolio"    data-i18n="nav_portfolio">Portfolio</a></li>
+    <li><a href="#process"      data-i18n="nav_process">Processus</a></li>
+    <li><a href="#pricing"      data-i18n="nav_pricing">Tarifs</a></li>
+    <li><a href="#testimonials" data-i18n="nav_reviews">Avis</a></li>
+    <li><a href="#contact" class="nav-btn" data-i18n="nav_contact">Contact</a></li>
   </ul>
+  <div class="lang-switcher">
+    <button class="lang-btn active" id="lb-fr" onclick="setLang('fr')">FR</button>
+    <button class="lang-btn"        id="lb-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn"        id="lb-ar" onclick="setLang('ar')">AR</button>
+  </div>
   <div class="hamburger" id="burger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </div>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#services" onclick="toggleMenu()">Services</a>
-  <a href="#portfolio" onclick="toggleMenu()">Portfolio</a>
-  <a href="#process" onclick="toggleMenu()">Processus</a>
-  <a href="#pricing" onclick="toggleMenu()">Tarifs</a>
-  <a href="#testimonials" onclick="toggleMenu()">Avis clients</a>
-  <a href="#contact" class="nav-btn" onclick="toggleMenu()">Contact →</a>
+  <a href="#services"     onclick="toggleMenu()" data-i18n="nav_services">Services</a>
+  <a href="#portfolio"    onclick="toggleMenu()" data-i18n="nav_portfolio">Portfolio</a>
+  <a href="#process"      onclick="toggleMenu()" data-i18n="nav_process">Processus</a>
+  <a href="#pricing"      onclick="toggleMenu()" data-i18n="nav_pricing">Tarifs</a>
+  <a href="#testimonials" onclick="toggleMenu()" data-i18n="nav_reviews">Avis clients</a>
+  <a href="#contact" class="nav-btn" onclick="toggleMenu()" data-i18n="nav_contact_arrow">Contact →</a>
+  <div style="display:flex;gap:6px;padding:0.5rem 1rem;">
+    <button class="lang-btn active" id="lb-fr-m" onclick="setLang('fr')">FR</button>
+    <button class="lang-btn"        id="lb-en-m" onclick="setLang('en')">EN</button>
+    <button class="lang-btn"        id="lb-ar-m" onclick="setLang('ar')">AR</button>
+  </div>
 </div>
 
 <!-- HERO -->
@@ -473,16 +482,15 @@ footer{background:var(--ink);padding:3.5rem 5% 2rem;}
   </div>
 
   <div class="hero-left">
-    <div class="hero-badge"><div class="bdot"></div>Agence Digitale · Algérie 🇩🇿</div>
+    <div class="hero-badge"><div class="bdot"></div><span data-i18n="hero_badge">Agence Digitale · Algérie 🇩🇿</span></div>
     <div class="hero-title-wrap">
-      <span class="hero-line1">On transforme votre</span>
+      <span class="hero-line1" data-i18n="hero_line1">On transforme votre</span>
       <span class="hero-line2" id="tw"><span class="cursor"></span></span>
     </div>
-    <p class="hero-desc">Sites web professionnels & marketing digital pour les entreprises algériennes qui veulent grandir en ligne.</p>
-    <p class="hero-desc-ar">مواقع ويب احترافية وتسويق رقمي للمؤسسات الجزائرية الطموحة.</p>
+    <p class="hero-desc" data-i18n="hero_desc">Sites web professionnels & marketing digital pour les entreprises algériennes qui veulent grandir en ligne.</p>
     <div class="hero-btns">
-      <a href="#portfolio" class="btn btn-solid btn-lg"><span>Voir nos réalisations</span><span class="arrow">→</span></a>
-      <a href="#contact" class="btn btn-ghost btn-lg">Devis gratuit</a>
+      <a href="#portfolio" class="btn btn-solid btn-lg"><span data-i18n="hero_btn1">Voir nos réalisations</span><span class="arrow">→</span></a>
+      <a href="#contact" class="btn btn-ghost btn-lg" data-i18n="hero_btn2">Devis gratuit</a>
     </div>
   </div>
 
@@ -1050,9 +1058,6 @@ footer{background:var(--ink);padding:3.5rem 5% 2rem;}
   </svg>
 </a>
 
-<!-- BACK TO TOP -->
-<button class="btt-btn" id="bttBtn" onclick="scrollTo({top:0,behavior:'smooth'})" title="Retour en haut">↑</button>
-
 <!-- MODAL -->
 <div class="moverlay" id="moverlay" onclick="closeMif(event)">
   <div class="mbox" id="mbox">
@@ -1063,7 +1068,7 @@ footer{background:var(--ink);padding:3.5rem 5% 2rem;}
 
 <script>
 /* TYPEWRITER */
-const words=['business en ligne.','site web en résultats.','présence en clients.','vision en réalité.'];
+let words=['business en ligne.','site web en résultats.','présence en clients.','vision en réalité.'];
 let wi=0,ci=0,del=false;
 const tw=document.getElementById('tw');
 function type(){
@@ -1087,9 +1092,7 @@ document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>ro.o
 /* SCROLL EVENTS */
 window.addEventListener('scroll',()=>{
   const nav=document.getElementById('navbar');
-  const btt=document.getElementById('bttBtn');
   nav.classList.toggle('scrolled',scrollY>30);
-  btt.classList.toggle('visible',scrollY>300);
   const sections=['services','portfolio','process','pricing','testimonials','contact'];
   let curr='';
   sections.forEach(id=>{
@@ -1236,6 +1239,76 @@ function openService(k){
 }
 
 /* handleForm défini dans js/script.js */
+
+/* ── TRADUCTIONS ──────────────────────────────────────────────────────── */
+const LANGS = {
+  fr:{
+    dir:'ltr',
+    nav_services:'Services', nav_portfolio:'Portfolio', nav_process:'Processus',
+    nav_pricing:'Tarifs', nav_reviews:'Avis', nav_contact:'Contact',
+    nav_contact_arrow:'Contact →',
+    hero_badge:'Agence Digitale · Algérie 🇩🇿',
+    hero_line1:'On transforme votre',
+    hero_words:['business en ligne.','site web en résultats.','présence en clients.','vision en réalité.'],
+    hero_desc:'Sites web professionnels & marketing digital pour les entreprises algériennes qui veulent grandir en ligne.',
+    hero_btn1:'Voir nos réalisations', hero_btn2:'Devis gratuit',
+  },
+  en:{
+    dir:'ltr',
+    nav_services:'Services', nav_portfolio:'Portfolio', nav_process:'Process',
+    nav_pricing:'Pricing', nav_reviews:'Reviews', nav_contact:'Contact',
+    nav_contact_arrow:'Contact →',
+    hero_badge:'Digital Agency · Algeria 🇩🇿',
+    hero_line1:'We transform your',
+    hero_words:['business online.','website into results.','presence into clients.','vision into reality.'],
+    hero_desc:'Professional websites & digital marketing for Algerian businesses that want to grow online.',
+    hero_btn1:'View our work', hero_btn2:'Free quote',
+  },
+  ar:{
+    dir:'rtl',
+    nav_services:'الخدمات', nav_portfolio:'المشاريع', nav_process:'العملية',
+    nav_pricing:'الأسعار', nav_reviews:'الآراء', nav_contact:'اتصل بنا',
+    nav_contact_arrow:'اتصل بنا →',
+    hero_badge:'وكالة رقمية · الجزائر 🇩🇿',
+    hero_line1:'نحوّل',
+    hero_words:['أعمالك رقمياً.','موقعك إلى نتائج.','حضورك إلى عملاء.','رؤيتك إلى واقع.'],
+    hero_desc:'مواقع احترافية وتسويق رقمي للمؤسسات الجزائرية الطموحة.',
+    hero_btn1:'مشاريعنا', hero_btn2:'عرض مجاني',
+  }
+};
+
+let currentLang = localStorage.getItem('lang') || 'fr';
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  const t = LANGS[lang];
+
+  // Direction
+  document.body.classList.toggle('rtl', lang === 'ar');
+  document.documentElement.lang = lang;
+
+  // Traduire tous les éléments data-i18n
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+
+  // Typewriter : relancer avec les nouveaux mots
+  words = t.hero_words;
+  wi = 0; ci = 0; del = false;
+
+  // Boutons actifs (desktop + mobile)
+  ['fr','en','ar'].forEach(l => {
+    const d = document.getElementById('lb-'+l);
+    const m = document.getElementById('lb-'+l+'-m');
+    if(d) d.classList.toggle('active', l === lang);
+    if(m) m.classList.toggle('active', l === lang);
+  });
+}
+
+// Appliquer la langue sauvegardée au chargement
+setLang(currentLang);
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/script.js?v=3"></script>
