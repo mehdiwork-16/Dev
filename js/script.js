@@ -3,10 +3,11 @@ const SUPABASE_URL = 'https://rmayoabnbbcyhkmaorpp.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_m7Fev0bGSkzazz600_x48Q_jn5obw8V';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// ─── EMAILJS — remplace avec tes clés (voir README ci-dessous) ────────────
+// ─── EMAILJS ───────────────────────────────────────────────────────────────
 const EJS_SERVICE  = 'service_emhh5lt';
 const EJS_TEMPLATE = 'template_v5f61wc';
 const EJS_KEY      = 'tIjEFu_YDuyQsi6-9';
+emailjs.init({ publicKey: EJS_KEY });
 
 // ─── FORM ──────────────────────────────────────────────────────────────────
 async function handleForm(e) {
@@ -50,15 +51,18 @@ async function handleForm(e) {
   }
 
   // 2 — Notification email (EmailJS)
-  if (EJS_SERVICE !== 'YOUR_SERVICE_ID') {
-    emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
+  try {
+    await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
       from_name:  name,
       from_email: email,
       phone:      phone   || 'Non renseigné',
       service:    service || 'Non renseigné',
       budget:     budget  || 'Non renseigné',
       message,
-    }, EJS_KEY).catch(err => console.warn('EmailJS:', err));
+    });
+    console.log('Email envoyé avec succès');
+  } catch (err) {
+    console.error('EmailJS erreur:', err);
   }
 
   showAlert('success', '✓ Message envoyé ! On vous contacte sous 24h.');
