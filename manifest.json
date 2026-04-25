@@ -1,0 +1,18 @@
+{
+  "name": "DevelopMe Agency",
+  "short_name": "DevelopMe",
+  "description": "Agence web & marketing digital — Algérie",
+  "start_url": "/Dev/",
+  "scope": "/Dev/",
+  "display": "standalone",
+  "background_color": "#FAFBFF",
+  "theme_color": "#4338CA",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

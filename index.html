@@ -6,6 +6,12 @@
 <title>DevelopMe Agency — Création Web & Marketing Digital</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>"/>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="manifest" href="manifest.json"/>
+<meta name="theme-color" content="#4338CA"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+<meta name="apple-mobile-web-app-title" content="DevelopMe"/>
+<link rel="apple-touch-icon" href="icon.svg"/>
 <style>
 :root{
   --bg:#FAFBFF;--surface:#FFFFFF;
@@ -593,6 +599,25 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
 }
 .guar-item{display:flex;align-items:center;gap:0.35rem;font-size:0.71rem;color:var(--muted);font-weight:600;}
 
+/* PWA INSTALL BANNER */
+.pwa-banner{
+  position:fixed;bottom:0;left:0;right:0;z-index:9999;
+  background:#fff;border-top:1px solid var(--line);
+  padding:1rem 5%;display:flex;align-items:center;gap:1rem;
+  box-shadow:0 -6px 30px rgba(67,56,202,0.14);
+  transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+.pwa-banner.show{transform:translateY(0);}
+.pwa-banner-icon{font-size:2.2rem;flex-shrink:0;}
+.pwa-banner-text{flex:1;min-width:0;}
+.pwa-banner-title{font-weight:700;font-size:0.92rem;color:var(--ink);margin-bottom:0.15rem;}
+.pwa-banner-sub{font-size:0.75rem;color:var(--muted);}
+.pwa-banner-btns{display:flex;gap:0.6rem;flex-shrink:0;}
+.pwa-install-btn{background:var(--accent);color:#fff;border:none;padding:0.6rem 1.2rem;border-radius:9px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:0.82rem;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.pwa-install-btn:hover{background:var(--accent-hover);transform:translateY(-1px);}
+.pwa-dismiss-btn{background:transparent;border:1.5px solid var(--line);color:var(--muted);padding:0.6rem 0.9rem;border-radius:9px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;cursor:pointer;white-space:nowrap;}
+@media(max-width:520px){.pwa-banner{flex-wrap:wrap;gap:0.75rem;}.pwa-banner-btns{width:100%;}.pwa-install-btn,.pwa-dismiss-btn{flex:1;text-align:center;}}
+
 /* Live activity indicator in contact */
 .live-activity{
   display:flex;align-items:center;gap:0.55rem;
@@ -1116,9 +1141,9 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
 <section id="contact">
   <div class="contact-grid">
     <div class="contact-left reveal-left">
-      <div class="chip">Parlons de votre projet</div>
-      <h2 style="font-family:'Fraunces',serif;font-size:clamp(1.7rem,2.8vw,2.4rem);font-weight:700;line-height:1.2;letter-spacing:-0.3px;margin-bottom:0.8rem">Prêt à développer votre<br/><span style="color:var(--accent)">business en ligne ?</span></h2>
-      <p style="color:var(--muted);font-size:0.92rem;line-height:1.75;margin-top:0.9rem">Devis personnalisé sous 24h — 100% gratuit, sans engagement.</p>
+      <div class="chip">Votre projet, notre priorité</div>
+      <h2 style="font-family:'Fraunces',serif;font-size:clamp(1.7rem,2.8vw,2.4rem);font-weight:700;line-height:1.2;letter-spacing:-0.3px;margin-bottom:0.8rem">Lancez votre site web<br/><span style="color:var(--accent)">en 7 jours chrono.</span></h2>
+      <p style="color:var(--muted);font-size:0.92rem;line-height:1.75;margin-top:0.9rem">Devis personnalisé en <strong style="color:var(--ink)">moins de 2h</strong> — 100% gratuit, zéro engagement.</p>
 
       <div class="live-activity" style="margin-top:1.2rem">
         <div class="live-dot"></div>
@@ -1126,11 +1151,11 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
       </div>
 
       <div class="why-us" style="margin-top:1.5rem">
-        <div class="why-item">✓ Devis gratuit sans engagement</div>
-        <div class="why-item">✓ Livraison garantie dans les délais</div>
-        <div class="why-item">✓ Paiement en DZD · Virement ou espèces</div>
-        <div class="why-item">✓ Support WhatsApp 7j/7</div>
-        <div class="why-item">✓ Satisfait ou remboursé 30 jours</div>
+        <div class="why-item">✓ Devis 100% gratuit — réponse en moins de 2h</div>
+        <div class="why-item">✓ Site livré en 7 jours, délai contractuel garanti</div>
+        <div class="why-item">✓ Paiement en DZD · Virement, CCP ou espèces</div>
+        <div class="why-item">✓ Support WhatsApp prioritaire 7j/7</div>
+        <div class="why-item">✓ Satisfait ou remboursé — garantie 30 jours</div>
       </div>
 
       <div style="margin-top:1.8rem;padding:1.2rem;background:linear-gradient(135deg,var(--accent-soft),rgba(14,165,233,0.06));border-radius:var(--r);border:1px solid var(--line2)">
@@ -1193,7 +1218,7 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
         <div class="fg"><label>Décrivez votre projet *</label><textarea id="f-message" placeholder="Parlez-nous de votre activité, vos objectifs, votre délai souhaité..." required></textarea></div>
         <div id="form-alert" style="display:none;padding:0.75rem 1rem;border-radius:10px;font-size:0.84rem;font-weight:600"></div>
         <button type="submit" id="f-btn" class="btn btn-solid" style="width:100%;justify-content:center">
-          Envoyer la demande gratuite <span class="arrow">→</span>
+          Obtenir mon devis GRATUIT maintenant <span class="arrow">→</span>
         </button>
         <div class="form-guarantee">
           <div class="guar-item">🔒 100% confidentiel</div>
@@ -1265,6 +1290,19 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
     WhatsApp
   </a>
   <a href="#contact" class="sticky-devis">Devis gratuit →</a>
+</div>
+
+<!-- PWA INSTALL BANNER -->
+<div class="pwa-banner" id="pwa-banner">
+  <div class="pwa-banner-icon">📲</div>
+  <div class="pwa-banner-text">
+    <div class="pwa-banner-title">Installer l'app DevelopMe</div>
+    <div class="pwa-banner-sub">Accès instantané depuis votre écran d'accueil — 100% gratuit</div>
+  </div>
+  <div class="pwa-banner-btns">
+    <button class="pwa-dismiss-btn" onclick="closePwa()">Plus tard</button>
+    <button class="pwa-install-btn" id="pwa-install-btn" onclick="installPwa()">Installer →</button>
+  </div>
 </div>
 
 <!-- MODAL -->
@@ -1507,9 +1545,9 @@ const LANGS = {
     nav_contact_arrow:'Contact →',
     hero_badge:'Agence Digitale · Algérie 🇩🇿',
     hero_line1:'On transforme votre',
-    hero_words:['business en ligne.','site web en résultats.','présence en clients.','vision en réalité.'],
-    hero_desc:'Sites web professionnels & marketing digital pour les entreprises algériennes qui veulent grandir en ligne.',
-    hero_btn1:'Voir nos réalisations', hero_btn2:'Devis gratuit',
+    hero_words:['concept en site pro.','visiteur en client payant.','présence en chiffre d\'affaires.','marque en leader local.'],
+    hero_desc:'Votre site web livré en 7 jours. Marketing digital qui convertit. Résultats mesurables pour les entreprises algériennes ambitieuses.',
+    hero_btn1:'Voir nos réalisations', hero_btn2:'Obtenir mon devis gratuit',
   },
   en:{
     dir:'ltr',
@@ -1518,9 +1556,9 @@ const LANGS = {
     nav_contact_arrow:'Contact →',
     hero_badge:'Digital Agency · Algeria 🇩🇿',
     hero_line1:'We transform your',
-    hero_words:['business online.','website into results.','presence into clients.','vision into reality.'],
-    hero_desc:'Professional websites & digital marketing for Algerian businesses that want to grow online.',
-    hero_btn1:'View our work', hero_btn2:'Free quote',
+    hero_words:['idea into a pro website.','visitor into paying client.','presence into revenue.','brand into local leader.'],
+    hero_desc:'Your website delivered in 7 days. Digital marketing that converts. Measurable results for ambitious Algerian businesses.',
+    hero_btn1:'View our work', hero_btn2:'Get my free quote',
   },
   ar:{
     dir:'rtl',
@@ -1529,9 +1567,9 @@ const LANGS = {
     nav_contact_arrow:'اتصل بنا →',
     hero_badge:'وكالة رقمية · الجزائر 🇩🇿',
     hero_line1:'نحوّل',
-    hero_words:['أعمالك رقمياً.','موقعك إلى نتائج.','حضورك إلى عملاء.','رؤيتك إلى واقع.'],
-    hero_desc:'مواقع احترافية وتسويق رقمي للمؤسسات الجزائرية الطموحة.',
-    hero_btn1:'مشاريعنا', hero_btn2:'عرض مجاني',
+    hero_words:['فكرتك إلى موقع احترافي.','زائرك إلى عميل فعلي.','حضورك إلى مبيعات.','علامتك إلى رقم 1 محلياً.'],
+    hero_desc:'موقعك جاهز في 7 أيام. تسويق رقمي يُحقق نتائج حقيقية. لكل مؤسسة جزائرية طموحة.',
+    hero_btn1:'مشاريعنا', hero_btn2:'احصل على عرض مجاني',
   }
 };
 
@@ -1567,6 +1605,22 @@ function setLang(lang) {
 
 // Appliquer la langue sauvegardée au chargement
 setLang(currentLang);
+
+/* ── PWA INSTALL PROMPT ─────────────────────────────────────────────── */
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  setTimeout(() => document.getElementById('pwa-banner').classList.add('show'), 4000);
+});
+function installPwa() {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(() => { deferredPrompt = null; closePwa(); });
+}
+function closePwa() { document.getElementById('pwa-banner').classList.remove('show'); }
+window.addEventListener('appinstalled', closePwa);
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('/Dev/sw.js');
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/script.js?v=3"></script>
