@@ -4,10 +4,7 @@ const SUPABASE_KEY = 'sb_publishable_m7Fev0bGSkzazz600_x48Q_jn5obw8V';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // ─── EMAILJS ───────────────────────────────────────────────────────────────
-const EJS_SERVICE  = 'service_emhh5lt';
-const EJS_TEMPLATE = 'template_v5f61wc';
-const EJS_KEY      = 'tIjEFu_YDuyQsi6-9';
-emailjs.init({ publicKey: EJS_KEY });
+emailjs.init({ publicKey: 'tIjEFu_YDuyQsi6-9' });
 
 // ─── FORM ──────────────────────────────────────────────────────────────────
 async function handleForm(e) {
@@ -44,26 +41,33 @@ async function handleForm(e) {
 
   if (error) {
     console.error('Supabase:', error);
-    showAlert('error', '⚠ Erreur lors de l\'envoi. Réessayez dans un instant.');
+    showAlert('error', '⚠ Erreur lors de l\'envoi. Réessayez.');
     btn.innerHTML = orig;
     btn.disabled  = false;
     return;
   }
 
-  // 2 — Notification email (EmailJS)
-  try {
-    await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
-      from_name:  name,
-      from_email: email,
-      phone:      phone   || 'Non renseigné',
-      service:    service || 'Non renseigné',
-      budget:     budget  || 'Non renseigné',
-      message,
-    });
-    console.log('Email envoyé avec succès');
-  } catch (err) {
-    console.error('EmailJS erreur:', err);
-  }
+  // 2 — Email via EmailJS (variables calées sur template par défaut)
+  const emailBody = [
+    `Nom     : ${name}`,
+    `Email   : ${email}`,
+    `Tél     : ${phone || 'Non renseigné'}`,
+    `Service : ${service || 'Non renseigné'}`,
+    `Budget  : ${budget || 'Non renseigné'}`,
+    ``,
+    `Message :`,
+    message,
+  ].join('\n');
+
+  emailjs.send('service_emhh5lt', 'template_v5f61wc', {
+    name,           // {{name}}  → affiché dans le template
+    email,          // {{email}} → reply-to
+    title:  'DevelopMe Agency — Nouvelle demande',  // {{title}} → sujet
+    message: emailBody,   // {{message}} → corps complet
+  }).then(
+    () => console.log('Email OK'),
+    (err) => console.error('EmailJS:', JSON.stringify(err))
+  );
 
   showAlert('success', '✓ Message envoyé ! On vous contacte sous 24h.');
   e.target.reset();
