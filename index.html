@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>DevelopMe Agency — Création Web & Marketing Digital</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#FAFBFF;--surface:#FFFFFF;
+  --accent:#4338CA;--accent-hover:#3730A3;
+  --accent-soft:rgba(67,56,202,0.08);--accent-mid:rgba(67,56,202,0.18);
+  --accent2:#0EA5E9;--success:#10B981;
+  --ink:#0D0F1C;--ink2:#374151;--muted:#6B7280;
+  --line:#E5E7F0;--line2:rgba(67,56,202,0.15);
+  --sh:0 2px 12px rgba(67,56,202,0.07);
+  --sh2:0 8px 32px rgba(67,56,202,0.13);
+  --sh3:0 20px 60px rgba(67,56,202,0.16);
+  --r:14px;--r2:20px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+img{display:block;max-width:100%;}
+a{text-decoration:none;}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-left{opacity:0;transform:translateX(-28px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.reveal-left.visible{opacity:1;transform:none;}
+.reveal-right{opacity:0;transform:translateX(28px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.reveal-right.visible{opacity:1;transform:none;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(250,251,255,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);transition:box-shadow 0.3s;}
+nav.scrolled{box-shadow:0 4px 24px rgba(13,15,28,0.06);}
+.logo{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:700;color:var(--ink);letter-spacing:-0.3px;cursor:pointer;user-select:none;}
+.logo em{color:var(--accent);font-style:normal;}
+.nav-links{display:flex;gap:0.3rem;list-style:none;align-items:center;}
+.nav-links a{color:var(--muted);font-size:0.84rem;font-weight:500;padding:0.42rem 0.85rem;border-radius:8px;transition:all 0.2s;}
+.nav-links a:hover{color:var(--ink);background:var(--accent-soft);}
+.nav-links a.active{color:var(--accent);}
+.nav-btn{background:var(--accent);color:#fff!important;padding:0.5rem 1.2rem!important;border-radius:9px;font-weight:600!important;font-size:0.84rem;box-shadow:0 3px 14px rgba(67,56,202,0.35);transition:all 0.2s!important;}
+.nav-btn:hover{background:var(--accent-hover)!important;box-shadow:0 6px 20px rgba(67,56,202,0.4)!important;transform:translateY(-1px)!important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;transition:all 0.3s;}
+.mobile-menu{display:none;position:fixed;inset:0;top:64px;background:var(--surface);z-index:299;padding:1.5rem 5%;flex-direction:column;gap:0.5rem;border-top:1px solid var(--line);}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{color:var(--ink2);font-size:1rem;font-weight:500;padding:0.75rem 1rem;border-radius:10px;transition:all 0.2s;}
+.mobile-menu a:hover{background:var(--accent-soft);color:var(--accent);}
+.mobile-menu .nav-btn{background:var(--accent);color:white!important;text-align:center;margin-top:0.5rem;box-shadow:0 3px 14px rgba(67,56,202,0.35);}
+
+/* BASE */
+section{padding:6rem 5%;position:relative;}
+.chip{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem;}
+.chip::before{content:'';display:block;width:18px;height:2px;background:var(--accent);border-radius:2px;}
+.h2{font-family:'Fraunces',serif;font-size:clamp(1.9rem,3.2vw,2.8rem);font-weight:700;color:var(--ink);line-height:1.15;letter-spacing:-0.4px;margin-bottom:0.5rem;}
+.h2-ar{font-family:'Noto Naskh Arabic',serif;font-size:0.95rem;color:var(--muted);direction:rtl;margin-bottom:3rem;}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--line2),transparent);margin:0 5%;}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:0.45rem;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:0.9rem;border-radius:10px;padding:0.78rem 1.7rem;cursor:pointer;transition:all 0.22s;border:none;position:relative;overflow:hidden;white-space:nowrap;}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,0);transition:background 0.2s;}
+.btn:hover::after{background:rgba(255,255,255,0.06);}
+.btn-solid{background:var(--accent);color:#fff;box-shadow:0 4px 18px rgba(67,56,202,0.35);}
+.btn-solid:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 8px 28px rgba(67,56,202,0.42);}
+.btn-solid:active{transform:translateY(0);box-shadow:0 2px 10px rgba(67,56,202,0.3);}
+.btn-outline{background:transparent;color:var(--accent);border:2px solid var(--accent);}
+.btn-outline:hover{background:var(--accent-soft);transform:translateY(-2px);}
+.btn-ghost{background:var(--surface);color:var(--ink2);border:1.5px solid var(--line);}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);box-shadow:var(--sh);}
+.btn-lg{padding:0.92rem 2.2rem;font-size:1rem;border-radius:12px;}
+.btn .arrow{transition:transform 0.22s;}
+.btn:hover .arrow{transform:translateX(3px);}
+
+/* ═══ HERO ═══ */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:3rem;padding-top:calc(64px + 3rem);padding-bottom:3rem;background:linear-gradient(145deg,#FAFBFF 0%,#EDEDFF 45%,#E5F4FF 100%);overflow:hidden;}
+.hero-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.hero-bg-dot{position:absolute;inset:0;background-image:radial-gradient(rgba(67,56,202,0.07) 1px,transparent 1px);background-size:26px 26px;mask-image:radial-gradient(ellipse 70% 70% at 70% 50%,black,transparent);}
+.blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.15;pointer-events:none;animation:blobPulse 12s ease-in-out infinite;}
+.b1{width:500px;height:500px;background:var(--accent);top:-15%;right:-5%;animation-delay:0s;}
+.b2{width:320px;height:320px;background:var(--accent2);bottom:-10%;right:10%;animation-delay:4s;}
+.b3{width:200px;height:200px;background:#7C3AED;top:20%;right:40%;animation-delay:8s;}
+@keyframes blobPulse{0%,100%{transform:scale(1)translate(0,0);}50%{transform:scale(1.06)translate(-10px,12px);}}
+
+.hero-left{position:relative;z-index:1;padding-left:5%;}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--surface);border:1px solid var(--line2);padding:0.38rem 1rem;border-radius:100px;font-size:0.74rem;font-weight:600;color:var(--accent);box-shadow:var(--sh);margin-bottom:1.8rem;animation:slideDown 0.6s ease both;}
+.bdot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s ease infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(1.6);}}
+@keyframes slideDown{from{opacity:0;transform:translateY(-12px);}to{opacity:1;transform:none;}}
+.hero-title-wrap{margin-bottom:1.3rem;animation:fadeUp 0.7s 0.1s ease both;}
+.hero-line1{font-family:'Fraunces',serif;font-size:clamp(2.1rem,4.5vw,3.8rem);font-weight:900;color:var(--ink);line-height:1.08;display:block;letter-spacing:-0.8px;}
+.hero-line2{font-family:'Fraunces',serif;font-size:clamp(2.1rem,4.5vw,3.8rem);font-weight:900;color:var(--accent);line-height:1.08;display:block;letter-spacing:-0.8px;min-height:1.15em;}
+.cursor{display:inline-block;width:3px;height:0.8em;background:var(--accent);margin-left:3px;vertical-align:text-bottom;animation:blink 1s step-end infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+.hero-desc{font-size:1.02rem;color:var(--muted);line-height:1.78;margin-bottom:0.55rem;animation:fadeUp 0.7s 0.2s ease both;}
+.hero-desc-ar{font-family:'Noto Naskh Arabic',serif;font-size:0.92rem;color:var(--muted);direction:rtl;margin-bottom:2.3rem;animation:fadeUp 0.7s 0.25s ease both;}
+.hero-btns{display:flex;gap:0.9rem;flex-wrap:wrap;animation:fadeUp 0.7s 0.3s ease both;}
+
+/* HERO BROWSER MOCKUP */
+.hero-right{position:relative;z-index:1;padding-right:5%;display:flex;align-items:center;justify-content:center;}
+.browser-wrap{position:relative;width:100%;max-width:480px;}
+.browser{background:var(--surface);border-radius:16px;box-shadow:0 30px 80px rgba(67,56,202,0.22),0 0 0 1px var(--line);overflow:hidden;animation:floatBrowser 7s ease-in-out infinite;}
+@keyframes floatBrowser{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+.browser-bar{background:#F3F4F6;padding:0.65rem 1rem;display:flex;align-items:center;gap:0.75rem;border-bottom:1px solid var(--line);}
+.browser-dots{display:flex;gap:5px;}
+.browser-dots span{width:10px;height:10px;border-radius:50%;display:block;}
+.browser-dots span:nth-child(1){background:#FF5F57;}
+.browser-dots span:nth-child(2){background:#FFBD2E;}
+.browser-dots span:nth-child(3){background:#28CA41;}
+.browser-url{flex:1;background:white;border:1px solid var(--line);border-radius:6px;padding:0.22rem 0.7rem;font-size:0.68rem;color:var(--muted);display:flex;align-items:center;gap:0.35rem;}
+.browser-url::before{content:'🔒';font-size:0.6rem;}
+.browser-screen{background:linear-gradient(160deg,#FAFBFF,#EEF2FF);height:280px;position:relative;overflow:hidden;}
+/* Mini site inside browser */
+.mini-nav{height:28px;background:white;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 1rem;gap:0.5rem;}
+.mini-logo{width:60px;height:6px;background:var(--accent);border-radius:3px;}
+.mini-nav-links{display:flex;gap:0.4rem;margin-left:auto;}
+.mini-nav-links span{width:30px;height:5px;background:var(--line);border-radius:3px;}
+.mini-nav-links span:last-child{width:40px;height:16px;background:var(--accent);border-radius:4px;}
+.mini-hero{padding:1rem;display:flex;flex-direction:column;gap:0.5rem;}
+.mini-h1-line{height:10px;border-radius:3px;background:var(--ink);}
+.mini-h1-line.short{width:55%;height:10px;}
+.mini-h1-line.accent{background:var(--accent);width:80%;}
+.mini-body-lines{display:flex;flex-direction:column;gap:4px;margin-top:0.3rem;}
+.mini-body-lines span{height:5px;background:var(--line);border-radius:2px;}
+.mini-body-lines span:nth-child(2){width:88%;}
+.mini-body-lines span:nth-child(3){width:70%;}
+.mini-btns-row{display:flex;gap:0.4rem;margin-top:0.5rem;}
+.mini-btns-row span{height:20px;border-radius:5px;background:var(--accent);}
+.mini-btns-row span:first-child{width:70px;}
+.mini-btns-row span:last-child{width:55px;background:transparent;border:1.5px solid var(--line);}
+.mini-cards-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:0 1rem 1rem;}
+.mini-card{background:white;border-radius:6px;padding:0.5rem;border:1px solid var(--line);}
+.mini-card-icon{width:18px;height:18px;border-radius:4px;background:var(--accent-soft);margin-bottom:5px;}
+.mini-card-lines{display:flex;flex-direction:column;gap:3px;}
+.mini-card-lines span{height:4px;background:var(--line);border-radius:2px;}
+.mini-card-lines span:last-child{width:60%;}
+
+/* Floating badges on browser */
+.b-badge{position:absolute;background:white;border-radius:12px;padding:0.55rem 0.9rem;box-shadow:var(--sh2);display:flex;align-items:center;gap:0.5rem;font-size:0.74rem;font-weight:700;color:var(--ink);white-space:nowrap;border:1px solid var(--line);z-index:2;}
+.b-badge-1{top:-16px;right:-20px;animation:bb1 5s ease-in-out infinite;}
+.b-badge-2{bottom:-14px;left:-20px;animation:bb2 5s ease-in-out infinite 1.5s;}
+.b-badge-3{bottom:60px;right:-28px;animation:bb1 6s ease-in-out infinite 3s;}
+@keyframes bb1{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes bb2{0%,100%{transform:translateY(0);}50%{transform:translateY(8px);}}
+.b-badge .icon{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
+.icon-green{background:rgba(16,185,129,0.12);}
+.icon-blue{background:rgba(67,56,202,0.1);}
+.icon-purple{background:rgba(124,58,237,0.1);}
+
+.scroll-cue{position:absolute;bottom:2.5rem;left:calc(5% + 0px);display:flex;align-items:center;gap:0.6rem;opacity:0.5;cursor:pointer;transition:opacity 0.3s;animation:fadeUp 1s 1s ease both;}
+.scroll-cue:hover{opacity:0.9;}
+.scroll-cue span{font-size:0.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
+.scroll-line{width:40px;height:1px;background:var(--muted);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
+
+/* STATS */
+#stats{background:var(--ink);padding:2.8rem 5%;}
+.stats-inner{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+.stat-cell{text-align:center;padding:0.8rem 1.5rem;position:relative;}
+.stat-cell:not(:last-child)::after{content:'';position:absolute;right:0;top:15%;bottom:15%;width:1px;background:rgba(255,255,255,0.07);}
+.stat-num{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:700;color:#fff;display:block;line-height:1;}
+.stat-num em{color:#818CF8;font-style:normal;}
+.stat-lbl{font-size:0.72rem;color:rgba(255,255,255,0.38);margin-top:0.4rem;display:block;letter-spacing:0.3px;}
+
+/* SERVICES */
+#services{background:var(--bg);}
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;}
+.svc-card{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r2);padding:2rem;transition:all 0.3s;position:relative;overflow:hidden;cursor:pointer;}
+.svc-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--accent-soft),transparent);opacity:0;transition:opacity 0.3s;}
+.svc-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform 0.35s;}
+.svc-card:hover{border-color:var(--line2);transform:translateY(-4px);box-shadow:var(--sh3);}
+.svc-card:hover::before{opacity:1;}
+.svc-card:hover::after{transform:scaleX(1);}
+.svc-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;}
+.svc-icon{width:52px;height:52px;background:var(--accent-soft);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;transition:transform 0.3s;}
+.svc-card:hover .svc-icon{transform:scale(1.08);}
+.svc-arrow{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.85rem;transition:all 0.3s;flex-shrink:0;}
+.svc-card:hover .svc-arrow{background:var(--accent);border-color:var(--accent);color:#fff;transform:rotate(-45deg);}
+.svc-title{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;color:var(--ink);letter-spacing:-0.2px;margin-bottom:0.25rem;}
+.svc-title-ar{font-family:'Noto Naskh Arabic',serif;font-size:0.8rem;color:var(--muted);direction:rtl;margin-bottom:0.8rem;}
+.svc-desc{font-size:0.87rem;color:var(--muted);line-height:1.72;margin-bottom:1.2rem;}
+.svc-tags{display:flex;gap:0.4rem;flex-wrap:wrap;}
+.stag{padding:0.2rem 0.6rem;border-radius:100px;font-size:0.69rem;font-weight:600;border:1.5px solid;transition:all 0.2s;}
+.stag.ig{color:#E1306C;border-color:rgba(225,48,108,0.25);background:rgba(225,48,108,0.05);}
+.stag.fb{color:#1877F2;border-color:rgba(24,119,242,0.25);background:rgba(24,119,242,0.05);}
+.stag.tk{color:#111;border-color:rgba(0,0,0,0.14);background:rgba(0,0,0,0.04);}
+.stag.li{color:#0A66C2;border-color:rgba(10,102,194,0.25);background:rgba(10,102,194,0.05);}
+.stag.plain{color:var(--muted);border-color:var(--line);background:transparent;}
+.svc-foot{display:flex;align-items:center;justify-content:space-between;margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--line);}
+.svc-price{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:700;color:var(--accent);}
+.svc-price small{font-family:'Plus Jakarta Sans',sans-serif;font-size:0.72rem;color:var(--muted);font-weight:400;}
+.svc-cta{font-size:0.78rem;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:0.3rem;transition:gap 0.2s;}
+.svc-card:hover .svc-cta{gap:0.55rem;}
+
+/* PORTFOLIO */
+#portfolio{background:var(--bg);}
+.portfolio-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;}
+.filter-pills{display:flex;gap:0.4rem;flex-wrap:wrap;}
+.fpill{padding:0.4rem 1rem;border-radius:100px;font-size:0.76rem;font-weight:600;border:1.5px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;transition:all 0.22s;font-family:'Plus Jakarta Sans',sans-serif;}
+.fpill:hover{border-color:var(--accent);color:var(--accent);}
+.fpill.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 3px 10px rgba(67,56,202,0.28);}
+.portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;}
+.pc{border-radius:var(--r2);overflow:hidden;border:1.5px solid var(--line);background:var(--surface);transition:all 0.32s;cursor:pointer;}
+.pc:hover{border-color:var(--line2);transform:translateY(-5px);box-shadow:var(--sh3);}
+.pc.hidden{display:none;}
+.pc-thumb{height:195px;position:relative;overflow:hidden;background:#f0f2ff;}
+.pc-thumb img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 0.5s ease;}
+.pc:hover .pc-thumb img{transform:scale(1.06);}
+.pc-overlay{position:absolute;inset:0;background:rgba(13,15,28,0);transition:background 0.32s;display:flex;align-items:center;justify-content:center;}
+.pc:hover .pc-overlay{background:rgba(13,15,28,0.5);}
+.pc-overlay-btn{opacity:0;transform:scale(0.8);transition:all 0.32s;background:white;color:var(--accent);padding:0.55rem 1.1rem;border-radius:100px;font-size:0.78rem;font-weight:700;display:flex;align-items:center;gap:0.4rem;}
+.pc:hover .pc-overlay-btn{opacity:1;transform:scale(1);}
+.pc-badge{position:absolute;top:0.75rem;right:0.75rem;padding:0.2rem 0.6rem;border-radius:100px;font-size:0.64rem;font-weight:700;z-index:2;backdrop-filter:blur(8px);}
+.pb-real{background:rgba(67,56,202,0.88);color:#fff;}
+.pb-concept{background:rgba(255,255,255,0.9);color:var(--muted);border:1px solid var(--line);}
+.pc-body{padding:1.3rem;}
+.pc-tag{font-size:0.68rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:0.35rem;}
+.pc-title{font-family:'Fraunces',serif;font-size:1.02rem;font-weight:700;color:var(--ink);margin-bottom:0.35rem;letter-spacing:-0.1px;}
+.pc-desc{font-size:0.81rem;color:var(--muted);line-height:1.6;}
+.pc-chips{display:flex;gap:0.35rem;flex-wrap:wrap;margin-top:0.8rem;}
+.tc{background:var(--accent-soft);color:var(--accent);padding:0.15rem 0.5rem;border-radius:100px;font-size:0.65rem;font-weight:700;border:1px solid var(--line2);}
+
+/* PROCESS */
+#process{background:var(--ink);overflow:hidden;}
+#process .chip{color:#818CF8;}
+#process .chip::before{background:#818CF8;}
+#process .h2{color:#fff;}
+#process .h2-ar{color:rgba(255,255,255,0.3);}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;position:relative;}
+.process-grid::before{content:'';position:absolute;top:30px;left:calc(12.5% + 0px);right:calc(12.5% + 0px);height:1px;background:linear-gradient(90deg,var(--accent),#818CF8);opacity:0.4;}
+.pstep{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:var(--r2);padding:1.6rem;text-align:center;position:relative;z-index:1;transition:all 0.3s;}
+.pstep:hover{background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.15);transform:translateY(-4px);}
+.pnum{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-family:'Fraunces',serif;font-size:1rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 1.1rem;box-shadow:0 4px 14px rgba(67,56,202,0.4);}
+.pstep h4{font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.4rem;}
+.pstep p{font-size:0.78rem;color:rgba(255,255,255,0.45);line-height:1.6;}
+
+/* ═══ TESTIMONIALS ═══ */
+#testimonials{background:var(--bg);}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.tcard{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r2);padding:1.8rem;transition:all 0.3s;position:relative;overflow:hidden;}
+.tcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform 0.4s;}
+.tcard:hover{transform:translateY(-5px);box-shadow:var(--sh3);border-color:var(--line2);}
+.tcard:hover::before{transform:scaleX(1);}
+.tcard-quote{font-size:2.5rem;color:var(--accent-mid);font-family:'Fraunces',serif;line-height:1;margin-bottom:0.8rem;display:block;}
+.tcard-stars{display:flex;gap:2px;margin-bottom:1rem;}
+.tcard-stars span{color:#F59E0B;font-size:0.85rem;}
+.tcard-text{font-size:0.88rem;color:var(--ink2);line-height:1.78;margin-bottom:1.4rem;font-style:italic;}
+.tcard-divider{height:1px;background:var(--line);margin-bottom:1.2rem;}
+.tcard-author{display:flex;align-items:center;gap:0.85rem;}
+.tcard-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:0.9rem;font-weight:700;color:#fff;flex-shrink:0;font-family:'Fraunces',serif;}
+.tcard-name{font-size:0.87rem;font-weight:700;color:var(--ink);}
+.tcard-role{font-size:0.73rem;color:var(--muted);}
+.tcard-service{display:inline-flex;align-items:center;gap:0.3rem;margin-top:0.25rem;background:var(--accent-soft);color:var(--accent);padding:0.12rem 0.55rem;border-radius:100px;font-size:0.64rem;font-weight:700;border:1px solid var(--line2);}
+
+/* Trust bar */
+.trust-bar{display:flex;align-items:center;justify-content:center;gap:2.5rem;padding:1.5rem 5%;border-top:1px solid var(--line);margin-top:3rem;flex-wrap:wrap;}
+.trust-item{display:flex;align-items:center;gap:0.55rem;color:var(--muted);font-size:0.78rem;font-weight:600;}
+.trust-icon{font-size:1.1rem;}
+
+/* ═══ PRICING — REDESIGNED ═══ */
+#pricing{background:linear-gradient(160deg,#FAFBFF,#EDEDFF 60%,#E5F4FF);}
+.pricing-switch{display:flex;gap:0.3rem;background:var(--surface);padding:0.3rem;border-radius:12px;width:fit-content;border:1.5px solid var(--line);margin-bottom:2.8rem;box-shadow:var(--sh);}
+.ps-btn{padding:0.52rem 1.4rem;border-radius:9px;font-size:0.84rem;font-weight:600;cursor:pointer;transition:all 0.25s;color:var(--muted);border:none;background:transparent;font-family:'Plus Jakarta Sans',sans-serif;}
+.ps-btn.active{background:var(--accent);color:#fff;box-shadow:0 4px 12px rgba(67,56,202,0.32);}
+.pricingpanel{display:none;}
+.pricingpanel.active{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.pcard{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r2);padding:2rem;position:relative;transition:all 0.3s;}
+.pcard:hover{transform:translateY(-6px);box-shadow:var(--sh3);}
+.pcard.pop{border-color:var(--accent);box-shadow:0 0 0 4px rgba(67,56,202,0.07),var(--sh3);background:linear-gradient(160deg,#FAFBFF,#F3F1FF);}
+.pop-label{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:0.64rem;font-weight:700;letter-spacing:0.5px;padding:0.22rem 0.9rem;border-radius:0 0 8px 8px;}
+.pcard-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;}
+.pcard-icon{width:44px;height:44px;border-radius:12px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
+.pcard.pop .pcard-icon{background:rgba(67,56,202,0.15);}
+.pcard-badge-save{background:rgba(16,185,129,0.1);color:var(--success);font-size:0.64rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:100px;border:1px solid rgba(16,185,129,0.2);}
+.pcard-name{font-size:0.75rem;text-transform:uppercase;letter-spacing:1.2px;font-weight:700;color:var(--muted);}
+.pcard-name-ar{font-family:'Noto Naskh Arabic',serif;font-size:0.72rem;direction:rtl;color:var(--muted);margin-bottom:0.3rem;}
+.pcard-price{font-family:'Fraunces',serif;font-size:2.1rem;font-weight:700;color:var(--ink);letter-spacing:-0.5px;margin:0.6rem 0 0.25rem;}
+.pcard-price sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;font-weight:400;color:var(--muted);letter-spacing:0;}
+.pcard-tagline{font-size:0.78rem;color:var(--muted);margin-bottom:1.2rem;}
+.pcard-hr{height:1px;background:var(--line);margin:1.1rem 0;}
+.pcard-features{list-style:none;display:flex;flex-direction:column;gap:0.65rem;margin-bottom:1.8rem;}
+.pcard-features li{display:flex;align-items:flex-start;gap:0.55rem;font-size:0.83rem;color:var(--ink2);line-height:1.4;}
+.pcard-features li .ck{color:var(--accent);flex-shrink:0;font-size:0.9rem;margin-top:1px;}
+.pcard-features li .xk{color:var(--line);flex-shrink:0;font-size:0.9rem;}
+.pcard-features li.dim{color:var(--muted);}
+.pcard-cta{display:flex;flex-direction:column;gap:0.5rem;}
+.pcard-guarantee{text-align:center;font-size:0.7rem;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:0.3rem;}
+
+/* ═══ CONTACT — REDESIGNED ═══ */
+#contact{background:var(--bg);}
+.contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:4rem;align-items:start;}
+.contact-left h2{font-family:'Fraunces',serif;font-size:clamp(1.7rem,2.8vw,2.4rem);font-weight:700;color:var(--ink);line-height:1.2;letter-spacing:-0.3px;margin-bottom:0.8rem;}
+.contact-left p{color:var(--muted);font-size:0.92rem;line-height:1.75;}
+.contact-left p.ar{font-family:'Noto Naskh Arabic',serif;direction:rtl;font-size:0.88rem;margin-top:0.4rem;}
+.contact-channels{margin-top:1.8rem;display:flex;flex-direction:column;gap:0.65rem;}
+.cchan{display:flex;align-items:center;gap:1rem;padding:0.9rem 1.1rem;background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);text-decoration:none;transition:all 0.25s;}
+.cchan:hover{border-color:var(--accent);transform:translateX(5px);box-shadow:var(--sh);}
+.cchan-icon{width:38px;height:38px;background:var(--accent-soft);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.cchan-label{font-size:0.68rem;color:var(--muted);display:block;}
+.cchan-val{font-size:0.87rem;font-weight:600;color:var(--ink);}
+.cchan-arrow{margin-left:auto;color:var(--muted);font-size:0.8rem;transition:transform 0.2s;}
+.cchan:hover .cchan-arrow{transform:translateX(3px);color:var(--accent);}
+
+/* Response badge */
+.response-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);color:#059669;font-size:0.74rem;font-weight:600;padding:0.45rem 0.9rem;border-radius:100px;margin-top:1.5rem;}
+.rdot{width:7px;height:7px;background:#10B981;border-radius:50%;animation:pulse 2s ease infinite;}
+
+/* Why us mini list */
+.why-us{display:flex;flex-direction:column;gap:0.6rem;margin-top:1.5rem;}
+.why-item{display:flex;align-items:center;gap:0.7rem;font-size:0.83rem;color:var(--ink2);}
+.why-item::before{content:'✓';color:var(--accent);font-weight:700;flex-shrink:0;}
+
+/* Form */
+.cform{display:flex;flex-direction:column;gap:1rem;background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r2);padding:2rem;box-shadow:var(--sh2);}
+.form-title{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;color:var(--ink);margin-bottom:0.2rem;}
+.form-sub{font-size:0.8rem;color:var(--muted);margin-bottom:0.5rem;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.fg{display:flex;flex-direction:column;gap:0.32rem;}
+.fg label{font-size:0.73rem;font-weight:600;color:var(--ink2);letter-spacing:0.2px;}
+.fg input,.fg select,.fg textarea{background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:0.72rem 0.95rem;color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.87rem;transition:all 0.25s;outline:none;width:100%;}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(107,114,128,0.6);}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(67,56,202,0.1);background:var(--surface);}
+.fg textarea{resize:vertical;min-height:110px;}
+.fg select option{background:#fff;}
+.form-footer{display:flex;align-items:center;gap:0.5rem;font-size:0.71rem;color:var(--muted);}
+.form-footer::before{content:'🔒';font-size:0.8rem;}
+
+/* FOOTER */
+footer{background:var(--ink);padding:3.5rem 5% 2rem;}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:3rem;padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,0.07);}
+.footer-brand .logo{color:#fff;font-size:1.2rem;}
+.footer-brand .logo em{color:#818CF8;}
+.footer-brand p{font-size:0.78rem;color:#4B5563;line-height:1.72;margin-top:0.8rem;max-width:245px;}
+.footer-col h5{font-family:'Fraunces',serif;font-size:0.9rem;color:#fff;margin-bottom:1rem;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.55rem;}
+.footer-col ul a{color:#4B5563;font-size:0.78rem;transition:color 0.2s;}
+.footer-col ul a:hover{color:#fff;}
+.fsoc-list{display:flex;flex-direction:column;gap:0.55rem;}
+.fsoc-link{display:flex;align-items:center;gap:0.6rem;padding:0.52rem 0.8rem;border-radius:9px;border:1px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.45);font-size:0.78rem;font-weight:600;transition:all 0.22s;}
+.fsoc-link svg{width:14px;height:14px;flex-shrink:0;}
+.fsoc-link:hover{transform:translateX(4px);}
+.fsoc-link.ig:hover{color:#E1306C;border-color:rgba(225,48,108,0.4);background:rgba(225,48,108,0.06);}
+.fsoc-link.fb:hover{color:#1877F2;border-color:rgba(24,119,242,0.4);background:rgba(24,119,242,0.06);}
+.fsoc-link.tk:hover{color:#fff;border-color:rgba(255,255,255,0.25);background:rgba(255,255,255,0.04);}
+.footer-bar{display:flex;align-items:center;justify-content:space-between;padding-top:2rem;flex-wrap:wrap;gap:1rem;}
+.footer-bar p{font-size:0.74rem;color:#374151;}
+.footer-bar-links{display:flex;gap:1.2rem;}
+.footer-bar-links a{font-size:0.74rem;color:#374151;transition:color 0.2s;}
+.footer-bar-links a:hover{color:#fff;}
+
+/* ═══ FLOATING BUTTONS ═══ */
+.wa-float{
+  position:fixed;bottom:1.8rem;right:1.8rem;z-index:400;
+  width:58px;height:58px;border-radius:50%;
+  background:#25D366;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(37,211,102,0.45);
+  transition:all 0.3s;
+}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 8px 30px rgba(37,211,102,0.55);}
+.wa-float svg{width:28px;height:28px;fill:#fff;}
+.wa-float::before{
+  content:'';position:absolute;inset:-6px;border-radius:50%;
+  border:2px solid rgba(37,211,102,0.35);
+  animation:waPulse 2.5s ease-out infinite;
+}
+@keyframes waPulse{0%{transform:scale(1);opacity:1;}100%{transform:scale(1.5);opacity:0;}}
+
+.btt-btn{
+  position:fixed;bottom:1.8rem;right:5.6rem;z-index:400;
+  width:46px;height:46px;border-radius:13px;
+  background:var(--surface);border:1.5px solid var(--line);
+  color:var(--muted);font-size:1rem;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--sh2);
+  opacity:0;pointer-events:none;transform:translateY(10px);
+  transition:all 0.3s;font-family:'Plus Jakarta Sans',sans-serif;
+}
+.btt-btn.visible{opacity:1;pointer-events:all;transform:translateY(0);}
+.btt-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent);transform:translateY(-2px);}
+
+/* MODAL */
+.moverlay{position:fixed;inset:0;z-index:500;background:rgba(13,15,28,0.72);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;padding:1.5rem;}
+.moverlay.open{opacity:1;pointer-events:all;}
+.mbox{background:var(--surface);border-radius:var(--r2);width:100%;max-width:580px;max-height:88vh;overflow-y:auto;padding:2.5rem;position:relative;transform:scale(0.88) translateY(20px);transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1);scrollbar-width:thin;}
+.moverlay.open .mbox{transform:scale(1) translateY(0);}
+.mclose{position:absolute;top:1.2rem;right:1.2rem;width:34px;height:34px;border-radius:9px;background:var(--bg);border:1.5px solid var(--line);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.95rem;transition:all 0.2s;font-family:'Plus Jakarta Sans',sans-serif;}
+.mclose:hover{background:var(--line);color:var(--ink);}
+.m-chip{display:inline-block;background:var(--accent-soft);color:var(--accent);padding:0.2rem 0.7rem;border-radius:100px;font-size:0.68rem;font-weight:700;margin-bottom:1rem;border:1px solid var(--line2);}
+.m-img{width:100%;height:165px;border-radius:var(--r);object-fit:cover;object-position:top;margin-bottom:1.3rem;border:1px solid var(--line);}
+.m-title{font-family:'Fraunces',serif;font-size:1.45rem;font-weight:700;color:var(--ink);letter-spacing:-0.3px;margin-bottom:0.6rem;}
+.m-desc{color:var(--muted);font-size:0.87rem;line-height:1.72;}
+.m-chips{display:flex;gap:0.38rem;flex-wrap:wrap;margin-top:1.1rem;}
+.m-divider{height:1px;background:var(--line);margin:1.4rem 0;}
+.m-plan{background:var(--bg);border:1.5px solid var(--line);border-radius:var(--r);padding:1.1rem;margin-bottom:0.8rem;transition:border-color 0.2s;}
+.m-plan:hover{border-color:var(--line2);}
+.m-plan-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.6rem;}
+.m-plan-name{font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:var(--ink);}
+.m-plan-price{font-family:'Fraunces',serif;font-size:1rem;color:var(--accent);}
+.m-plan-feat{display:flex;flex-direction:column;gap:0.35rem;}
+.m-plan-feat span{font-size:0.8rem;color:var(--muted);display:flex;align-items:center;gap:0.45rem;}
+.m-plan-feat span::before{content:'✓';color:var(--accent);font-weight:700;flex-shrink:0;}
+.m-btns{display:flex;flex-direction:column;gap:0.6rem;margin-top:1.5rem;}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .hero{grid-template-columns:1fr;}
+  .hero-right{display:none;}
+  .services-grid{grid-template-columns:1fr 1fr;}
+  .portfolio-grid{grid-template-columns:1fr 1fr;}
+  .process-grid{grid-template-columns:1fr 1fr;}
+  .process-grid::before{display:none;}
+  .testi-grid{grid-template-columns:1fr 1fr;}
+  .pricingpanel.active{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;gap:3rem;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .stats-inner{grid-template-columns:repeat(2,1fr);}
+  .stat-cell:nth-child(2)::after,.stat-cell:nth-child(4)::after{display:none;}
+}
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  section{padding:4.5rem 4%;}
+  .hero{padding:calc(64px + 2.5rem) 4% 2.5rem;}
+  .services-grid{grid-template-columns:1fr;}
+  .portfolio-grid{grid-template-columns:1fr;}
+  .process-grid{grid-template-columns:1fr;}
+  .testi-grid{grid-template-columns:1fr;}
+  .frow{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr;}
+  .divider{margin:0 4%;}
+  .btt-btn{right:5rem;}
+  .trust-bar{gap:1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="logo" onclick="scrollTo({top:0,behavior:'smooth'})">Develop<em>Me</em></div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#process">Processus</a></li>
+    <li><a href="#pricing">Tarifs</a></li>
+    <li><a href="#testimonials">Avis</a></li>
+    <li><a href="#contact" class="nav-btn">Contact</a></li>
+  </ul>
+  <div class="hamburger" id="burger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services" onclick="toggleMenu()">Services</a>
+  <a href="#portfolio" onclick="toggleMenu()">Portfolio</a>
+  <a href="#process" onclick="toggleMenu()">Processus</a>
+  <a href="#pricing" onclick="toggleMenu()">Tarifs</a>
+  <a href="#testimonials" onclick="toggleMenu()">Avis clients</a>
+  <a href="#contact" class="nav-btn" onclick="toggleMenu()">Contact →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-bg-dot"></div>
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+  </div>
+
+  <div class="hero-left">
+    <div class="hero-badge"><div class="bdot"></div>Agence Digitale · Algérie 🇩🇿</div>
+    <div class="hero-title-wrap">
+      <span class="hero-line1">On transforme votre</span>
+      <span class="hero-line2" id="tw"><span class="cursor"></span></span>
+    </div>
+    <p class="hero-desc">Sites web professionnels & marketing digital pour les entreprises algériennes qui veulent grandir en ligne.</p>
+    <p class="hero-desc-ar">مواقع ويب احترافية وتسويق رقمي للمؤسسات الجزائرية الطموحة.</p>
+    <div class="hero-btns">
+      <a href="#portfolio" class="btn btn-solid btn-lg"><span>Voir nos réalisations</span><span class="arrow">→</span></a>
+      <a href="#contact" class="btn btn-ghost btn-lg">Devis gratuit</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="browser-wrap">
+      <!-- Floating badges -->
+      <div class="b-badge b-badge-1">
+        <div class="icon icon-green">✅</div>
+        <div><div style="font-size:0.64rem;color:var(--muted);font-weight:500">Site livré</div><div>en 7 jours</div></div>
+      </div>
+      <div class="b-badge b-badge-2">
+        <div class="icon icon-blue">📈</div>
+        <div><div style="font-size:0.64rem;color:var(--muted);font-weight:500">Croissance</div><div>+127 visites/jour</div></div>
+      </div>
+      <div class="b-badge b-badge-3">
+        <div class="icon icon-purple">⭐</div>
+        <div><div style="font-size:0.64rem;color:var(--muted);font-weight:500">Clients</div><div>100% satisfaits</div></div>
+      </div>
+
+      <!-- Browser mockup -->
+      <div class="browser">
+        <div class="browser-bar">
+          <div class="browser-dots"><span></span><span></span><span></span></div>
+          <div class="browser-url">developme.dz/votre-projet</div>
+        </div>
+        <div class="browser-screen">
+          <div class="mini-nav">
+            <div class="mini-logo"></div>
+            <div class="mini-nav-links">
+              <span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="mini-hero">
+            <div class="mini-h1-line" style="width:75%"></div>
+            <div class="mini-h1-line accent"></div>
+            <div class="mini-body-lines">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="mini-btns-row">
+              <span></span><span></span>
+            </div>
+          </div>
+          <div class="mini-cards-row">
+            <div class="mini-card"><div class="mini-card-icon"></div><div class="mini-card-lines"><span></span><span></span></div></div>
+            <div class="mini-card"><div class="mini-card-icon" style="background:rgba(14,165,233,0.1)"></div><div class="mini-card-lines"><span></span><span></span></div></div>
+            <div class="mini-card"><div class="mini-card-icon" style="background:rgba(16,185,129,0.1)"></div><div class="mini-card-lines"><span></span><span></span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-cue" onclick="document.getElementById('stats').scrollIntoView({behavior:'smooth'})">
+    <div class="scroll-line"></div><span>Scroll</span>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="stats-inner">
+    <div class="stat-cell reveal"><span class="stat-num counter" data-t="1200000" data-s="M+">0</span><span class="stat-lbl">PME sans site web en Algérie</span></div>
+    <div class="stat-cell reveal"><span class="stat-num counter" data-t="35" data-s="%">0</span><span class="stat-lbl">Croissance e-commerce 2024</span></div>
+    <div class="stat-cell reveal"><span class="stat-num">77<em>%</em></span><span class="stat-lbl">Marge nette agence</span></div>
+    <div class="stat-cell reveal"><span class="stat-num">3<em>j</em></span><span class="stat-lbl">Pour atteindre la rentabilité</span></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="reveal">
+    <div class="chip">Nos Services</div>
+    <h2 class="h2">Des services pensés<br/>pour votre croissance.</h2>
+    <p class="h2-ar">خدمات مصممة لنمو أعمالك</p>
+  </div>
+  <div class="services-grid">
+    <div class="svc-card reveal" onclick="openService('web')">
+      <div class="svc-head"><div class="svc-icon">🌐</div><div class="svc-arrow">↗</div></div>
+      <div class="svc-title">Création de Sites Web</div>
+      <div class="svc-title-ar">إنشاء المواقع الإلكترونية</div>
+      <p class="svc-desc">Sites vitrines professionnels, rapides et optimisés SEO. De la maquette à la mise en ligne, on s'occupe de tout.</p>
+      <div class="svc-tags"><span class="stag plain">WordPress</span><span class="stag plain">SEO</span><span class="stag plain">Responsive</span><span class="stag plain">SSL</span></div>
+      <div class="svc-foot"><div class="svc-price">À partir de 50 000 DZD <small>/ site</small></div><div class="svc-cta">Voir les offres <span>→</span></div></div>
+    </div>
+    <div class="svc-card reveal" onclick="openService('social')">
+      <div class="svc-head"><div class="svc-icon">📱</div><div class="svc-arrow">↗</div></div>
+      <div class="svc-title">Gestion Réseaux Sociaux</div>
+      <div class="svc-title-ar">إدارة وسائل التواصل الاجتماعي</div>
+      <p class="svc-desc">Community management professionnel sur les principales plateformes. Contenu, planification et rapports mensuels.</p>
+      <div class="svc-tags">
+        <span class="stag ig"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="#E1306C" stroke-width="2.5" style="display:inline;vertical-align:middle;margin-right:2px"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="#E1306C" stroke="none"/></svg>Instagram</span>
+        <span class="stag fb"><svg viewBox="0 0 24 24" width="10" height="10" fill="#1877F2" style="display:inline;vertical-align:middle;margin-right:2px"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Facebook</span>
+        <span class="stag tk"><svg viewBox="0 0 24 24" width="10" height="10" fill="#111" style="display:inline;vertical-align:middle;margin-right:2px"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.77 0 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-6.13 6.33 6.34 6.34 0 0 0 12.67 0V8.69a8.18 8.18 0 0 0 4.78 1.52V6.78a4.85 4.85 0 0 1-1.01-.09z"/></svg>TikTok</span>
+        <span class="stag li"><svg viewBox="0 0 24 24" width="10" height="10" fill="#0A66C2" style="display:inline;vertical-align:middle;margin-right:2px"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</span>
+      </div>
+      <div class="svc-foot"><div class="svc-price">À partir de 12 000 DZD <small>/ mois</small></div><div class="svc-cta">Voir les offres <span>→</span></div></div>
+    </div>
+    <div class="svc-card reveal" onclick="openService('ads')">
+      <div class="svc-head"><div class="svc-icon">🎯</div><div class="svc-arrow">↗</div></div>
+      <div class="svc-title">Marketing Digital & Ads</div>
+      <div class="svc-title-ar">التسويق الرقمي والإعلانات</div>
+      <p class="svc-desc">Campagnes publicitaires ciblées sur Meta, TikTok et Google. Génération de leads qualifiés avec ROI mesurable.</p>
+      <div class="svc-tags"><span class="stag ig">Meta Ads</span><span class="stag fb">Facebook Ads</span><span class="stag tk">TikTok Ads</span><span class="stag plain">Google Ads</span></div>
+      <div class="svc-foot"><div class="svc-price">À partir de 12 000 DZD <small>/ mois</small></div><div class="svc-cta">Voir les offres <span>→</span></div></div>
+    </div>
+    <div class="svc-card reveal" onclick="openService('brand')">
+      <div class="svc-head"><div class="svc-icon">🎨</div><div class="svc-arrow">↗</div></div>
+      <div class="svc-title">Identité Visuelle</div>
+      <div class="svc-title-ar">الهوية البصرية</div>
+      <p class="svc-desc">Logo professionnel, charte graphique et supports print & digital. Une image de marque mémorable et cohérente.</p>
+      <div class="svc-tags"><span class="stag plain">Logo</span><span class="stag plain">Charte graphique</span><span class="stag plain">Print</span><span class="stag plain">Digital</span></div>
+      <div class="svc-foot"><div class="svc-price">À partir de 15 000 DZD</div><div class="svc-cta">Voir les offres <span>→</span></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="portfolio-header">
+    <div class="reveal">
+      <div class="chip">Nos Réalisations</div>
+      <h2 class="h2" style="margin-bottom:0">Projets récents.</h2>
+    </div>
+    <div class="filter-pills reveal">
+      <button class="fpill active" data-f="all">Tous</button>
+      <button class="fpill" data-f="web">Sites Web</button>
+      <button class="fpill" data-f="marketing">Marketing</button>
+      <button class="fpill" data-f="branding">Branding</button>
+    </div>
+  </div>
+  <p class="h2-ar reveal">أعمالنا الأخيرة</p>
+  <div class="portfolio-grid">
+    <div class="pc reveal" data-cat="web" onclick="openPortfolio('car')">
+      <div class="pc-thumb">
+        <img src="/mnt/user-data/uploads/1775342586247_image.png" alt="Luxury Rent Algeria"/>
+        <div class="pc-overlay"><div class="pc-overlay-btn">Voir le projet ↗</div></div>
+        <span class="pc-badge pb-real">✦ Réel</span>
+      </div>
+      <div class="pc-body">
+        <div class="pc-tag">Site Web · Location Voitures</div>
+        <h3 class="pc-title">Luxury Rent Algeria</h3>
+        <p class="pc-desc">Plateforme de réservation de voitures de luxe. Interface FR/AR, booking en ligne, tarifs en DA.</p>
+        <div class="pc-chips"><span class="tc">Booking</span><span class="tc">FR+AR</span><span class="tc">UI Luxe</span><span class="tc">Mobile</span></div>
+      </div>
+    </div>
+    <div class="pc reveal" data-cat="web" onclick="openPortfolio('avocat')">
+      <div class="pc-thumb">
+        <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=700&q=80" alt="Cabinet Avocat" onerror="this.src='';this.parentElement.style.background='linear-gradient(135deg,#EEF2FF,#C7D2FE)'"/>
+        <div class="pc-overlay"><div class="pc-overlay-btn">Voir le projet ↗</div></div>
+        <span class="pc-badge pb-concept">Concept</span>
+      </div>
+      <div class="pc-body">
+        <div class="pc-tag">Site Vitrine · Cabinet Juridique</div>
+        <h3 class="pc-title">Maître Hamdani & Associés</h3>
+        <p class="pc-desc">Site professionnel pour cabinet d'avocats. Design sobre, crédibilisant, SEO local.</p>
+        <div class="pc-chips"><span class="tc">WordPress</span><span class="tc">Elementor</span><span class="tc">SEO</span></div>
+      </div>
+    </div>
+    <div class="pc reveal" data-cat="marketing" onclick="openPortfolio('bio')">
+      <div class="pc-thumb">
+        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=700&q=80" alt="NaturAlgerie" onerror="this.src='';this.parentElement.style.background='linear-gradient(135deg,#ECFDF5,#A7F3D0)'"/>
+        <div class="pc-overlay"><div class="pc-overlay-btn">Voir le projet ↗</div></div>
+        <span class="pc-badge pb-concept">Concept</span>
+      </div>
+      <div class="pc-body">
+        <div class="pc-tag">E-commerce · Alimentation Bio</div>
+        <h3 class="pc-title">NaturAlgérie Shop</h3>
+        <p class="pc-desc">Boutique en ligne de produits bio algériens avec paiement intégré et Meta Ads.</p>
+        <div class="pc-chips"><span class="tc">WooCommerce</span><span class="tc">Meta Ads</span><span class="tc">Branding</span></div>
+      </div>
+    </div>
+    <div class="pc reveal" data-cat="web" onclick="openPortfolio('clinique')">
+      <div class="pc-thumb">
+        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=700&q=80" alt="Clinique" onerror="this.src='';this.parentElement.style.background='linear-gradient(135deg,#FFF7ED,#FED7AA)'"/>
+        <div class="pc-overlay"><div class="pc-overlay-btn">Voir le projet ↗</div></div>
+        <span class="pc-badge pb-concept">Concept</span>
+      </div>
+      <div class="pc-body">
+        <div class="pc-tag">Site Vitrine · Clinique Dentaire</div>
+        <h3 class="pc-title">Clinique Sourire Plus</h3>
+        <p class="pc-desc">Présence digitale complète : site, réseaux et Google Ads pour attirer des patients.</p>
+        <div class="pc-chips"><span class="tc">WordPress</span><span class="tc">Google Ads</span><span class="tc">Instagram</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="reveal">
+    <div class="chip">Comment ça marche</div>
+    <h2 class="h2">De l'idée au lancement<br/>en 4 étapes.</h2>
+    <p class="h2-ar">من الفكرة إلى الإطلاق في 4 خطوات</p>
+  </div>
+  <div class="process-grid">
+    <div class="pstep reveal"><div class="pnum">1</div><h4>Découverte</h4><p>Appel de 30 min pour comprendre votre activité, vos besoins et vos objectifs.</p></div>
+    <div class="pstep reveal"><div class="pnum">2</div><h4>Proposition</h4><p>Devis personnalisé sous 24h avec maquette et planning de livraison clair.</p></div>
+    <div class="pstep reveal"><div class="pnum">3</div><h4>Création</h4><p>Développement avec 2 points de validation pour garantir votre satisfaction.</p></div>
+    <div class="pstep reveal"><div class="pnum">4</div><h4>Livraison</h4><p>Mise en ligne, formation et suivi 30 jours inclus dans chaque projet.</p></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="reveal" style="text-align:center;max-width:640px;margin:0 auto 3rem;">
+    <div class="chip">Témoignages</div>
+    <h2 class="h2">Nos clients parlent<br/>mieux que nous.</h2>
+    <p class="h2-ar" style="text-align:center">ما يقوله عملاؤنا عن تجربتهم</p>
+  </div>
+  <div class="testi-grid">
+
+    <div class="tcard reveal">
+      <span class="tcard-quote">"</span>
+      <div class="tcard-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <p class="tcard-text">DevelopMe a transformé mon restaurant en 10 jours. Le site est magnifique, les réservations ont augmenté de 40% dès le premier mois. Un travail vraiment professionnel.</p>
+      <div class="tcard-divider"></div>
+      <div class="tcard-author">
+        <div class="tcard-avatar">KB</div>
+        <div>
+          <div class="tcard-name">Karim Belhadj</div>
+          <div class="tcard-role">Gérant · Restaurant Le Méditerranéen, Alger</div>
+          <span class="tcard-service">🌐 Site Vitrine</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tcard reveal">
+      <span class="tcard-quote">"</span>
+      <div class="tcard-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <p class="tcard-text">Grâce à leur gestion Instagram et les Meta Ads, mon cabinet attire maintenant 15 nouveaux patients par semaine. Le ROI est impressionnant pour une PME comme la mienne.</p>
+      <div class="tcard-divider"></div>
+      <div class="tcard-author">
+        <div class="tcard-avatar" style="background:linear-gradient(135deg,#0EA5E9,#7C3AED)">SM</div>
+        <div>
+          <div class="tcard-name">Dr. Sarah Mekki</div>
+          <div class="tcard-role">Médecin dentiste · Cabinet privé, Oran</div>
+          <span class="tcard-service">📱 Marketing Digital</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tcard reveal">
+      <span class="tcard-quote">"</span>
+      <div class="tcard-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <p class="tcard-text">Le logo et la charte graphique sont exactement ce que je voulais. En plus, ils ont créé toute mon identité digitale cohérente. Je recommande à toutes les entreprises algériennes.</p>
+      <div class="tcard-divider"></div>
+      <div class="tcard-author">
+        <div class="tcard-avatar" style="background:linear-gradient(135deg,#10B981,#0EA5E9)">AD</div>
+        <div>
+          <div class="tcard-name">Amira Djebbar</div>
+          <div class="tcard-role">Fondatrice · Boutique Minara, Constantine</div>
+          <span class="tcard-service">🎨 Identité Visuelle</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="trust-bar reveal">
+    <div class="trust-item"><span class="trust-icon">🏆</span>+50 projets livrés</div>
+    <div class="trust-item"><span class="trust-icon">⭐</span>Note 5/5 sur Google</div>
+    <div class="trust-item"><span class="trust-icon">⚡</span>Livraison express 7 jours</div>
+    <div class="trust-item"><span class="trust-icon">🛡️</span>Satisfaction garantie</div>
+    <div class="trust-item"><span class="trust-icon">🇩🇿</span>100% Algérie</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="reveal">
+    <div class="chip">Nos Tarifs</div>
+    <h2 class="h2">Des offres claires,<br/>sans surprises.</h2>
+    <p class="h2-ar">أسعار شفافة بدون مفاجآت</p>
+  </div>
+  <div class="pricing-switch reveal">
+    <button class="ps-btn active" onclick="switchPricing('web',this)">🌐 Création de Site</button>
+    <button class="ps-btn" onclick="switchPricing('marketing',this)">📱 Marketing Digital</button>
+  </div>
+
+  <div class="pricingpanel active" id="tp-web">
+    <div class="pcard reveal">
+      <div class="pcard-header">
+        <div class="pcard-icon">🚀</div>
+      </div>
+      <div class="pcard-name">Starter</div>
+      <div class="pcard-name-ar">المبتدئ</div>
+      <div class="pcard-price">50 000 <sub>DZD</sub></div>
+      <div class="pcard-tagline">Idéal pour démarrer en ligne</div>
+      <div class="pcard-hr"></div>
+      <ul class="pcard-features">
+        <li><span class="ck">✓</span>3–5 pages</li>
+        <li><span class="ck">✓</span>Template adapté à votre secteur</li>
+        <li><span class="ck">✓</span>SEO basique (balises, vitesse)</li>
+        <li><span class="ck">✓</span>Hébergement 1 an inclus</li>
+        <li><span class="ck">✓</span>Livraison en 7 jours</li>
+        <li><span class="ck">✓</span>2 révisions incluses</li>
+        <li class="dim"><span class="xk">✗</span>Design sur mesure</li>
+        <li class="dim"><span class="xk">✗</span>Maintenance</li>
+      </ul>
+      <div class="pcard-cta">
+        <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center">Choisir Starter</a>
+        <div class="pcard-guarantee">🛡️ Satisfait ou remboursé 30 jours</div>
+      </div>
+    </div>
+    <div class="pcard pop reveal">
+      <div class="pop-label">⭐ RECOMMANDÉ</div>
+      <div class="pcard-header">
+        <div class="pcard-icon">💼</div>
+        <span class="pcard-badge-save">Meilleur rapport qualité/prix</span>
+      </div>
+      <div class="pcard-name">Professionnelle</div>
+      <div class="pcard-name-ar">الاحترافية</div>
+      <div class="pcard-price">80 000 <sub>DZD</sub></div>
+      <div class="pcard-tagline">Pour les entreprises sérieuses</div>
+      <div class="pcard-hr"></div>
+      <ul class="pcard-features">
+        <li><span class="ck">✓</span>Jusqu'à 10 pages</li>
+        <li><span class="ck">✓</span>Design 100% sur mesure</li>
+        <li><span class="ck">✓</span>SEO complet + Google Analytics</li>
+        <li><span class="ck">✓</span>Hébergement + domaine 1 an</li>
+        <li><span class="ck">✓</span>Livraison en 14 jours</li>
+        <li><span class="ck">✓</span>3 révisions incluses</li>
+        <li><span class="ck">✓</span>Formulaire de contact</li>
+        <li><span class="ck">✓</span>Bouton WhatsApp</li>
+      </ul>
+      <div class="pcard-cta">
+        <a href="#contact" class="btn btn-solid" style="width:100%;justify-content:center">Choisir ce plan →</a>
+        <div class="pcard-guarantee">🛡️ Satisfait ou remboursé 30 jours</div>
+      </div>
+    </div>
+    <div class="pcard reveal">
+      <div class="pcard-header">
+        <div class="pcard-icon">👑</div>
+        <span class="pcard-badge-save" style="background:rgba(67,56,202,0.08);color:var(--accent);border-color:var(--line2)">Tout inclus</span>
+      </div>
+      <div class="pcard-name">Premium</div>
+      <div class="pcard-name-ar">المتميز</div>
+      <div class="pcard-price">130 000 <sub>DZD</sub></div>
+      <div class="pcard-tagline">La solution clé en main complète</div>
+      <div class="pcard-hr"></div>
+      <ul class="pcard-features">
+        <li><span class="ck">✓</span>Pages illimitées</li>
+        <li><span class="ck">✓</span>Design premium sur mesure</li>
+        <li><span class="ck">✓</span>SEO avancé + rapport mensuel</li>
+        <li><span class="ck">✓</span>Hébergement + domaine + SSL</li>
+        <li><span class="ck">✓</span>Maintenance 6 mois incluse</li>
+        <li><span class="ck">✓</span>Révisions illimitées</li>
+        <li><span class="ck">✓</span>Formation admin incluse</li>
+        <li><span class="ck">✓</span>Priorité support 24/7</li>
+      </ul>
+      <div class="pcard-cta">
+        <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center">Choisir Premium</a>
+        <div class="pcard-guarantee">🛡️ Satisfait ou remboursé 30 jours</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pricingpanel" id="tp-marketing">
+    <div class="pcard reveal">
+      <div class="pcard-header"><div class="pcard-icon">📊</div></div>
+      <div class="pcard-name">Essentiel</div>
+      <div class="pcard-name-ar">الأساسي</div>
+      <div class="pcard-price">12 000 <sub>DZD/mois</sub></div>
+      <div class="pcard-tagline">Pour maintenir une présence</div>
+      <div class="pcard-hr"></div>
+      <ul class="pcard-features">
+        <li><span class="ck">✓</span>2 réseaux sociaux</li>
+        <li><span class="ck">✓</span>8 posts/mois (visuels inclus)</li>
+        <li><span class="ck">✓</span>Rapport mensuel simplifié</li>
+        <li><span class="ck">✓</span>Community management</li>
+        <li class="dim"><span class="xk">✗</span>Publicité payante</li>
+        <li class="dim"><span class="xk">✗</span>Stratégie contenu</li>
+      </ul>
+      <div class="pcard-cta">
+        <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center">Choisir Essentiel</a>
+        <div class="pcard-guarantee">🛡️ Sans engagement</div>
+      </div>
+    </div>
+    <div class="pcard pop reveal">
+      <div class="pop-label">⭐ RECOMMANDÉ</div>
+      <div class="pcard-header">
+        <div class="pcard-icon">📈</div>
+        <span class="pcard-badge-save">Le plus choisi</span>
+      </div>
+      <div class="pcard-name">Croissance</div>
+      <div class="pcard-name-ar">النمو</div>
+      <div class="pcard-price">20 000 <sub>DZD/mois</sub></div>
+      <div class="pcard-tagline">Pour développer votre audience</div>
+      <div class="pcard-hr"></div>
+      <ul class="pcard-features">
+        <li><span class="ck">✓</span>3 réseaux sociaux</li>
+        <li><span class="ck">✓</span>15 posts/mois</li>
+        <li><span class="ck">✓</span>Meta Ads (budget client)</li>
+        <li><span class="ck">✓</span>Rapport mensuel détaillé</li>
+        <li><span class="ck">✓</span>Stratégie contenu incluse</li>
+        <li><span class="ck">✓</span>Email marketing optionnel</li>
+      </ul>
+      <div class="pcard-cta">
+        <a href="#contact" class="btn btn-solid" style="width:100%;justify-content:center">Choisir ce plan →</a>
+        <div class="pcard-guarantee">🛡️ Sans engagement</div>
+      </div>
+    </div>
+    <div class="pcard reveal">
+      <div class="pcard-header">
+        <div class="pcard-icon">🚀</div>
+        <span class="pcard-badge-save" style="background:rgba(67,56,202,0.08);color:var(--accent);border-color:var(--line2)">Tout inclus</span>
+      </div>
+      <div class="pcard-name">Accélération</div>
+      <div class="pcard-name-ar">التسارع</div>
+      <div class="pcard-price">35 000 <sub>DZD/mois</sub></div>
+      <div class="pcard-tagline">Pour dominer votre marché</div>
+      <div class="pcard-hr"></div>
+      <ul class="pcard-features">
+        <li><span class="ck">✓</span>4 réseaux sociaux</li>
+        <li><span class="ck">✓</span>25 posts/mois</li>
+        <li><span class="ck">✓</span>Meta + Google + TikTok Ads</li>
+        <li><span class="ck">✓</span>Rapport stratégique ROI</li>
+        <li><span class="ck">✓</span>Email marketing inclus</li>
+        <li><span class="ck">✓</span>Shooting photo/vidéo mensuel</li>
+      </ul>
+      <div class="pcard-cta">
+        <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center">Choisir Accélération</a>
+        <div class="pcard-guarantee">🛡️ Sans engagement</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-left reveal-left">
+      <div class="chip">Parlons de votre projet</div>
+      <h2>Prêt à développer votre business en ligne ?</h2>
+      <p style="margin-top:0.9rem">Envoyez-nous votre projet. Nous vous répondons sous 24h avec une proposition personnalisée et un devis 100% gratuit.</p>
+      <p class="ar">أرسل لنا مشروعك. سنرد عليك خلال 24 ساعة بعرض مخصص مجاناً.</p>
+
+      <div class="response-badge">
+        <div class="rdot"></div>
+        En ligne · Réponse sous 2h en moyenne
+      </div>
+
+      <div class="why-us">
+        <div class="why-item">Devis gratuit sans engagement</div>
+        <div class="why-item">Livraison garantie dans les délais</div>
+        <div class="why-item">Paiement en DZD · Virement ou espèces</div>
+        <div class="why-item">Support WhatsApp 7j/7</div>
+      </div>
+
+      <div class="contact-channels" style="margin-top:1.5rem">
+        <a href="https://wa.me/213XXXXXXXXX" class="cchan">
+          <div class="cchan-icon">💬</div>
+          <div><span class="cchan-label">WhatsApp — Réponse immédiate</span><span class="cchan-val">+213 XX XX XX XX</span></div>
+          <span class="cchan-arrow">→</span>
+        </a>
+        <a href="mailto:contact@developme.dz" class="cchan">
+          <div class="cchan-icon">✉️</div>
+          <div><span class="cchan-label">Email — Réponse sous 24h</span><span class="cchan-val">contact@developme.dz</span></div>
+          <span class="cchan-arrow">→</span>
+        </a>
+        <a href="#" class="cchan">
+          <div class="cchan-icon">📍</div>
+          <div><span class="cchan-label">Localisation</span><span class="cchan-val">Algérie — Disponible partout</span></div>
+          <span class="cchan-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <form class="cform reveal-right" onsubmit="handleForm(event)">
+      <div class="form-title">Demande de devis gratuit</div>
+      <div class="form-sub">Remplissez le formulaire, nous vous contactons sous 24h.</div>
+      <div class="frow">
+        <div class="fg"><label>Nom complet *</label><input id="f-name" type="text" placeholder="Votre nom" required/></div>
+        <div class="fg"><label>Téléphone</label><input id="f-phone" type="tel" placeholder="+213 XX XX XX XX"/></div>
+      </div>
+      <div class="fg"><label>Email *</label><input id="f-email" type="email" placeholder="votre@email.com" required/></div>
+      <div class="fg">
+        <label>Service souhaité</label>
+        <select id="f-service">
+          <option value="">Sélectionner un service...</option>
+          <optgroup label="Création de Site">
+            <option>Starter — 50 000 DZD</option>
+            <option>Professionnelle — 80 000 DZD</option>
+            <option>Premium — 130 000 DZD</option>
+          </optgroup>
+          <optgroup label="Marketing Digital">
+            <option>Essentiel — 12 000 DZD/mois</option>
+            <option>Croissance — 20 000 DZD/mois</option>
+            <option>Accélération — 35 000 DZD/mois</option>
+          </optgroup>
+          <option>Identité Visuelle (Logo + Charte)</option>
+          <option>Pack complet Site + Marketing</option>
+          <option>Autre / Je ne sais pas encore</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Budget approximatif</label>
+        <select id="f-budget">
+          <option value="">Votre budget...</option>
+          <option>Moins de 50 000 DZD</option>
+          <option>50 000 – 100 000 DZD</option>
+          <option>100 000 – 200 000 DZD</option>
+          <option>Plus de 200 000 DZD</option>
+        </select>
+      </div>
+      <div class="fg"><label>Décrivez votre projet *</label><textarea id="f-message" placeholder="Parlez-nous de votre activité, vos objectifs, votre délai souhaité..." required></textarea></div>
+      <div id="form-alert" style="display:none;padding:0.75rem 1rem;border-radius:10px;font-size:0.84rem;font-weight:600;margin-top:-0.2rem"></div>
+      <button type="submit" id="f-btn" class="btn btn-solid" style="width:100%;justify-content:center;padding:0.92rem">Envoyer la demande <span class="arrow">→</span></button>
+      <div class="form-footer">Vos données sont confidentielles et ne seront jamais partagées.</div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">Develop<em>Me</em></div>
+      <p>Agence web & marketing digital pour les entreprises algériennes qui veulent une présence digitale de qualité internationale.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navigation</h5>
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#process">Processus</a></li>
+        <li><a href="#pricing">Tarifs</a></li>
+        <li><a href="#testimonials">Avis clients</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Suivez-nous</h5>
+      <div class="fsoc-list">
+        <a href="#" class="fsoc-link ig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>Instagram</a>
+        <a href="#" class="fsoc-link fb"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Facebook</a>
+        <a href="#" class="fsoc-link tk"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.77 0 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-6.13 6.33 6.34 6.34 0 0 0 12.67 0V8.69a8.18 8.18 0 0 0 4.78 1.52V6.78a4.85 4.85 0 0 1-1.01-.09z"/></svg>TikTok</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <p>© 2025 DevelopMe Agency · Tous droits réservés · Algérie</p>
+    <div class="footer-bar-links">
+      <a href="#">Mentions légales</a>
+      <a href="#">Confidentialité</a>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/213XXXXXXXXX" class="wa-float" target="_blank" rel="noopener" title="Contactez-nous sur WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+  </svg>
+</a>
+
+<!-- BACK TO TOP -->
+<button class="btt-btn" id="bttBtn" onclick="scrollTo({top:0,behavior:'smooth'})" title="Retour en haut">↑</button>
+
+<!-- MODAL -->
+<div class="moverlay" id="moverlay" onclick="closeMif(event)">
+  <div class="mbox" id="mbox">
+    <button class="mclose" onclick="closeM()">✕</button>
+    <div id="mcontent"></div>
+  </div>
+</div>
+
+<script>
+/* TYPEWRITER */
+const words=['business en ligne.','site web en résultats.','présence en clients.','vision en réalité.'];
+let wi=0,ci=0,del=false;
+const tw=document.getElementById('tw');
+function type(){
+  const w=words[wi];
+  if(!del){tw.innerHTML=w.slice(0,++ci)+'<span class="cursor"></span>';
+    if(ci===w.length){del=true;setTimeout(type,2000);return;}}
+  else{tw.innerHTML=w.slice(0,--ci)+'<span class="cursor"></span>';
+    if(ci===0){del=false;wi=(wi+1)%words.length;}}
+  setTimeout(type,del?50:85);
+}
+type();
+
+/* SCROLL REVEAL */
+const ro=new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*60);
+  });
+},{threshold:0.06,rootMargin:'0px 0px -20px 0px'});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>ro.observe(el));
+
+/* SCROLL EVENTS */
+window.addEventListener('scroll',()=>{
+  const nav=document.getElementById('navbar');
+  const btt=document.getElementById('bttBtn');
+  nav.classList.toggle('scrolled',scrollY>30);
+  btt.classList.toggle('visible',scrollY>300);
+  const sections=['services','portfolio','process','pricing','testimonials','contact'];
+  let curr='';
+  sections.forEach(id=>{
+    const el=document.getElementById(id);
+    if(el&&scrollY>=el.offsetTop-120)curr=id;
+  });
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.classList.toggle('active',a.getAttribute('href')==='#'+curr);
+  });
+});
+
+/* COUNTER */
+function animCounter(el){
+  const t=parseInt(el.dataset.t),s=el.dataset.s||'';
+  let c=0;const step=t/55;
+  const timer=setInterval(()=>{
+    c=Math.min(c+step,t);
+    el.textContent=(t>=1000000?(c/1000000).toFixed(1):Math.round(c))+s;
+    if(c>=t)clearInterval(timer);
+  },26);
+}
+const co=new IntersectionObserver(e=>{
+  e.forEach(en=>{if(en.isIntersecting){animCounter(en.target);co.unobserve(en.target);}});
+},{threshold:0.5});
+document.querySelectorAll('.counter').forEach(el=>co.observe(el));
+
+/* FILTER */
+document.querySelectorAll('.fpill').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.fpill').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f=btn.dataset.f;
+    document.querySelectorAll('.pc').forEach(c=>{
+      c.classList.toggle('hidden',!(f==='all'||c.dataset.cat===f));
+    });
+  });
+});
+
+/* PRICING SWITCH */
+function switchPricing(tab,btn){
+  document.querySelectorAll('.ps-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.pricingpanel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tp-'+tab).classList.add('active');
+}
+
+/* MOBILE MENU */
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+
+/* MODAL */
+function openM(html){
+  document.getElementById('mcontent').innerHTML=html;
+  document.getElementById('moverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeM(){document.getElementById('moverlay').classList.remove('open');document.body.style.overflow='';}
+function closeMif(e){if(e.target===document.getElementById('moverlay'))closeM();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM();});
+
+/* PORTFOLIO MODAL */
+const pData={
+  car:{tag:'Site Web · Location de Voitures',title:'Luxury Rent Algeria',img:'/mnt/user-data/uploads/1775342586247_image.png',
+    desc:'Site de réservation premium pour une agence de location de voitures de luxe. Interface bilingue FR/AR, système de réservation en ligne, affichage des tarifs en DA, section aéroport et livraison. Design sombre haut de gamme.',
+    tech:['Booking System','Bilingue FR/AR','UI Luxe','Mobile-first','Support 24/7'],link:'https://luxury-rent-algeria.base44.app'},
+  avocat:{tag:'Site Vitrine · Cabinet Juridique',title:'Maître Hamdani & Associés',img:'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=700&q=80',
+    desc:'Site professionnel pour un cabinet d\'avocats algérois. Design sobre et crédibilisant, optimisation SEO locale, formulaire de rendez-vous intégré.',
+    tech:['WordPress','Elementor Pro','SEO Local','Contact Form','Responsive']},
+  bio:{tag:'E-commerce · Alimentation Bio',title:'NaturAlgérie Shop',img:'https://images.unsplash.com/photo-1542838132-92c53300491e?w=700&q=80',
+    desc:'Boutique en ligne de produits biologiques algériens. Gestion des commandes, fiches produits optimisées SEO et campagne Meta Ads pour le lancement.',
+    tech:['WooCommerce','Meta Ads','Branding','Paiement en ligne','SEO Produits']},
+  clinique:{tag:'Site Vitrine · Clinique Dentaire',title:'Clinique Sourire Plus',img:'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=700&q=80',
+    desc:'Présence digitale complète pour une clinique à Alger : site vitrine, gestion Instagram & Facebook et campagnes Google Ads géolocalisées.',
+    tech:['WordPress','Google Ads','Instagram','SEO Médical','Responsive']}
+};
+function openPortfolio(k){
+  const m=pData[k];
+  const imgH=`<img src="${m.img}" class="m-img" alt="${m.title}" onerror="this.style.display='none'"/>`;
+  const linkH=m.link?`<a href="${m.link}" target="_blank" rel="noopener" class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:0.6rem">Visiter le site ↗</a>`:'';
+  openM(`
+    <span class="m-chip">${m.tag}</span>
+    ${imgH}
+    <div class="m-title">${m.title}</div>
+    <p class="m-desc">${m.desc}</p>
+    <div class="m-chips" style="margin-top:1rem">${m.tech.map(t=>`<span class="tc">${t}</span>`).join('')}</div>
+    <div class="m-btns">
+      <a href="#contact" class="btn btn-solid" style="width:100%;justify-content:center" onclick="closeM()">Demander un projet similaire →</a>
+      ${linkH}
+    </div>
+  `);
+}
+
+/* SERVICE MODAL */
+const sData={
+  web:{tag:'Service · Sites Web',title:'Création de Sites Vitrines',emoji:'🌐',
+    desc:'Sites professionnels optimisés pour convertir. De la maquette à la mise en ligne, on s\'occupe de tout.',
+    plans:[
+      {name:'Starter',price:'50 000 DZD',feats:['3–5 pages','Template adapté','SEO basique','Hébergement 1 an','Livraison 7 jours']},
+      {name:'Professionnelle',price:'80 000 DZD',feats:["Jusqu'à 10 pages",'Design sur mesure','SEO complet','Hébergement + domaine 1 an','Livraison 14 jours']},
+      {name:'Premium',price:'130 000 DZD',feats:['Pages illimitées','Design premium','SEO avancé','Hébergement + SSL','Maintenance 6 mois']}
+    ]},
+  social:{tag:'Service · Réseaux Sociaux',title:'Gestion des Réseaux Sociaux',emoji:'📱',
+    desc:'Community management sur Instagram, Facebook, TikTok et LinkedIn. Contenu visuel de qualité et rapports mensuels.',
+    plans:[
+      {name:'Essentiel',price:'12 000 DZD/mois',feats:['2 réseaux sociaux','8 posts/mois','Rapport simplifié','Community management']},
+      {name:'Croissance',price:'20 000 DZD/mois',feats:['3 réseaux sociaux','15 posts/mois','Meta Ads inclus','Rapport détaillé']},
+      {name:'Accélération',price:'35 000 DZD/mois',feats:['4 réseaux sociaux','25 posts/mois','Meta + TikTok Ads','Rapport stratégique']}
+    ]},
+  ads:{tag:'Service · Marketing Digital',title:'Campagnes Publicitaires',emoji:'🎯',
+    desc:'Meta Ads, Google Ads et TikTok Ads ciblés sur l\'Algérie. Leads qualifiés avec ROI mesurable.',
+    plans:[
+      {name:'Essentiel',price:'12 000 DZD/mois',feats:['Meta Ads','Ciblage Algérie','Rapport mensuel','Support dédié']},
+      {name:'Croissance',price:'20 000 DZD/mois',feats:['Meta + Facebook Ads','A/B Testing','Ciblage avancé','Rapport ROI']},
+      {name:'Accélération',price:'35 000 DZD/mois',feats:['Meta + Google + TikTok','Stratégie complète','Email marketing','Rapport stratégique']}
+    ]},
+  brand:{tag:'Service · Identité Visuelle',title:'Branding & Identité',emoji:'🎨',
+    desc:'Logo, charte graphique et supports print & digital pour une image de marque cohérente et mémorable.',
+    plans:[
+      {name:'Logo Essentiel',price:'15 000 DZD',feats:['Logo professionnel','3 propositions','Livrables vectoriels','Formats web + print']},
+      {name:'Pack Identité',price:'30 000 DZD',feats:['Logo + charte graphique','Carte de visite','Signature email','Guide utilisation']},
+      {name:'Branding Complet',price:'40 000 DZD',feats:['Identité complète','Supports print & digital','Templates réseaux','Livrables HD']}
+    ]}
+};
+function openService(k){
+  const s=sData[k];
+  const plansH=s.plans.map((p,i)=>`
+    <div class="m-plan" style="${i===1?'border-color:var(--accent);background:linear-gradient(135deg,#FAFBFF,#F3F1FF)':''}">
+      <div class="m-plan-head">
+        <span class="m-plan-name">${p.name}${i===1?' ⭐':''}</span>
+        <span class="m-plan-price">${p.price}</span>
+      </div>
+      <div class="m-plan-feat">${p.feats.map(f=>`<span>${f}</span>`).join('')}</div>
+    </div>
+  `).join('');
+  openM(`
+    <span class="m-chip">${s.tag}</span>
+    <div style="font-size:2.8rem;margin-bottom:0.6rem">${s.emoji}</div>
+    <div class="m-title">${s.title}</div>
+    <p class="m-desc">${s.desc}</p>
+    <div class="m-divider"></div>
+    <p style="font-size:0.8rem;font-weight:700;color:var(--ink2);margin-bottom:0.8rem;letter-spacing:0.3px">NOS FORMULES</p>
+    ${plansH}
+    <a href="#contact" class="btn btn-solid" style="width:100%;justify-content:center;margin-top:1.5rem" onclick="closeM()">Demander un devis gratuit →</a>
+  `);
+}
+
+/* FORM — connected to backend */
+const API = 'http://localhost:3000';
+
+async function handleForm(e){
+  e.preventDefault();
+  const btn   = document.getElementById('f-btn');
+  const alert = document.getElementById('form-alert');
+  const orig  = btn.innerHTML;
+
+  btn.innerHTML = '<span style="opacity:.7">Envoi en cours…</span>';
+  btn.disabled  = true;
+  alert.style.display = 'none';
+
+  try {
+    const res  = await fetch(`${API}/contact`, {
+      method:  'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        name:    document.getElementById('f-name').value,
+        email:   document.getElementById('f-email').value,
+        phone:   document.getElementById('f-phone').value,
+        service: document.getElementById('f-service').value,
+        budget:  document.getElementById('f-budget').value,
+        message: document.getElementById('f-message').value,
+      })
+    });
+    const data = await res.json();
+
+    if(data.success){
+      alert.style.cssText='display:flex;align-items:center;gap:0.5rem;background:rgba(16,185,129,0.1);color:#059669;border:1px solid rgba(16,185,129,0.25);padding:0.75rem 1rem;border-radius:10px;font-size:0.84rem;font-weight:600;';
+      alert.innerHTML='✓ Message envoyé ! On vous contacte sous 24h.';
+      e.target.reset();
+      btn.innerHTML = orig;
+      btn.disabled  = false;
+    } else {
+      throw new Error(data.error || 'Erreur inconnue');
+    }
+  } catch(err){
+    alert.style.cssText='display:flex;align-items:center;gap:0.5rem;background:rgba(239,68,68,0.08);color:#DC2626;border:1px solid rgba(239,68,68,0.2);padding:0.75rem 1rem;border-radius:10px;font-size:0.84rem;font-weight:600;';
+    alert.innerHTML='⚠ ' + (err.message === 'Failed to fetch' ? 'Serveur inaccessible. Vérifiez que le backend tourne.' : err.message);
+    btn.innerHTML = orig;
+    btn.disabled  = false;
+  }
+}
+</script>
+</body>
+</html>
