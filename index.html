@@ -431,8 +431,179 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
   .frow{grid-template-columns:1fr;}
   .footer-grid{grid-template-columns:1fr;}
   .divider{margin:0 4%;}
-  .btt-btn{right:5rem;}
   .trust-bar{gap:1.5rem;}
+  .sticky-cta{display:flex;}
+  body{padding-bottom:72px;}
+}
+
+/* ═══ CONVERSION UX ═══════════════════════════════════════════════════════ */
+
+/* Shimmer on primary CTA buttons */
+.btn-solid{position:relative;overflow:hidden;}
+.btn-solid::before{
+  content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent);
+  animation:shimmer 2.8s ease-in-out infinite;
+}
+@keyframes shimmer{0%{left:-100%}60%,100%{left:140%}}
+
+/* Gradient hero headline */
+.hero-line2{
+  background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 60%,#7C3AED 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+/* Urgency badge */
+.urgency-badge{
+  display:inline-flex;align-items:center;gap:0.45rem;
+  background:linear-gradient(135deg,#FEF3C7,#FDE68A);
+  color:#92400E;font-size:0.73rem;font-weight:700;
+  padding:0.4rem 0.9rem;border-radius:100px;
+  border:1px solid #FCD34D;margin-bottom:1.2rem;
+  animation:slideDown 0.6s 0.4s ease both;
+  box-shadow:0 2px 8px rgba(245,158,11,0.25);
+}
+.urgency-badge .fire{animation:fireShake 1.2s ease-in-out infinite;}
+@keyframes fireShake{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+
+/* Social proof counter under hero btns */
+.hero-proof{
+  display:flex;align-items:center;gap:0.65rem;
+  margin-top:1.4rem;animation:fadeUp 0.7s 0.5s ease both;
+}
+.proof-avatars{display:flex;}
+.proof-avatar{
+  width:28px;height:28px;border-radius:50%;border:2px solid #fff;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;font-size:0.6rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  margin-left:-8px;font-family:'Plus Jakarta Sans',sans-serif;
+}
+.proof-avatar:first-child{margin-left:0;}
+.proof-text{font-size:0.78rem;color:var(--muted);line-height:1.4;}
+.proof-text strong{color:var(--ink);font-weight:700;}
+
+/* Social proof toast */
+.sp-toast{
+  position:fixed;bottom:90px;left:1.5rem;z-index:450;
+  background:var(--surface);border:1.5px solid var(--line);
+  border-radius:14px;padding:0.85rem 1.1rem;
+  display:flex;align-items:center;gap:0.75rem;
+  box-shadow:0 8px 32px rgba(13,15,28,0.12);
+  max-width:300px;
+  transform:translateX(-120%);opacity:0;
+  transition:all 0.45s cubic-bezier(0.34,1.56,0.64,1);
+  pointer-events:none;
+}
+.sp-toast.show{transform:translateX(0);opacity:1;}
+.sp-avatar{
+  width:38px;height:38px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;font-weight:700;font-size:0.85rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.sp-info{flex:1;}
+.sp-name{font-size:0.82rem;font-weight:700;color:var(--ink);}
+.sp-detail{font-size:0.72rem;color:var(--muted);margin-top:1px;}
+.sp-time{font-size:0.65rem;color:var(--muted);white-space:nowrap;}
+
+/* Sticky mobile CTA bar */
+.sticky-cta{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;z-index:400;
+  background:var(--surface);border-top:1px solid var(--line);
+  padding:0.7rem 1rem;gap:0.7rem;
+  box-shadow:0 -4px 20px rgba(13,15,28,0.08);
+}
+.sticky-cta a{
+  flex:1;display:flex;align-items:center;justify-content:center;gap:0.4rem;
+  padding:0.72rem;border-radius:10px;font-weight:700;font-size:0.85rem;
+  font-family:'Plus Jakarta Sans',sans-serif;text-decoration:none;transition:all 0.2s;
+}
+.sticky-wa{background:#25D366;color:#fff;box-shadow:0 3px 12px rgba(37,211,102,0.35);}
+.sticky-wa:hover{background:#22c55e;}
+.sticky-devis{background:var(--accent);color:#fff;box-shadow:0 3px 12px rgba(67,56,202,0.35);}
+.sticky-devis:hover{background:var(--accent-hover);}
+
+/* WhatsApp CTA inside contact */
+.wa-cta-block{
+  background:linear-gradient(135deg,#F0FDF4,#DCFCE7);
+  border:1.5px solid rgba(37,211,102,0.3);
+  border-radius:var(--r);padding:1.2rem 1.4rem;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;margin-bottom:1.2rem;
+  transition:all 0.25s;text-decoration:none;
+}
+.wa-cta-block:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,211,102,0.2);}
+.wa-cta-left{display:flex;align-items:center;gap:0.85rem;}
+.wa-cta-icon{
+  width:46px;height:46px;border-radius:13px;background:#25D366;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.wa-cta-icon svg{width:26px;height:26px;fill:#fff;}
+.wa-cta-title{font-size:0.92rem;font-weight:700;color:#15803D;}
+.wa-cta-sub{font-size:0.75rem;color:#16A34A;margin-top:2px;}
+.wa-cta-arrow{
+  background:#25D366;color:#fff;width:34px;height:34px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1rem;flex-shrink:0;transition:transform 0.2s;
+}
+.wa-cta-block:hover .wa-cta-arrow{transform:scale(1.1);}
+
+/* OR divider */
+.or-divider{
+  display:flex;align-items:center;gap:0.75rem;
+  color:var(--muted);font-size:0.75rem;font-weight:600;
+  letter-spacing:0.5px;text-transform:uppercase;margin-bottom:1.2rem;
+}
+.or-divider::before,.or-divider::after{
+  content:'';flex:1;height:1px;background:var(--line);
+}
+
+/* Form progress bar */
+.form-progress{
+  height:3px;background:var(--line);border-radius:2px;margin-bottom:1.2rem;overflow:hidden;
+}
+.form-progress-bar{
+  height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));
+  border-radius:2px;width:0%;transition:width 0.4s ease;
+}
+
+/* Improved form inputs */
+.fg input:not(:placeholder-shown),.fg textarea:not(:placeholder-shown){
+  border-color:rgba(67,56,202,0.4);background:var(--surface);
+}
+.fg label{transition:color 0.2s;}
+.fg:focus-within label{color:var(--accent);}
+
+/* Submit button upgrade */
+#f-btn{
+  font-size:1rem;padding:1rem 2rem;border-radius:12px;
+  background:linear-gradient(135deg,var(--accent),#6366F1);
+  box-shadow:0 6px 24px rgba(67,56,202,0.4);
+  transition:all 0.25s;
+}
+#f-btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(67,56,202,0.5);}
+
+/* Guarantee strip */
+.form-guarantee{
+  display:flex;align-items:center;justify-content:center;gap:1.5rem;
+  padding:0.9rem;background:var(--bg);border-radius:10px;
+  border:1px solid var(--line);margin-top:0.5rem;flex-wrap:wrap;
+}
+.guar-item{display:flex;align-items:center;gap:0.35rem;font-size:0.71rem;color:var(--muted);font-weight:600;}
+
+/* Live activity indicator in contact */
+.live-activity{
+  display:flex;align-items:center;gap:0.55rem;
+  background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.2);
+  border-radius:100px;padding:0.4rem 0.9rem;
+  font-size:0.73rem;font-weight:600;color:#059669;
+  width:fit-content;margin-bottom:1.5rem;
+}
+.live-dot{
+  width:7px;height:7px;background:#10B981;border-radius:50%;
+  animation:pulse 1.8s ease infinite;flex-shrink:0;
 }
 </style>
 </head>
@@ -483,14 +654,25 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
 
   <div class="hero-left">
     <div class="hero-badge"><div class="bdot"></div><span data-i18n="hero_badge">Agence Digitale · Algérie 🇩🇿</span></div>
+    <div class="urgency-badge"><span class="fire">🔥</span> Places limitées — <strong>2 projets disponibles ce mois</strong></div>
     <div class="hero-title-wrap">
       <span class="hero-line1" data-i18n="hero_line1">On transforme votre</span>
       <span class="hero-line2" id="tw"><span class="cursor"></span></span>
     </div>
     <p class="hero-desc" data-i18n="hero_desc">Sites web professionnels & marketing digital pour les entreprises algériennes qui veulent grandir en ligne.</p>
     <div class="hero-btns">
-      <a href="#portfolio" class="btn btn-solid btn-lg"><span data-i18n="hero_btn1">Voir nos réalisations</span><span class="arrow">→</span></a>
-      <a href="#contact" class="btn btn-ghost btn-lg" data-i18n="hero_btn2">Devis gratuit</a>
+      <a href="#contact" class="btn btn-solid btn-lg"><span data-i18n="hero_btn2">Devis gratuit</span><span class="arrow">→</span></a>
+      <a href="#portfolio" class="btn btn-ghost btn-lg" data-i18n="hero_btn1">Voir nos réalisations</a>
+    </div>
+    <div class="hero-proof">
+      <div class="proof-avatars">
+        <div class="proof-avatar">KB</div>
+        <div class="proof-avatar" style="background:linear-gradient(135deg,#0EA5E9,#7C3AED)">SM</div>
+        <div class="proof-avatar" style="background:linear-gradient(135deg,#10B981,#0EA5E9)">AT</div>
+        <div class="proof-avatar" style="background:linear-gradient(135deg,#F59E0B,#EF4444)">FZ</div>
+        <div class="proof-avatar" style="background:linear-gradient(135deg,#7C3AED,#4338CA)">+</div>
+      </div>
+      <div class="proof-text"><strong>+50 entreprises</strong> algériennes nous font déjà confiance</div>
     </div>
   </div>
 
@@ -935,83 +1117,91 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
   <div class="contact-grid">
     <div class="contact-left reveal-left">
       <div class="chip">Parlons de votre projet</div>
-      <h2>Prêt à développer votre business en ligne ?</h2>
-      <p style="margin-top:0.9rem">Envoyez-nous votre projet. Nous vous répondons sous 24h avec une proposition personnalisée et un devis 100% gratuit.</p>
-      <p class="ar">أرسل لنا مشروعك. سنرد عليك خلال 24 ساعة بعرض مخصص مجاناً.</p>
+      <h2 style="font-family:'Fraunces',serif;font-size:clamp(1.7rem,2.8vw,2.4rem);font-weight:700;line-height:1.2;letter-spacing:-0.3px;margin-bottom:0.8rem">Prêt à développer votre<br/><span style="color:var(--accent)">business en ligne ?</span></h2>
+      <p style="color:var(--muted);font-size:0.92rem;line-height:1.75;margin-top:0.9rem">Devis personnalisé sous 24h — 100% gratuit, sans engagement.</p>
 
-      <div class="response-badge">
-        <div class="rdot"></div>
-        En ligne · Réponse sous 2h en moyenne
+      <div class="live-activity" style="margin-top:1.2rem">
+        <div class="live-dot"></div>
+        <span>En ligne · <strong id="live-count">3</strong> demandes reçues aujourd'hui</span>
       </div>
 
-      <div class="why-us">
-        <div class="why-item">Devis gratuit sans engagement</div>
-        <div class="why-item">Livraison garantie dans les délais</div>
-        <div class="why-item">Paiement en DZD · Virement ou espèces</div>
-        <div class="why-item">Support WhatsApp 7j/7</div>
+      <div class="why-us" style="margin-top:1.5rem">
+        <div class="why-item">✓ Devis gratuit sans engagement</div>
+        <div class="why-item">✓ Livraison garantie dans les délais</div>
+        <div class="why-item">✓ Paiement en DZD · Virement ou espèces</div>
+        <div class="why-item">✓ Support WhatsApp 7j/7</div>
+        <div class="why-item">✓ Satisfait ou remboursé 30 jours</div>
       </div>
 
-      <div class="contact-channels" style="margin-top:1.5rem">
-        <a href="https://wa.me/213XXXXXXXXX" class="cchan">
-          <div class="cchan-icon">💬</div>
-          <div><span class="cchan-label">WhatsApp — Réponse immédiate</span><span class="cchan-val">+213 XX XX XX XX</span></div>
-          <span class="cchan-arrow">→</span>
-        </a>
-        <a href="mailto:contact@developme.dz" class="cchan">
-          <div class="cchan-icon">✉️</div>
-          <div><span class="cchan-label">Email — Réponse sous 24h</span><span class="cchan-val">contact@developme.dz</span></div>
-          <span class="cchan-arrow">→</span>
-        </a>
-        <a href="#" class="cchan">
-          <div class="cchan-icon">📍</div>
-          <div><span class="cchan-label">Localisation</span><span class="cchan-val">Algérie — Disponible partout</span></div>
-          <span class="cchan-arrow">→</span>
-        </a>
+      <div style="margin-top:1.8rem;padding:1.2rem;background:linear-gradient(135deg,var(--accent-soft),rgba(14,165,233,0.06));border-radius:var(--r);border:1px solid var(--line2)">
+        <div style="font-size:0.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:0.8rem">Ils nous ont fait confiance</div>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+          <span style="background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:0.3rem 0.7rem;font-size:0.72rem;font-weight:600;color:var(--ink2)">🍽 Restaurant Alger</span>
+          <span style="background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:0.3rem 0.7rem;font-size:0.72rem;font-weight:600;color:var(--ink2)">🦷 Clinique Oran</span>
+          <span style="background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:0.3rem 0.7rem;font-size:0.72rem;font-weight:600;color:var(--ink2)">🛍 Boutique Constantine</span>
+          <span style="background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:0.3rem 0.7rem;font-size:0.72rem;font-weight:600;color:var(--ink2)">⚖️ Cabinet Avocat</span>
+          <span style="background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:0.3rem 0.7rem;font-size:0.72rem;font-weight:600;color:var(--ink2)">🚗 Auto école Annaba</span>
+        </div>
       </div>
     </div>
 
-    <form class="cform reveal-right" onsubmit="handleForm(event)">
-      <div class="form-title">Demande de devis gratuit</div>
-      <div class="form-sub">Remplissez le formulaire, nous vous contactons sous 24h.</div>
-      <div class="frow">
-        <div class="fg"><label>Nom complet *</label><input id="f-name" type="text" placeholder="Votre nom" required/></div>
-        <div class="fg"><label>Téléphone</label><input id="f-phone" type="tel" placeholder="+213 XX XX XX XX"/></div>
-      </div>
-      <div class="fg"><label>Email *</label><input id="f-email" type="email" placeholder="votre@email.com" required/></div>
-      <div class="fg">
-        <label>Service souhaité</label>
-        <select id="f-service">
-          <option value="">Sélectionner un service...</option>
-          <optgroup label="Création de Site">
-            <option>Starter — 50 000 DZD</option>
-            <option>Professionnelle — 80 000 DZD</option>
-            <option>Premium — 130 000 DZD</option>
-          </optgroup>
-          <optgroup label="Marketing Digital">
-            <option>Essentiel — 12 000 DZD/mois</option>
-            <option>Croissance — 20 000 DZD/mois</option>
-            <option>Accélération — 35 000 DZD/mois</option>
-          </optgroup>
-          <option>Identité Visuelle (Logo + Charte)</option>
-          <option>Pack complet Site + Marketing</option>
-          <option>Autre / Je ne sais pas encore</option>
-        </select>
-      </div>
-      <div class="fg">
-        <label>Budget approximatif</label>
-        <select id="f-budget">
-          <option value="">Votre budget...</option>
-          <option>Moins de 50 000 DZD</option>
-          <option>50 000 – 100 000 DZD</option>
-          <option>100 000 – 200 000 DZD</option>
-          <option>Plus de 200 000 DZD</option>
-        </select>
-      </div>
-      <div class="fg"><label>Décrivez votre projet *</label><textarea id="f-message" placeholder="Parlez-nous de votre activité, vos objectifs, votre délai souhaité..." required></textarea></div>
-      <div id="form-alert" style="display:none;padding:0.75rem 1rem;border-radius:10px;font-size:0.84rem;font-weight:600;margin-top:-0.2rem"></div>
-      <button type="submit" id="f-btn" class="btn btn-solid" style="width:100%;justify-content:center;padding:0.92rem">Envoyer la demande <span class="arrow">→</span></button>
-      <div class="form-footer">Vos données sont confidentielles et ne seront jamais partagées.</div>
-    </form>
+    <div class="reveal-right">
+      <!-- WhatsApp CTA — Priorité 1 -->
+      <a href="https://wa.me/213XXXXXXXXX?text=Bonjour%2C%20je%20souhaite%20un%20devis%20gratuit%20pour%20mon%20projet." class="wa-cta-block" target="_blank" rel="noopener">
+        <div class="wa-cta-left">
+          <div class="wa-cta-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          </div>
+          <div>
+            <div class="wa-cta-title">💬 Écrire sur WhatsApp</div>
+            <div class="wa-cta-sub">Réponse garantie en moins de 30 minutes</div>
+          </div>
+        </div>
+        <div class="wa-cta-arrow">→</div>
+      </a>
+
+      <!-- OR divider -->
+      <div class="or-divider">ou remplir le formulaire</div>
+
+      <!-- Form -->
+      <form class="cform" onsubmit="handleForm(event)" style="border:none;padding:0;box-shadow:none;background:transparent;gap:0.85rem">
+        <div class="form-progress"><div class="form-progress-bar" id="form-bar"></div></div>
+        <div class="frow">
+          <div class="fg"><label>Nom complet *</label><input id="f-name" type="text" placeholder="Votre nom" required/></div>
+          <div class="fg"><label>Téléphone</label><input id="f-phone" type="tel" placeholder="+213 XX XX XX XX"/></div>
+        </div>
+        <div class="fg"><label>Email *</label><input id="f-email" type="email" placeholder="votre@email.com" required/></div>
+        <div class="fg">
+          <label>Service souhaité</label>
+          <select id="f-service">
+            <option value="">Sélectionner un service...</option>
+            <optgroup label="Création de Site">
+              <option>Starter — 50 000 DZD</option>
+              <option>Professionnelle — 80 000 DZD</option>
+              <option>Premium — 130 000 DZD</option>
+            </optgroup>
+            <optgroup label="Marketing Digital">
+              <option>Essentiel — 12 000 DZD/mois</option>
+              <option>Croissance — 20 000 DZD/mois</option>
+              <option>Accélération — 35 000 DZD/mois</option>
+            </optgroup>
+            <option>Identité Visuelle (Logo + Charte)</option>
+            <option>Pack complet Site + Marketing</option>
+            <option>Autre / Je ne sais pas encore</option>
+          </select>
+        </div>
+        <div class="fg"><label>Décrivez votre projet *</label><textarea id="f-message" placeholder="Parlez-nous de votre activité, vos objectifs, votre délai souhaité..." required></textarea></div>
+        <div id="form-alert" style="display:none;padding:0.75rem 1rem;border-radius:10px;font-size:0.84rem;font-weight:600"></div>
+        <button type="submit" id="f-btn" class="btn btn-solid" style="width:100%;justify-content:center">
+          Envoyer la demande gratuite <span class="arrow">→</span>
+        </button>
+        <div class="form-guarantee">
+          <div class="guar-item">🔒 100% confidentiel</div>
+          <div class="guar-item">⚡ Réponse sous 24h</div>
+          <div class="guar-item">🛡️ Sans engagement</div>
+        </div>
+      </form>
+    </div>
   </div>
 </section>
 
@@ -1057,6 +1247,25 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
   </svg>
 </a>
+
+<!-- SOCIAL PROOF TOAST -->
+<div class="sp-toast" id="sp-toast">
+  <div class="sp-avatar" id="sp-avatar">KB</div>
+  <div class="sp-info">
+    <div class="sp-name" id="sp-name">Karim B.</div>
+    <div class="sp-detail" id="sp-detail">vient de commander Site Vitrine</div>
+  </div>
+  <div class="sp-time" id="sp-time">il y a 2h</div>
+</div>
+
+<!-- STICKY MOBILE CTA -->
+<div class="sticky-cta">
+  <a href="https://wa.me/213XXXXXXXXX?text=Bonjour%2C%20je%20souhaite%20un%20devis%20gratuit." class="sticky-wa" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+    WhatsApp
+  </a>
+  <a href="#contact" class="sticky-devis">Devis gratuit →</a>
+</div>
 
 <!-- MODAL -->
 <div class="moverlay" id="moverlay" onclick="closeMif(event)">
@@ -1239,6 +1448,55 @@ function openService(k){
 }
 
 /* handleForm défini dans js/script.js */
+
+/* ── SOCIAL PROOF TOAST ─────────────────────────────────────────────── */
+const spData=[
+  {init:'KB',name:'Karim B.',city:'Alger',service:'Site Vitrine Professionnel',time:'il y a 2h'},
+  {init:'SM',name:'Sarah M.',city:'Oran',service:'Pack Marketing Digital',time:'il y a 4h'},
+  {init:'AT',name:'Ahmed T.',city:'Constantine',service:'Pack Site + Marketing',time:'il y a 6h'},
+  {init:'FZ',name:'Fatima Z.',city:'Tizi Ouzou',service:'Identité Visuelle',time:'il y a 1j'},
+  {init:'RB',name:'Riad B.',city:'Annaba',service:'Site E-commerce',time:'il y a 1j'},
+  {init:'NM',name:'Nadia M.',city:'Blida',service:'Gestion Réseaux Sociaux',time:'il y a 2j'},
+];
+let spIdx=0;
+function showToast(){
+  const t=document.getElementById('sp-toast');
+  const d=spData[spIdx%spData.length];
+  document.getElementById('sp-avatar').textContent=d.init;
+  document.getElementById('sp-name').textContent=d.name+' · '+d.city;
+  document.getElementById('sp-detail').textContent='vient de commander '+d.service;
+  document.getElementById('sp-time').textContent=d.time;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),4500);
+  spIdx++;
+}
+setTimeout(()=>{showToast();setInterval(showToast,9000);},3000);
+
+/* ── FORM PROGRESS BAR ──────────────────────────────────────────────── */
+(function(){
+  const fields=['f-name','f-phone','f-email','f-service','f-message'];
+  const bar=document.getElementById('form-bar');
+  if(!bar)return;
+  function updateBar(){
+    const filled=fields.filter(id=>{const el=document.getElementById(id);return el&&el.value.trim()!=='';}).length;
+    if(bar)bar.style.width=(filled/fields.length*100)+'%';
+  }
+  fields.forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.addEventListener('input',updateBar);
+  });
+})();
+
+/* ── LIVE COUNTER ANIMATION ─────────────────────────────────────────── */
+(function(){
+  const el=document.getElementById('live-count');
+  if(!el)return;
+  const base=Math.floor(Math.random()*4)+2;
+  el.textContent=base;
+  setInterval(()=>{
+    if(Math.random()<0.15){el.textContent=parseInt(el.textContent)+1;}
+  },30000);
+})();
 
 /* ── TRADUCTIONS ──────────────────────────────────────────────────────── */
 const LANGS = {
