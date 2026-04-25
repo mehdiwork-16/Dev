@@ -4,9 +4,9 @@ const SUPABASE_KEY = 'sb_publishable_m7Fev0bGSkzazz600_x48Q_jn5obw8V';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // ─── EMAILJS — remplace avec tes clés (voir README ci-dessous) ────────────
-const EJS_SERVICE  = 'YOUR_SERVICE_ID';   // ex: service_abc123
-const EJS_TEMPLATE = 'YOUR_TEMPLATE_ID';  // ex: template_xyz789
-const EJS_KEY      = 'YOUR_PUBLIC_KEY';   // ex: abcDEF123456
+const EJS_SERVICE  = 'service_emhh5lt';
+const EJS_TEMPLATE = 'template_v5f61wc';
+const EJS_KEY      = 'tIjEFu_YDuyQsi6-9';
 
 // ─── FORM ──────────────────────────────────────────────────────────────────
 async function handleForm(e) {
