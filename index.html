@@ -508,29 +508,50 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
 .proof-text{font-size:0.78rem;color:var(--muted);line-height:1.4;}
 .proof-text strong{color:var(--ink);font-weight:700;}
 
-/* Social proof toast */
-.sp-toast{
-  position:fixed;bottom:90px;left:1.5rem;z-index:450;
-  background:var(--surface);border:1.5px solid var(--line);
-  border-radius:14px;padding:0.85rem 1.1rem;
-  display:flex;align-items:center;gap:0.75rem;
-  box-shadow:0 8px 32px rgba(13,15,28,0.12);
-  max-width:300px;
-  transform:translateX(-120%);opacity:0;
-  transition:all 0.45s cubic-bezier(0.34,1.56,0.64,1);
-  pointer-events:none;
+/* ═══ DARK MODE ═══ */
+body.dark{
+  --bg:#0F1120;--surface:#171A2E;
+  --ink:#E8EAFF;--ink2:#B8C0E0;--muted:#7480A8;
+  --line:#252B4A;--line2:rgba(99,102,241,0.32);
+  --accent-soft:rgba(99,102,241,0.16);--accent-mid:rgba(99,102,241,0.28);
+  --sh:0 2px 12px rgba(0,0,0,0.4);
+  --sh2:0 8px 32px rgba(0,0,0,0.55);
+  --sh3:0 20px 60px rgba(0,0,0,0.65);
 }
-.sp-toast.show{transform:translateX(0);opacity:1;}
-.sp-avatar{
-  width:38px;height:38px;border-radius:50%;flex-shrink:0;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#fff;font-weight:700;font-size:0.85rem;
+body.dark nav{background:rgba(15,17,32,0.97);border-bottom-color:var(--line);}
+body.dark .hero{background:linear-gradient(145deg,#0F1120 0%,#16183A 50%,#0F1A30 100%);}
+body.dark .hero-bg-dot{background-image:radial-gradient(rgba(99,102,241,0.12) 1px,transparent 1px);}
+body.dark .browser{background:var(--surface);box-shadow:0 30px 80px rgba(0,0,0,0.5),0 0 0 1px var(--line);}
+body.dark .browser-bar{background:#1A1D35;border-bottom-color:var(--line);}
+body.dark .browser-screen{background:linear-gradient(160deg,#13162A,#1A1D35);}
+body.dark .mobile-menu{background:var(--surface);border-top-color:var(--line);}
+body.dark .flip-front{background:var(--surface);}
+body.dark .pc{background:var(--surface);}
+body.dark .tcard{background:var(--surface);}
+body.dark .pcard{background:var(--surface);}
+body.dark .cform{background:var(--surface);}
+body.dark .fg input,.dark .fg select,.dark .fg textarea{background:var(--bg);color:var(--ink);}
+body.dark .mbox{background:var(--surface);}
+body.dark .pwa-banner{background:var(--surface);border-top-color:var(--line);}
+body.dark footer{background:#080A15;}
+body.dark .b-badge{background:var(--surface);border-color:var(--line);}
+body.dark .wa-cta-block{background:linear-gradient(135deg,rgba(16,185,129,0.1),rgba(16,185,129,0.04));border-color:rgba(16,185,129,0.2);}
+body.dark .form-guarantee{background:var(--bg);}
+body.dark .lang-switcher{background:var(--bg);}
+body.dark .mini-nav,.dark .mini-card{background:var(--surface);}
+
+/* Dark toggle button */
+.dark-toggle{
+  background:transparent;border:1.5px solid var(--line);
+  border-radius:9px;width:36px;height:36px;
   display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:1rem;transition:all 0.2s;
+  flex-shrink:0;
 }
-.sp-info{flex:1;}
-.sp-name{font-size:0.82rem;font-weight:700;color:var(--ink);}
-.sp-detail{font-size:0.72rem;color:var(--muted);margin-top:1px;}
-.sp-time{font-size:0.65rem;color:var(--muted);white-space:nowrap;}
+.dark-toggle:hover{border-color:var(--accent);background:var(--accent-soft);}
+
+/* RTL: hide duplicate Arabic subtitle on flip cards */
+body.rtl .flip-title-ar{display:none;}
 
 /* Sticky mobile CTA bar */
 .sticky-cta{
@@ -669,6 +690,7 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
     <button class="lang-btn"        id="lb-en" onclick="setLang('en')">EN</button>
     <button class="lang-btn"        id="lb-ar" onclick="setLang('ar')">AR</button>
   </div>
+  <button class="dark-toggle" id="darkToggle" onclick="toggleDark()" title="Mode nuit">🌙</button>
   <div class="hamburger" id="burger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </div>
@@ -789,9 +811,8 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
 <!-- SERVICES -->
 <section id="services">
   <div class="reveal">
-    <div class="chip">Nos Services</div>
-    <h2 class="h2">Des services pensés<br/>pour votre croissance.</h2>
-    <p class="h2-ar">خدمات مصممة لنمو أعمالك</p>
+    <div class="chip" data-i18n="svc_chip">Nos Services</div>
+    <h2 class="h2" data-i18n="svc_h2">Des services pensés<br/>pour votre croissance.</h2>
   </div>
   <div class="services-grid">
 
@@ -803,12 +824,12 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
             <div class="flip-icon" style="background:rgba(67,56,202,0.1)">🌐</div>
             <span class="flip-hint-tag">↻ Survolez</span>
           </div>
-          <div class="flip-title">Création de Sites Web</div>
+          <div class="flip-title" data-i18n="svc_web_title">Création de Sites Web</div>
           <div class="flip-title-ar">إنشاء المواقع الإلكترونية</div>
-          <p class="flip-desc">Sites vitrines professionnels, rapides et optimisés SEO. De la maquette à la mise en ligne, on s'occupe de tout.</p>
+          <p class="flip-desc" data-i18n="svc_web_desc">Sites vitrines professionnels, rapides et optimisés SEO. De la maquette à la mise en ligne, on s'occupe de tout.</p>
           <div class="flip-foot">
             <div class="flip-price">Dès 50 000 DZD <small>/ site</small></div>
-            <div class="flip-cta-hint">Voir les formules ↗</div>
+            <div class="flip-cta-hint" data-i18n="svc_see">Voir les formules ↗</div>
           </div>
         </div>
         <div class="flip-back fb-1">
@@ -836,12 +857,12 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
             <div class="flip-icon" style="background:rgba(124,58,237,0.1)">📱</div>
             <span class="flip-hint-tag">↻ Survolez</span>
           </div>
-          <div class="flip-title">Gestion Réseaux Sociaux</div>
+          <div class="flip-title" data-i18n="svc_social_title">Gestion Réseaux Sociaux</div>
           <div class="flip-title-ar">إدارة وسائل التواصل الاجتماعي</div>
-          <p class="flip-desc">Community management professionnel sur Instagram, Facebook, TikTok et LinkedIn. Contenu visuel de qualité et rapports mensuels.</p>
+          <p class="flip-desc" data-i18n="svc_social_desc">Community management professionnel sur Instagram, Facebook, TikTok et LinkedIn. Contenu visuel de qualité et rapports mensuels.</p>
           <div class="flip-foot">
             <div class="flip-price">Dès 12 000 DZD <small>/ mois</small></div>
-            <div class="flip-cta-hint">Voir les formules ↗</div>
+            <div class="flip-cta-hint" data-i18n="svc_see">Voir les formules ↗</div>
           </div>
         </div>
         <div class="flip-back fb-2">
@@ -869,12 +890,12 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
             <div class="flip-icon" style="background:rgba(217,119,6,0.1)">🎯</div>
             <span class="flip-hint-tag">↻ Survolez</span>
           </div>
-          <div class="flip-title">Marketing Digital & Ads</div>
+          <div class="flip-title" data-i18n="svc_ads_title">Marketing Digital & Ads</div>
           <div class="flip-title-ar">التسويق الرقمي والإعلانات</div>
-          <p class="flip-desc">Campagnes Meta, TikTok et Google ciblées sur l'Algérie. Génération de leads qualifiés avec ROI 100% mesurable.</p>
+          <p class="flip-desc" data-i18n="svc_ads_desc">Campagnes Meta, TikTok et Google ciblées sur l'Algérie. Génération de leads qualifiés avec ROI 100% mesurable.</p>
           <div class="flip-foot">
             <div class="flip-price">Dès 12 000 DZD <small>/ mois</small></div>
-            <div class="flip-cta-hint">Voir les formules ↗</div>
+            <div class="flip-cta-hint" data-i18n="svc_see">Voir les formules ↗</div>
           </div>
         </div>
         <div class="flip-back fb-3">
@@ -902,12 +923,12 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
             <div class="flip-icon" style="background:rgba(5,150,105,0.1)">🎨</div>
             <span class="flip-hint-tag">↻ Survolez</span>
           </div>
-          <div class="flip-title">Identité Visuelle</div>
+          <div class="flip-title" data-i18n="svc_brand_title">Identité Visuelle</div>
           <div class="flip-title-ar">الهوية البصرية</div>
-          <p class="flip-desc">Logo professionnel, charte graphique et supports print & digital. Une image de marque mémorable et cohérente.</p>
+          <p class="flip-desc" data-i18n="svc_brand_desc">Logo professionnel, charte graphique et supports print & digital. Une image de marque mémorable et cohérente.</p>
           <div class="flip-foot">
             <div class="flip-price">Dès 15 000 DZD</div>
-            <div class="flip-cta-hint">Voir les formules ↗</div>
+            <div class="flip-cta-hint" data-i18n="svc_see">Voir les formules ↗</div>
           </div>
         </div>
         <div class="flip-back fb-4">
@@ -936,17 +957,16 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
 <section id="portfolio">
   <div class="portfolio-header">
     <div class="reveal">
-      <div class="chip">Nos Réalisations</div>
-      <h2 class="h2" style="margin-bottom:0">Projets récents.</h2>
+      <div class="chip" data-i18n="pf_chip">Nos Réalisations</div>
+      <h2 class="h2" style="margin-bottom:0" data-i18n="pf_h2">Projets récents.</h2>
     </div>
     <div class="filter-pills reveal">
-      <button class="fpill active" data-f="all">Tous</button>
-      <button class="fpill" data-f="web">Sites Web</button>
-      <button class="fpill" data-f="marketing">Marketing</button>
-      <button class="fpill" data-f="branding">Branding</button>
+      <button class="fpill active" data-f="all" data-i18n="pf_all">Tous</button>
+      <button class="fpill" data-f="web" data-i18n="pf_web">Sites Web</button>
+      <button class="fpill" data-f="marketing" data-i18n="pf_mk">Marketing</button>
+      <button class="fpill" data-f="branding" data-i18n="pf_br">Branding</button>
     </div>
   </div>
-  <p class="h2-ar reveal">أعمالنا الأخيرة</p>
   <div class="portfolio-grid">
     <div class="pc reveal" data-cat="web" onclick="openPortfolio('car')">
       <div class="pc-thumb">
@@ -1008,15 +1028,14 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
 <!-- PROCESS -->
 <section id="process">
   <div class="reveal">
-    <div class="chip">Comment ça marche</div>
-    <h2 class="h2">De l'idée au lancement<br/>en 4 étapes.</h2>
-    <p class="h2-ar">من الفكرة إلى الإطلاق في 4 خطوات</p>
+    <div class="chip" data-i18n="proc_chip">Comment ça marche</div>
+    <h2 class="h2" data-i18n="proc_h2">De l'idée au lancement<br/>en 4 étapes.</h2>
   </div>
   <div class="process-grid">
-    <div class="pstep reveal"><div class="pnum">1</div><h4>Découverte</h4><p>Appel de 30 min pour comprendre votre activité, vos besoins et vos objectifs.</p></div>
-    <div class="pstep reveal"><div class="pnum">2</div><h4>Proposition</h4><p>Devis personnalisé sous 24h avec maquette et planning de livraison clair.</p></div>
-    <div class="pstep reveal"><div class="pnum">3</div><h4>Création</h4><p>Développement avec 2 points de validation pour garantir votre satisfaction.</p></div>
-    <div class="pstep reveal"><div class="pnum">4</div><h4>Livraison</h4><p>Mise en ligne, formation et suivi 30 jours inclus dans chaque projet.</p></div>
+    <div class="pstep reveal"><div class="pnum">1</div><h4 data-i18n="proc_1_title">Découverte</h4><p data-i18n="proc_1_desc">Appel de 30 min pour comprendre votre activité, vos besoins et vos objectifs.</p></div>
+    <div class="pstep reveal"><div class="pnum">2</div><h4 data-i18n="proc_2_title">Proposition</h4><p data-i18n="proc_2_desc">Devis personnalisé sous 24h avec maquette et planning de livraison clair.</p></div>
+    <div class="pstep reveal"><div class="pnum">3</div><h4 data-i18n="proc_3_title">Création</h4><p data-i18n="proc_3_desc">Développement avec 2 points de validation pour garantir votre satisfaction.</p></div>
+    <div class="pstep reveal"><div class="pnum">4</div><h4 data-i18n="proc_4_title">Livraison</h4><p data-i18n="proc_4_desc">Mise en ligne, formation et suivi 30 jours inclus dans chaque projet.</p></div>
   </div>
 </section>
 
@@ -1025,9 +1044,8 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
 <!-- TESTIMONIALS -->
 <section id="testimonials">
   <div class="reveal" style="text-align:center;max-width:640px;margin:0 auto 3rem;">
-    <div class="chip">Témoignages</div>
-    <h2 class="h2">Nos clients parlent<br/>mieux que nous.</h2>
-    <p class="h2-ar" style="text-align:center">ما يقوله عملاؤنا عن تجربتهم</p>
+    <div class="chip" data-i18n="testi_chip">Témoignages</div>
+    <h2 class="h2" data-i18n="testi_h2">Nos clients parlent<br/>mieux que nous.</h2>
   </div>
   <div class="testi-grid">
 
@@ -1092,9 +1110,8 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
 <!-- PRICING -->
 <section id="pricing">
   <div class="reveal">
-    <div class="chip">Nos Tarifs</div>
-    <h2 class="h2">Des offres claires,<br/>sans surprises.</h2>
-    <p class="h2-ar">أسعار شفافة بدون مفاجآت</p>
+    <div class="chip" data-i18n="price_chip">Nos Tarifs</div>
+    <h2 class="h2" data-i18n="price_h2">Des offres claires,<br/>sans surprises.</h2>
   </div>
   <div class="pricing-switch reveal">
     <button class="ps-btn active" onclick="switchPricing('web',this)">🌐 Création de Site</button>
@@ -1256,9 +1273,9 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
 <section id="contact">
   <div class="contact-grid">
     <div class="contact-left reveal-left">
-      <div class="chip">Votre projet, notre priorité</div>
-      <h2 style="font-family:'Fraunces',serif;font-size:clamp(1.7rem,2.8vw,2.4rem);font-weight:700;line-height:1.2;letter-spacing:-0.3px;margin-bottom:0.8rem">Lancez votre site web<br/><span style="color:var(--accent)">en 7 jours chrono.</span></h2>
-      <p style="color:var(--muted);font-size:0.92rem;line-height:1.75;margin-top:0.9rem">Devis personnalisé en <strong style="color:var(--ink)">moins de 2h</strong> — 100% gratuit, zéro engagement.</p>
+      <div class="chip" data-i18n="contact_chip">Votre projet, notre priorité</div>
+      <h2 data-i18n="contact_h2" style="font-family:'Fraunces',serif;font-size:clamp(1.7rem,2.8vw,2.4rem);font-weight:700;line-height:1.2;letter-spacing:-0.3px;margin-bottom:0.8rem">Lancez votre site web<br/><span style="color:var(--accent)">en 7 jours chrono.</span></h2>
+      <p data-i18n="contact_sub" style="color:var(--muted);font-size:0.92rem;line-height:1.75;margin-top:0.9rem">Devis personnalisé en <strong style="color:var(--ink)">moins de 2h</strong> — 100% gratuit, zéro engagement.</p>
 
       <div class="live-activity" style="margin-top:1.2rem">
         <div class="live-dot"></div>
@@ -1266,11 +1283,11 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
       </div>
 
       <div class="why-us" style="margin-top:1.5rem">
-        <div class="why-item">✓ Devis 100% gratuit — réponse en moins de 2h</div>
-        <div class="why-item">✓ Site livré en 7 jours, délai contractuel garanti</div>
-        <div class="why-item">✓ Paiement en DZD · Virement, CCP ou espèces</div>
-        <div class="why-item">✓ Support WhatsApp prioritaire 7j/7</div>
-        <div class="why-item">✓ Satisfait ou remboursé — garantie 30 jours</div>
+        <div class="why-item" data-i18n="why_1">✓ Devis 100% gratuit — réponse en moins de 2h</div>
+        <div class="why-item" data-i18n="why_2">✓ Site livré en 7 jours, délai contractuel garanti</div>
+        <div class="why-item" data-i18n="why_3">✓ Paiement en DZD · Virement, CCP ou espèces</div>
+        <div class="why-item" data-i18n="why_4">✓ Support WhatsApp prioritaire 7j/7</div>
+        <div class="why-item" data-i18n="why_5">✓ Satisfait ou remboursé — garantie 30 jours</div>
       </div>
 
       <div style="margin-top:1.8rem;padding:1.2rem;background:linear-gradient(135deg,var(--accent-soft),rgba(14,165,233,0.06));border-radius:var(--r);border:1px solid var(--line2)">
@@ -1293,26 +1310,26 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
           </div>
           <div>
-            <div class="wa-cta-title">💬 Écrire sur WhatsApp</div>
-            <div class="wa-cta-sub">Réponse garantie en moins de 30 minutes</div>
+            <div class="wa-cta-title" data-i18n="contact_wa">💬 Écrire sur WhatsApp</div>
+            <div class="wa-cta-sub" data-i18n="contact_wa_sub">Réponse garantie en moins de 30 minutes</div>
           </div>
         </div>
         <div class="wa-cta-arrow">→</div>
       </a>
 
       <!-- OR divider -->
-      <div class="or-divider">ou remplir le formulaire</div>
+      <div class="or-divider" data-i18n="contact_or">ou remplir le formulaire</div>
 
       <!-- Form -->
       <form class="cform" onsubmit="handleForm(event)" style="border:none;padding:0;box-shadow:none;background:transparent;gap:0.85rem">
         <div class="form-progress"><div class="form-progress-bar" id="form-bar"></div></div>
         <div class="frow">
-          <div class="fg"><label>Nom complet *</label><input id="f-name" type="text" placeholder="Votre nom" required/></div>
-          <div class="fg"><label>Téléphone</label><input id="f-phone" type="tel" placeholder="+213 XX XX XX XX"/></div>
+          <div class="fg"><label data-i18n="form_name">Nom complet *</label><input id="f-name" type="text" placeholder="Votre nom" required/></div>
+          <div class="fg"><label data-i18n="form_phone">Téléphone</label><input id="f-phone" type="tel" placeholder="+213 XX XX XX XX"/></div>
         </div>
-        <div class="fg"><label>Email *</label><input id="f-email" type="email" placeholder="votre@email.com" required/></div>
+        <div class="fg"><label data-i18n="form_email">Email *</label><input id="f-email" type="email" placeholder="votre@email.com" required/></div>
         <div class="fg">
-          <label>Service souhaité</label>
+          <label data-i18n="form_service">Service souhaité</label>
           <select id="f-service">
             <option value="">Sélectionner un service...</option>
             <optgroup label="Création de Site">
@@ -1330,10 +1347,10 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
             <option>Autre / Je ne sais pas encore</option>
           </select>
         </div>
-        <div class="fg"><label>Décrivez votre projet *</label><textarea id="f-message" placeholder="Parlez-nous de votre activité, vos objectifs, votre délai souhaité..." required></textarea></div>
+        <div class="fg"><label data-i18n="form_message">Décrivez votre projet *</label><textarea id="f-message" placeholder="Parlez-nous de votre activité, vos objectifs, votre délai souhaité..." required></textarea></div>
         <div id="form-alert" style="display:none;padding:0.75rem 1rem;border-radius:10px;font-size:0.84rem;font-weight:600"></div>
         <button type="submit" id="f-btn" class="btn btn-solid" style="width:100%;justify-content:center">
-          Obtenir mon devis GRATUIT maintenant <span class="arrow">→</span>
+          <span data-i18n="form_submit">Obtenir mon devis GRATUIT maintenant</span> <span class="arrow">→</span>
         </button>
         <div class="form-guarantee">
           <div class="guar-item">🔒 100% confidentiel</div>
@@ -1388,15 +1405,6 @@ body.rtl .wa-float{right:auto;left:1.8rem;}
   </svg>
 </a>
 
-<!-- SOCIAL PROOF TOAST -->
-<div class="sp-toast" id="sp-toast">
-  <div class="sp-avatar" id="sp-avatar">KB</div>
-  <div class="sp-info">
-    <div class="sp-name" id="sp-name">Karim B.</div>
-    <div class="sp-detail" id="sp-detail">vient de commander Site Vitrine</div>
-  </div>
-  <div class="sp-time" id="sp-time">il y a 2h</div>
-</div>
 
 <!-- STICKY MOBILE CTA -->
 <div class="sticky-cta">
@@ -1602,28 +1610,19 @@ function openService(k){
 
 /* handleForm défini dans js/script.js */
 
-/* ── SOCIAL PROOF TOAST ─────────────────────────────────────────────── */
-const spData=[
-  {init:'KB',name:'Karim B.',city:'Alger',service:'Site Vitrine Professionnel',time:'il y a 2h'},
-  {init:'SM',name:'Sarah M.',city:'Oran',service:'Pack Marketing Digital',time:'il y a 4h'},
-  {init:'AT',name:'Ahmed T.',city:'Constantine',service:'Pack Site + Marketing',time:'il y a 6h'},
-  {init:'FZ',name:'Fatima Z.',city:'Tizi Ouzou',service:'Identité Visuelle',time:'il y a 1j'},
-  {init:'RB',name:'Riad B.',city:'Annaba',service:'Site E-commerce',time:'il y a 1j'},
-  {init:'NM',name:'Nadia M.',city:'Blida',service:'Gestion Réseaux Sociaux',time:'il y a 2j'},
-];
-let spIdx=0;
-function showToast(){
-  const t=document.getElementById('sp-toast');
-  const d=spData[spIdx%spData.length];
-  document.getElementById('sp-avatar').textContent=d.init;
-  document.getElementById('sp-name').textContent=d.name+' · '+d.city;
-  document.getElementById('sp-detail').textContent='vient de commander '+d.service;
-  document.getElementById('sp-time').textContent=d.time;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),4500);
-  spIdx++;
+/* ── DARK MODE ──────────────────────────────────────────────────────── */
+function toggleDark() {
+  const isDark = document.body.classList.toggle('dark');
+  localStorage.setItem('darkMode', isDark);
+  document.getElementById('darkToggle').textContent = isDark ? '☀️' : '🌙';
 }
-setTimeout(()=>{showToast();setInterval(showToast,9000);},3000);
+(function(){
+  if(localStorage.getItem('darkMode')==='true'){
+    document.body.classList.add('dark');
+    const btn=document.getElementById('darkToggle');
+    if(btn) btn.textContent='☀️';
+  }
+})();
 
 /* ── FORM PROGRESS BAR ──────────────────────────────────────────────── */
 (function(){
@@ -1655,61 +1654,131 @@ setTimeout(()=>{showToast();setInterval(showToast,9000);},3000);
 const LANGS = {
   fr:{
     dir:'ltr',
-    nav_services:'Services', nav_portfolio:'Portfolio', nav_process:'Processus',
-    nav_pricing:'Tarifs', nav_reviews:'Avis', nav_contact:'Contact',
-    nav_contact_arrow:'Contact →',
-    hero_badge:'Agence Digitale · Algérie 🇩🇿',
-    hero_line1:'On transforme votre',
+    nav_services:'Services',nav_portfolio:'Portfolio',nav_process:'Processus',
+    nav_pricing:'Tarifs',nav_reviews:'Avis',nav_contact:'Contact',nav_contact_arrow:'Contact →',
+    hero_badge:'Agence Digitale · Algérie 🇩🇿',hero_line1:'On transforme votre',
     hero_words:['concept en site pro.','visiteur en client payant.','présence en chiffre d\'affaires.','marque en leader local.'],
     hero_desc:'Votre site web livré en 7 jours. Marketing digital qui convertit. Résultats mesurables pour les entreprises algériennes ambitieuses.',
-    hero_btn1:'Voir nos réalisations', hero_btn2:'Obtenir mon devis gratuit',
+    hero_btn1:'Voir nos réalisations',hero_btn2:'Obtenir mon devis gratuit',
+    svc_chip:'Nos Services',svc_h2:'Des services pensés<br/>pour votre croissance.',
+    svc_web_title:'Création de Sites Web',svc_web_desc:'Sites vitrines professionnels, rapides et optimisés SEO. De la maquette à la mise en ligne, on s\'occupe de tout.',
+    svc_social_title:'Gestion Réseaux Sociaux',svc_social_desc:'Community management professionnel sur Instagram, Facebook, TikTok et LinkedIn. Contenu visuel de qualité et rapports mensuels.',
+    svc_ads_title:'Marketing Digital & Ads',svc_ads_desc:'Campagnes Meta, TikTok et Google ciblées sur l\'Algérie. Génération de leads qualifiés avec ROI 100% mesurable.',
+    svc_brand_title:'Identité Visuelle',svc_brand_desc:'Logo professionnel, charte graphique et supports print & digital. Une image de marque mémorable et cohérente.',
+    svc_see:'Voir les formules ↗',
+    pf_chip:'Nos Réalisations',pf_h2:'Projets récents.',pf_all:'Tous',pf_web:'Sites Web',pf_mk:'Marketing',pf_br:'Branding',
+    proc_chip:'Comment ça marche',proc_h2:'De l\'idée au lancement<br/>en 4 étapes.',
+    proc_1_title:'Découverte',proc_1_desc:'Appel de 30 min pour comprendre votre activité, vos besoins et vos objectifs.',
+    proc_2_title:'Proposition',proc_2_desc:'Devis personnalisé sous 24h avec maquette et planning de livraison clair.',
+    proc_3_title:'Création',proc_3_desc:'Développement avec 2 points de validation pour garantir votre satisfaction.',
+    proc_4_title:'Livraison',proc_4_desc:'Mise en ligne, formation et suivi 30 jours inclus dans chaque projet.',
+    testi_chip:'Témoignages',testi_h2:'Nos clients parlent<br/>mieux que nous.',
+    price_chip:'Nos Tarifs',price_h2:'Des offres claires,<br/>sans surprises.',
+    contact_chip:'Votre projet, notre priorité',
+    contact_h2:'Lancez votre site web<br/><span style="color:var(--accent)">en 7 jours chrono.</span>',
+    contact_sub:'Devis personnalisé en <strong style="color:var(--ink)">moins de 2h</strong> — 100% gratuit, zéro engagement.',
+    contact_wa:'💬 Écrire sur WhatsApp',contact_wa_sub:'Réponse garantie en moins de 30 minutes',
+    contact_or:'ou remplir le formulaire',
+    form_name:'Nom complet *',form_phone:'Téléphone',form_email:'Email *',
+    form_service:'Service souhaité',form_message:'Décrivez votre projet *',
+    form_submit:'Obtenir mon devis GRATUIT maintenant',
+    why_1:'Devis 100% gratuit — réponse en moins de 2h',why_2:'Site livré en 7 jours, délai contractuel garanti',
+    why_3:'Paiement en DZD · Virement, CCP ou espèces',why_4:'Support WhatsApp prioritaire 7j/7',
+    why_5:'Satisfait ou remboursé — garantie 30 jours',
   },
   en:{
     dir:'ltr',
-    nav_services:'Services', nav_portfolio:'Portfolio', nav_process:'Process',
-    nav_pricing:'Pricing', nav_reviews:'Reviews', nav_contact:'Contact',
-    nav_contact_arrow:'Contact →',
-    hero_badge:'Digital Agency · Algeria 🇩🇿',
-    hero_line1:'We transform your',
+    nav_services:'Services',nav_portfolio:'Portfolio',nav_process:'Process',
+    nav_pricing:'Pricing',nav_reviews:'Reviews',nav_contact:'Contact',nav_contact_arrow:'Contact →',
+    hero_badge:'Digital Agency · Algeria 🇩🇿',hero_line1:'We transform your',
     hero_words:['idea into a pro website.','visitor into paying client.','presence into revenue.','brand into local leader.'],
     hero_desc:'Your website delivered in 7 days. Digital marketing that converts. Measurable results for ambitious Algerian businesses.',
-    hero_btn1:'View our work', hero_btn2:'Get my free quote',
+    hero_btn1:'View our work',hero_btn2:'Get my free quote',
+    svc_chip:'Our Services',svc_h2:'Services built for<br/>your growth.',
+    svc_web_title:'Website Creation',svc_web_desc:'Professional, fast, SEO-optimized websites. From mockup to live — we handle everything.',
+    svc_social_title:'Social Media Management',svc_social_desc:'Professional community management on Instagram, Facebook, TikTok and LinkedIn. Quality visuals and monthly reports.',
+    svc_ads_title:'Digital Marketing & Ads',svc_ads_desc:'Meta, TikTok and Google campaigns targeting Algeria. Qualified lead generation with 100% measurable ROI.',
+    svc_brand_title:'Visual Identity',svc_brand_desc:'Professional logo, brand guidelines and print & digital collateral. A memorable, cohesive brand image.',
+    svc_see:'See plans ↗',
+    pf_chip:'Our Work',pf_h2:'Recent projects.',pf_all:'All',pf_web:'Websites',pf_mk:'Marketing',pf_br:'Branding',
+    proc_chip:'How it works',proc_h2:'From idea to launch<br/>in 4 steps.',
+    proc_1_title:'Discovery',proc_1_desc:'30-min call to understand your business, needs and goals.',
+    proc_2_title:'Proposal',proc_2_desc:'Custom quote within 24h with mockup and clear delivery timeline.',
+    proc_3_title:'Build',proc_3_desc:'Development with 2 validation checkpoints to ensure your satisfaction.',
+    proc_4_title:'Launch',proc_4_desc:'Go-live, training and 30-day follow-up included in every project.',
+    testi_chip:'Testimonials',testi_h2:'Our clients speak<br/>for themselves.',
+    price_chip:'Pricing',price_h2:'Clear prices,<br/>no surprises.',
+    contact_chip:'Your project, our priority',
+    contact_h2:'Launch your website<br/><span style="color:var(--accent)">in 7 days guaranteed.</span>',
+    contact_sub:'Custom quote in <strong style="color:var(--ink)">under 2 hours</strong> — 100% free, zero commitment.',
+    contact_wa:'💬 Write on WhatsApp',contact_wa_sub:'Guaranteed reply in under 30 minutes',
+    contact_or:'or fill in the form',
+    form_name:'Full name *',form_phone:'Phone',form_email:'Email *',
+    form_service:'Desired service',form_message:'Describe your project *',
+    form_submit:'Get my FREE quote now',
+    why_1:'100% free quote — reply within 2 hours',why_2:'Website delivered in 7 days, contractually guaranteed',
+    why_3:'Payment in DZD · Transfer, CCP or cash',why_4:'Priority WhatsApp support 7 days/week',
+    why_5:'Satisfaction guaranteed — 30-day refund policy',
   },
   ar:{
     dir:'rtl',
-    nav_services:'الخدمات', nav_portfolio:'المشاريع', nav_process:'العملية',
-    nav_pricing:'الأسعار', nav_reviews:'الآراء', nav_contact:'اتصل بنا',
-    nav_contact_arrow:'اتصل بنا →',
-    hero_badge:'وكالة رقمية · الجزائر 🇩🇿',
-    hero_line1:'نحوّل',
+    nav_services:'الخدمات',nav_portfolio:'المشاريع',nav_process:'العملية',
+    nav_pricing:'الأسعار',nav_reviews:'الآراء',nav_contact:'اتصل بنا',nav_contact_arrow:'اتصل بنا ←',
+    hero_badge:'وكالة رقمية · الجزائر 🇩🇿',hero_line1:'نحوّل',
     hero_words:['فكرتك إلى موقع احترافي.','زائرك إلى عميل فعلي.','حضورك إلى مبيعات.','علامتك إلى رقم 1 محلياً.'],
     hero_desc:'موقعك جاهز في 7 أيام. تسويق رقمي يُحقق نتائج حقيقية. لكل مؤسسة جزائرية طموحة.',
-    hero_btn1:'مشاريعنا', hero_btn2:'احصل على عرض مجاني',
+    hero_btn1:'مشاريعنا',hero_btn2:'احصل على عرض مجاني',
+    svc_chip:'خدماتنا',svc_h2:'خدمات مصممة<br/>لنمو أعمالك.',
+    svc_web_title:'إنشاء المواقع الإلكترونية',svc_web_desc:'مواقع احترافية وسريعة ومُحسّنة لمحركات البحث. من التصميم إلى الإطلاق، نتكفل بكل شيء.',
+    svc_social_title:'إدارة وسائل التواصل الاجتماعي',svc_social_desc:'إدارة احترافية على إنستغرام وفيسبوك وتيك توك ولينكدإن. محتوى بصري عالي الجودة وتقارير شهرية.',
+    svc_ads_title:'التسويق الرقمي والإعلانات',svc_ads_desc:'حملات Meta وTikTok وGoogle مستهدفة في الجزائر. توليد عملاء محتملين بعائد استثمار قابل للقياس.',
+    svc_brand_title:'الهوية البصرية',svc_brand_desc:'شعار احترافي، دليل الهوية البصرية ومواد طباعية ورقمية. صورة علامة تجارية لا تُنسى ومتماسكة.',
+    svc_see:'عرض الخطط ↗',
+    pf_chip:'أعمالنا',pf_h2:'مشاريع حديثة.',pf_all:'الكل',pf_web:'المواقع',pf_mk:'التسويق',pf_br:'الهوية',
+    proc_chip:'كيف نعمل',proc_h2:'من الفكرة إلى الإطلاق<br/>في 4 خطوات.',
+    proc_1_title:'الاكتشاف',proc_1_desc:'مكالمة 30 دقيقة لفهم نشاطك التجاري واحتياجاتك وأهدافك.',
+    proc_2_title:'العرض',proc_2_desc:'عرض أسعار مخصص خلال 24 ساعة مع نموذج أولي وجدول تسليم واضح.',
+    proc_3_title:'التطوير',proc_3_desc:'تطوير مع نقطتين للمراجعة لضمان رضاك التام.',
+    proc_4_title:'التسليم',proc_4_desc:'الإطلاق والتدريب ومتابعة 30 يوماً مشمولة في كل مشروع.',
+    testi_chip:'آراء عملائنا',testi_h2:'عملاؤنا يتحدثون<br/>عنا بأنفسهم.',
+    price_chip:'الأسعار',price_h2:'أسعار واضحة،<br/>بدون مفاجآت.',
+    contact_chip:'مشروعك، أولويتنا',
+    contact_h2:'أطلق موقعك الإلكتروني<br/><span style="color:var(--accent)">في 7 أيام مضمونة.</span>',
+    contact_sub:'عرض أسعار مخصص في <strong style="color:var(--ink)">أقل من ساعتين</strong> — مجاني 100%، بدون أي التزام.',
+    contact_wa:'💬 اكتب على واتساب',contact_wa_sub:'رد مضمون في أقل من 30 دقيقة',
+    contact_or:'أو ملء النموذج',
+    form_name:'الاسم الكامل *',form_phone:'الهاتف',form_email:'البريد الإلكتروني *',
+    form_service:'الخدمة المطلوبة',form_message:'صف مشروعك *',
+    form_submit:'احصل على عرضي المجاني الآن',
+    why_1:'عرض مجاني 100% — رد في أقل من ساعتين',why_2:'الموقع مسلّم في 7 أيام، مضمون تعاقدياً',
+    why_3:'الدفع بالدينار الجزائري · تحويل أو نقداً',why_4:'دعم واتساب متميز 7 أيام/أسبوع',
+    why_5:'مضمون الرضا — سياسة استرداد 30 يوماً',
   }
 };
 
 let currentLang = localStorage.getItem('lang') || 'fr';
+
+/* HTML keys that contain markup and need innerHTML */
+const HTML_KEYS = new Set(['svc_h2','proc_h2','testi_h2','price_h2','contact_h2','contact_sub']);
 
 function setLang(lang) {
   currentLang = lang;
   localStorage.setItem('lang', lang);
   const t = LANGS[lang];
 
-  // Direction
   document.body.classList.toggle('rtl', lang === 'ar');
   document.documentElement.lang = lang;
 
-  // Traduire tous les éléments data-i18n
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.dataset.i18n;
-    if (t[key] !== undefined) el.textContent = t[key];
+    if (t[key] === undefined) return;
+    if (HTML_KEYS.has(key)) el.innerHTML = t[key];
+    else el.textContent = t[key];
   });
 
-  // Typewriter : relancer avec les nouveaux mots
   words = t.hero_words;
   wi = 0; ci = 0; del = false;
 
-  // Boutons actifs (desktop + mobile)
   ['fr','en','ar'].forEach(l => {
     const d = document.getElementById('lb-'+l);
     const m = document.getElementById('lb-'+l+'-m');
@@ -1718,7 +1787,6 @@ function setLang(lang) {
   });
 }
 
-// Appliquer la langue sauvegardée au chargement
 setLang(currentLang);
 
 /* ── FLIP CARDS — TOUCH SUPPORT ────────────────────────────────────── */
