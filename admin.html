@@ -4,167 +4,425 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>DevelopMe — Admin</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="css/style.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
-/* ── LOGIN SCREEN ─────────────────────────────────────────────────── */
-#login-screen {
-  display: flex; align-items: center; justify-content: center;
-  min-height: 100vh; padding: 1.5rem;
-  background: linear-gradient(145deg, #FAFBFF 0%, #EDEDFF 50%, #E5F4FF 100%);
+/* ── RESET ───────────────────────────────────────────────────────── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --accent:#4338CA;--accent-hover:#3730A3;
+  --accent-soft:rgba(67,56,202,0.08);--accent-mid:rgba(67,56,202,0.18);
+  --ink:#0D0F1C;--ink2:#374151;--muted:#6B7280;
+  --surface:#FFFFFF;--bg:#F0F1FA;--border:#E5E7F0;
+  --success:#10B981;--danger:#EF4444;--warning:#F59E0B;
+  --sidebar:#0F1120;
+  --sh:0 2px 12px rgba(67,56,202,0.07);
+  --sh2:0 8px 32px rgba(67,56,202,0.13);
+  --r:12px;
 }
-.login-box {
-  background: #fff; border: 1.5px solid var(--border);
-  border-radius: 20px; padding: 2.5rem;
-  width: 100%; max-width: 380px;
-  box-shadow: var(--sh2);
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh;}
+a{text-decoration:none;color:inherit;}
+button{cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;}
+
+/* ── LOGIN ───────────────────────────────────────────────────────── */
+#login-screen{
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;padding:1.5rem;
+  background:linear-gradient(145deg,#FAFBFF 0%,#EDEDFF 50%,#E5F4FF 100%);
 }
-.login-logo { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 700; color: var(--ink); margin-bottom: 0.3rem; }
-.login-logo em { color: var(--accent); font-style: normal; }
-.login-sub { font-size: 0.9rem; color: var(--muted); font-weight: 500; margin-bottom: 2rem; }
-.login-label { font-size: 0.73rem; font-weight: 600; color: var(--ink2); display: block; margin-bottom: 0.35rem; }
-.login-input {
-  width: 100%; background: var(--bg);
-  border: 1.5px solid var(--border); border-radius: 10px;
-  padding: 0.75rem 1rem;
-  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.9rem; color: var(--ink);
-  outline: none; transition: border-color 0.2s;
+.login-box{background:#fff;border:1.5px solid var(--border);border-radius:20px;padding:2.5rem;width:100%;max-width:390px;box-shadow:var(--sh2);}
+.login-logo{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:700;color:var(--ink);margin-bottom:0.3rem;}
+.login-logo em{color:var(--accent);font-style:normal;}
+.login-sub{font-size:0.88rem;color:var(--muted);font-weight:500;margin-bottom:2rem;}
+.login-label{font-size:0.73rem;font-weight:600;color:var(--ink2);display:block;margin-bottom:0.35rem;}
+.login-input{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:0.75rem 1rem;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.9rem;color:var(--ink);outline:none;transition:border-color 0.2s;margin-bottom:0.9rem;}
+.login-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(67,56,202,0.1);}
+.login-btn{width:100%;margin-top:0.3rem;padding:0.85rem;background:var(--accent);color:#fff;border:none;border-radius:10px;font-size:0.92rem;font-weight:600;transition:all 0.2s;}
+.login-btn:hover{background:var(--accent-hover);transform:translateY(-1px);}
+.login-err{display:none;margin-top:0.8rem;padding:0.6rem 0.9rem;background:rgba(239,68,68,0.08);color:var(--danger);border-radius:9px;font-size:0.82rem;font-weight:600;border:1px solid rgba(239,68,68,0.2);}
+
+/* ── APP LAYOUT ──────────────────────────────────────────────────── */
+#app{display:none;}
+.admin-wrap{display:grid;grid-template-columns:240px 1fr;min-height:100vh;}
+
+/* ── SIDEBAR ─────────────────────────────────────────────────────── */
+.sidebar{background:var(--sidebar);position:sticky;top:0;height:100vh;display:flex;flex-direction:column;overflow:hidden;}
+.sidebar-logo{padding:1.6rem 1.4rem 1.3rem;font-family:'Fraunces',serif;font-size:1.25rem;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0;}
+.sidebar-logo em{color:#818CF8;font-style:normal;}
+.sidebar-logo span{font-family:'Plus Jakarta Sans',sans-serif;font-size:0.63rem;font-weight:600;color:rgba(255,255,255,0.3);display:block;margin-top:0.2rem;letter-spacing:0.5px;text-transform:uppercase;}
+.sidebar-nav{flex:1;padding:1rem 0.7rem;display:flex;flex-direction:column;gap:0.18rem;overflow-y:auto;}
+.nav-item{display:flex;align-items:center;gap:0.8rem;padding:0.68rem 0.9rem;border-radius:10px;font-size:0.84rem;font-weight:600;color:rgba(255,255,255,0.45);cursor:pointer;transition:all 0.2s;border:none;background:transparent;width:100%;text-align:left;}
+.nav-icon{font-size:1rem;width:20px;text-align:center;flex-shrink:0;}
+.nav-item:hover{color:rgba(255,255,255,0.78);background:rgba(255,255,255,0.05);}
+.nav-item.active{color:#fff;background:rgba(67,56,202,0.4);border:1px solid rgba(99,102,241,0.28);}
+.nav-badge{margin-left:auto;background:var(--accent);color:#fff;font-size:0.6rem;padding:0.12rem 0.42rem;border-radius:100px;font-weight:700;}
+.sidebar-foot{padding:0.9rem 0.7rem;border-top:1px solid rgba(255,255,255,0.06);flex-shrink:0;}
+.sidebar-user{display:flex;align-items:center;gap:0.7rem;padding:0.65rem 0.9rem;border-radius:10px;background:rgba(255,255,255,0.04);}
+.s-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#818CF8);color:#fff;font-size:0.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.s-info{flex:1;min-width:0;}
+.s-name{font-size:0.76rem;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.s-role{font-size:0.62rem;color:rgba(255,255,255,0.3);}
+.btn-logout-s{background:transparent;border:none;color:rgba(255,255,255,0.3);font-size:0.85rem;cursor:pointer;transition:color 0.2s;padding:0.2rem;flex-shrink:0;}
+.btn-logout-s:hover{color:var(--danger);}
+
+/* ── CONTENT AREA ─────────────────────────────────────────────────── */
+.content-area{display:flex;flex-direction:column;min-height:100vh;}
+.topbar{position:sticky;top:0;z-index:50;height:60px;background:var(--surface);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--sh);}
+.topbar-title{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:var(--ink);}
+.topbar-right{display:flex;align-items:center;gap:0.8rem;}
+.topbar-date{font-size:0.77rem;color:var(--muted);}
+.live-badge{display:flex;align-items:center;gap:0.38rem;font-size:0.71rem;font-weight:600;color:#059669;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);padding:0.26rem 0.65rem;border-radius:100px;}
+.live-dot{width:5px;height:5px;background:#10B981;border-radius:50%;animation:pulse 2s ease infinite;flex-shrink:0;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(1.8);}}
+.btn-refresh{display:flex;align-items:center;gap:0.35rem;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent-mid);border-radius:8px;padding:0.36rem 0.85rem;font-size:0.77rem;font-weight:600;transition:all 0.2s;}
+.btn-refresh:hover{background:var(--accent);color:#fff;}
+
+/* ── PAGES ────────────────────────────────────────────────────────── */
+.page{display:none;padding:2rem;animation:fadeIn 0.22s ease;}
+.page.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+/* ── KPI ROW ──────────────────────────────────────────────────────── */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-bottom:1.8rem;}
+.kpi{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:1.4rem 1.5rem;position:relative;overflow:hidden;transition:box-shadow 0.2s;}
+.kpi:hover{box-shadow:var(--sh2);}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.kpi-total::before{background:linear-gradient(90deg,#4338CA,#818CF8);}
+.kpi-today::before{background:linear-gradient(90deg,#10B981,#34D399);}
+.kpi-week::before{background:linear-gradient(90deg,#0EA5E9,#38BDF8);}
+.kpi-top::before{background:linear-gradient(90deg,#F59E0B,#FCD34D);}
+.kpi-lbl{font-size:0.67rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:0.8rem;}
+.kpi-icon{position:absolute;top:1.1rem;right:1.1rem;font-size:1.5rem;opacity:0.12;}
+.kpi-val{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:700;color:var(--ink);line-height:1;}
+.kpi-val.sm{font-size:1.1rem;margin-top:0.3rem;line-height:1.35;}
+.kpi-sub{font-size:0.74rem;color:var(--muted);margin-top:0.35rem;}
+
+/* ── CARD ─────────────────────────────────────────────────────────── */
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);}
+.card-head{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.5rem;border-bottom:1px solid var(--border);}
+.card-head h3{font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:var(--ink);}
+.card-head-r{display:flex;align-items:center;gap:0.6rem;}
+.badge-n{background:var(--accent);color:#fff;font-size:0.6rem;font-weight:700;padding:0.15rem 0.48rem;border-radius:100px;margin-left:0.3rem;}
+
+/* ── FILTERS ──────────────────────────────────────────────────────── */
+.filters-row{display:flex;align-items:center;gap:0.55rem;padding:0.9rem 1.5rem;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+.fpill{padding:0.3rem 0.85rem;border-radius:100px;font-size:0.74rem;font-weight:600;border:1.5px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;transition:all 0.2s;}
+.fpill:hover{border-color:var(--accent);color:var(--accent);}
+.fpill.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 3px 10px rgba(67,56,202,0.28);}
+.search-box{margin-left:auto;background:var(--bg);border:1.5px solid var(--border);border-radius:9px;padding:0.35rem 0.85rem;font-size:0.79rem;color:var(--ink);outline:none;transition:border-color 0.2s;min-width:190px;}
+.search-box:focus{border-color:var(--accent);}
+
+/* ── TABLE ────────────────────────────────────────────────────────── */
+.tbl-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;}
+thead tr{background:var(--bg);}
+th{font-size:0.66rem;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--muted);padding:0.72rem 1.2rem;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
+td{padding:0.9rem 1.2rem;font-size:0.82rem;color:var(--ink2);border-bottom:1px solid var(--border);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tbody tr{transition:background 0.12s;}
+tbody tr:hover{background:var(--bg);}
+.td-name{font-weight:600;color:var(--ink);}
+.td-sub{color:var(--muted);font-size:0.75rem;margin-top:2px;}
+.td-msg{max-width:250px;color:var(--muted);font-size:0.78rem;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.td-date{color:var(--muted);font-size:0.75rem;white-space:nowrap;}
+.td-av-wrap{display:flex;align-items:center;gap:0.7rem;}
+.td-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#818CF8);color:#fff;font-size:0.66rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* Service badges */
+.badge-svc{display:inline-block;padding:0.18rem 0.58rem;border-radius:100px;font-size:0.69rem;font-weight:700;white-space:nowrap;}
+.b-web{background:rgba(67,56,202,0.1);color:var(--accent);border:1px solid rgba(67,56,202,0.2);}
+.b-mkt{background:rgba(124,58,237,0.1);color:#7C3AED;border:1px solid rgba(124,58,237,0.2);}
+.b-brand{background:rgba(5,150,105,0.1);color:#059669;border:1px solid rgba(5,150,105,0.2);}
+.b-pack{background:rgba(245,158,11,0.1);color:#D97706;border:1px solid rgba(245,158,11,0.2);}
+.b-other{background:var(--bg);color:var(--muted);border:1px solid var(--border);}
+
+/* Copy / WA buttons */
+.copy-btn{background:transparent;border:1px solid var(--border);border-radius:5px;padding:0.15rem 0.4rem;font-size:0.64rem;font-weight:600;color:var(--muted);cursor:pointer;transition:all 0.18s;margin-left:0.3rem;}
+.copy-btn:hover{border-color:var(--accent);color:var(--accent);}
+.copy-btn.ok{border-color:var(--success);color:var(--success);}
+.wa-btn{display:inline-flex;align-items:center;gap:0.22rem;background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.22);border-radius:5px;padding:0.15rem 0.42rem;font-size:0.64rem;font-weight:600;color:#16A34A;cursor:pointer;transition:all 0.18s;margin-left:0.3rem;text-decoration:none;}
+.wa-btn:hover{background:rgba(37,211,102,0.16);}
+
+/* ── PAGINATION ───────────────────────────────────────────────────── */
+.pag{display:flex;align-items:center;justify-content:center;gap:0.5rem;padding:1.1rem;border-top:1px solid var(--border);}
+.pg-btn{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:0.33rem 0.8rem;font-size:0.79rem;font-weight:600;color:var(--muted);transition:all 0.2s;}
+.pg-btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent);}
+.pg-btn:disabled{opacity:0.38;cursor:not-allowed;}
+.pg-info{font-size:0.77rem;color:var(--muted);padding:0 0.4rem;}
+
+/* ── STATES ───────────────────────────────────────────────────────── */
+.empty-st{text-align:center;padding:3.5rem 1rem;color:var(--muted);}
+.empty-st .eico{font-size:2.4rem;margin-bottom:0.7rem;}
+.empty-st p{font-size:0.86rem;}
+.spinner{display:inline-block;width:26px;height:26px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;margin-bottom:0.7rem;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-st{text-align:center;padding:3.5rem;color:var(--muted);}
+
+/* ── OVERVIEW GRID ────────────────────────────────────────────────── */
+.ov-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:1.5rem;margin-top:0;}
+
+/* ── ANALYTICS ────────────────────────────────────────────────────── */
+.an-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;}
+.chart-box{padding:1.5rem;position:relative;height:300px;}
+.top-svcs{padding:1.5rem;}
+.svc-bar{margin-bottom:1rem;}
+.svc-bar-lbl{display:flex;justify-content:space-between;font-size:0.79rem;font-weight:600;color:var(--ink2);margin-bottom:0.32rem;}
+.svc-bar-pct{color:var(--muted);font-weight:500;}
+.svc-bar-track{height:8px;background:var(--bg);border-radius:100px;overflow:hidden;}
+.svc-bar-fill{height:100%;border-radius:100px;transition:width 1s cubic-bezier(0.34,1.2,0.64,1);}
+
+/* ── EXPORT BTN ───────────────────────────────────────────────────── */
+.btn-export{display:flex;align-items:center;gap:0.35rem;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:0.36rem 0.85rem;font-size:0.77rem;font-weight:600;color:var(--ink2);transition:all 0.2s;}
+.btn-export:hover{border-color:var(--success);color:var(--success);}
+
+/* ── RESPONSIVE ───────────────────────────────────────────────────── */
+@media(max-width:920px){
+  .admin-wrap{grid-template-columns:1fr;}
+  .sidebar{display:none;}
+  .kpi-row{grid-template-columns:repeat(2,1fr);}
+  .an-grid{grid-template-columns:1fr;}
+  .ov-grid{grid-template-columns:1fr;}
 }
-.login-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(67,56,202,0.1); }
-.login-btn {
-  width: 100%; margin-top: 1.2rem; padding: 0.82rem;
-  background: var(--accent); color: #fff; border: none;
-  border-radius: 10px; font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.92rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
-}
-.login-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
-.login-err {
-  display: none; margin-top: 0.8rem;
-  padding: 0.6rem 0.9rem;
-  background: rgba(239,68,68,0.08); color: var(--danger);
-  border-radius: 9px; font-size: 0.82rem; font-weight: 600;
-  border: 1px solid rgba(239,68,68,0.2);
-}
+@media(max-width:560px){.kpi-row{grid-template-columns:1fr;}.page{padding:1rem;}}
 </style>
 </head>
 <body>
 
-<!-- ── LOGIN ─────────────────────────────────────────────────────────────── -->
+<!-- ══════════════════ LOGIN ══════════════════ -->
 <div id="login-screen">
   <div class="login-box">
     <div class="login-logo">Develop<em>Me</em></div>
-    <p class="login-sub">Dashboard Admin — Supabase</p>
-    <label class="login-label" for="email">Email</label>
-    <input class="login-input" type="email" id="email"
-           placeholder="votre@email.com" style="margin-bottom:0.9rem"
+    <p class="login-sub">Dashboard Admin — accès sécurisé</p>
+    <label class="login-label" for="lg-email">Email</label>
+    <input class="login-input" type="email" id="lg-email" placeholder="votre@email.com"
            onkeydown="if(event.key==='Enter')login()"/>
-    <label class="login-label" for="pwd">Mot de passe</label>
-    <input class="login-input" type="password" id="pwd"
-           placeholder="••••••••••"
-           onkeydown="if(event.key==='Enter')login()"/>
+    <label class="login-label" for="lg-pwd">Mot de passe</label>
+    <input class="login-input" type="password" id="lg-pwd" placeholder="••••••••••"
+           onkeydown="if(event.key==='Enter')login()" style="margin-bottom:0"/>
     <button class="login-btn" id="login-btn" onclick="login()">Accéder au dashboard →</button>
     <div class="login-err" id="login-err">Email ou mot de passe incorrect.</div>
   </div>
 </div>
 
-<!-- ── APP (masqué jusqu'au login) ───────────────────────────────────────── -->
-<div id="app" style="display:none">
+<!-- ══════════════════ APP ══════════════════ -->
+<div id="app">
+<div class="admin-wrap">
 
-  <div class="topbar">
-    <div class="topbar-logo">Develop<em>Me</em> <span>Admin</span></div>
-    <div class="topbar-right">
-      <span class="topbar-date" id="topbar-date"></span>
-      <button class="btn-logout" onclick="logout()">Déconnexion</button>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">Develop<em>Me</em><span>Admin Panel</span></div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" onclick="showPage('overview',this)">
+        <span class="nav-icon">📊</span>Vue d'ensemble
+      </button>
+      <button class="nav-item" onclick="showPage('requests',this)">
+        <span class="nav-icon">📋</span>Demandes<span class="nav-badge" id="nb-req">0</span>
+      </button>
+      <button class="nav-item" onclick="showPage('contacts',this)">
+        <span class="nav-icon">👥</span>Contacts
+      </button>
+      <button class="nav-item" onclick="showPage('analytics',this)">
+        <span class="nav-icon">📈</span>Analytiques
+      </button>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="sidebar-user">
+        <div class="s-avatar" id="s-av">M</div>
+        <div class="s-info">
+          <div class="s-name" id="s-name">Admin</div>
+          <div class="s-role">Administrateur</div>
+        </div>
+        <button class="btn-logout-s" onclick="logout()" title="Déconnexion">⏻</button>
+      </div>
     </div>
-  </div>
+  </aside>
 
-  <div class="main">
-
-    <!-- KPIs -->
-    <div class="kpi-row">
-      <div class="kpi kpi-total">
-        <div class="kpi-label">Total leads</div>
-        <div class="kpi-value" id="kpi-total">—</div>
-        <div class="kpi-sub">Depuis le lancement</div>
-      </div>
-      <div class="kpi kpi-today">
-        <div class="kpi-label">Aujourd'hui</div>
-        <div class="kpi-value" id="kpi-today">—</div>
-        <div class="kpi-sub">Nouveaux messages</div>
-      </div>
-      <div class="kpi kpi-last">
-        <div class="kpi-label">Dernier message</div>
-        <div class="kpi-value sm" id="kpi-last-name">—</div>
-        <div class="kpi-sub" id="kpi-last-time"></div>
+  <!-- CONTENT -->
+  <div class="content-area">
+    <div class="topbar">
+      <div class="topbar-title" id="topbar-title">Vue d'ensemble</div>
+      <div class="topbar-right">
+        <div class="live-badge"><div class="live-dot"></div>En ligne</div>
+        <span class="topbar-date" id="topbar-date"></span>
+        <button class="btn-refresh" onclick="refreshAll()">↻ Actualiser</button>
       </div>
     </div>
 
-    <!-- Table -->
-    <div class="table-card">
-      <div class="table-head">
-        <h3>Messages reçus <span class="badge-count" id="badge-count">0</span></h3>
-        <button class="btn-refresh" onclick="loadData()">↻ Actualiser</button>
-      </div>
+    <!-- ─── PAGE : OVERVIEW ────────────────────────────────────────── -->
+    <div class="page active" id="page-overview">
 
-      <div id="table-body">
-        <div class="table-state">
-          <div class="spinner"></div>
-          <p>Chargement…</p>
+      <div class="kpi-row">
+        <div class="kpi kpi-total">
+          <div class="kpi-icon">📋</div>
+          <div class="kpi-lbl">Total demandes</div>
+          <div class="kpi-val" id="kpi-total">—</div>
+          <div class="kpi-sub">Depuis le lancement</div>
+        </div>
+        <div class="kpi kpi-today">
+          <div class="kpi-icon">☀️</div>
+          <div class="kpi-lbl">Aujourd'hui</div>
+          <div class="kpi-val" id="kpi-today">—</div>
+          <div class="kpi-sub">Nouveaux leads</div>
+        </div>
+        <div class="kpi kpi-week">
+          <div class="kpi-icon">📅</div>
+          <div class="kpi-lbl">Cette semaine</div>
+          <div class="kpi-val" id="kpi-week">—</div>
+          <div class="kpi-sub">Leads des 7 derniers jours</div>
+        </div>
+        <div class="kpi kpi-top">
+          <div class="kpi-icon">🏆</div>
+          <div class="kpi-lbl">Service #1</div>
+          <div class="kpi-val sm" id="kpi-top">—</div>
+          <div class="kpi-sub" id="kpi-top-pct"></div>
         </div>
       </div>
 
-      <div class="pagination" id="pagination" style="display:none">
-        <button class="pg-btn" id="pg-prev" onclick="changePage(-1)">← Préc.</button>
-        <span id="pg-info"></span>
-        <button class="pg-btn" id="pg-next" onclick="changePage(1)">Suiv. →</button>
+      <div class="ov-grid">
+        <!-- Recent requests -->
+        <div class="card">
+          <div class="card-head">
+            <h3>Demandes récentes</h3>
+            <button class="btn-refresh" onclick="showPage('requests',document.querySelector('[onclick*=requests]'))">Voir tout →</button>
+          </div>
+          <div class="tbl-wrap">
+            <div id="ov-table"><div class="loading-st"><div class="spinner"></div><p>Chargement…</p></div></div>
+          </div>
+        </div>
+
+        <!-- Mini chart -->
+        <div class="card">
+          <div class="card-head"><h3>Répartition services</h3></div>
+          <div class="chart-box">
+            <canvas id="chart-mini"></canvas>
+          </div>
+        </div>
       </div>
-    </div>
+    </div><!-- /overview -->
 
-  </div>
-</div>
+    <!-- ─── PAGE : REQUESTS ────────────────────────────────────────── -->
+    <div class="page" id="page-requests">
 
-<!-- ── SCRIPTS ────────────────────────────────────────────────────────────── -->
+      <div class="card">
+        <div class="card-head">
+          <h3>Toutes les demandes <span class="badge-n" id="req-count">0</span></h3>
+          <div class="card-head-r">
+            <button class="btn-export" onclick="exportCSV()">⬇ Export CSV</button>
+            <button class="btn-refresh" onclick="refreshAll()">↻ Actualiser</button>
+          </div>
+        </div>
+        <div class="filters-row">
+          <button class="fpill active" data-f="all" onclick="filterRequests(this)">Tous</button>
+          <button class="fpill" data-f="web"   onclick="filterRequests(this)">🌐 Sites Web</button>
+          <button class="fpill" data-f="mkt"   onclick="filterRequests(this)">📱 Marketing</button>
+          <button class="fpill" data-f="brand" onclick="filterRequests(this)">🎨 Branding</button>
+          <button class="fpill" data-f="pack"  onclick="filterRequests(this)">🚀 Pack complet</button>
+          <button class="fpill" data-f="other" onclick="filterRequests(this)">❓ Autre</button>
+          <input class="search-box" type="text" placeholder="🔍 Rechercher…" oninput="searchRequests(this.value)" id="req-search"/>
+        </div>
+        <div class="tbl-wrap">
+          <div id="req-table"><div class="loading-st"><div class="spinner"></div><p>Chargement…</p></div></div>
+        </div>
+        <div class="pag" id="req-pag" style="display:none">
+          <button class="pg-btn" id="req-prev" onclick="reqPage(-1)">← Préc.</button>
+          <span class="pg-info" id="req-pg-info"></span>
+          <button class="pg-btn" id="req-next" onclick="reqPage(1)">Suiv. →</button>
+        </div>
+      </div>
+    </div><!-- /requests -->
+
+    <!-- ─── PAGE : CONTACTS ────────────────────────────────────────── -->
+    <div class="page" id="page-contacts">
+
+      <div class="card">
+        <div class="card-head">
+          <h3>Carnet de contacts <span class="badge-n" id="ct-count">0</span></h3>
+          <div class="card-head-r">
+            <button class="btn-export" onclick="exportContactsCSV()">⬇ Export CSV</button>
+          </div>
+        </div>
+        <div class="filters-row">
+          <input class="search-box" type="text" placeholder="🔍 Rechercher par nom, email, téléphone…" oninput="searchContacts(this.value)" style="margin-left:0;width:100%;max-width:340px"/>
+        </div>
+        <div class="tbl-wrap">
+          <div id="ct-table"><div class="loading-st"><div class="spinner"></div><p>Chargement…</p></div></div>
+        </div>
+        <div class="pag" id="ct-pag" style="display:none">
+          <button class="pg-btn" id="ct-prev" onclick="ctPage(-1)">← Préc.</button>
+          <span class="pg-info" id="ct-pg-info"></span>
+          <button class="pg-btn" id="ct-next" onclick="ctPage(1)">Suiv. →</button>
+        </div>
+      </div>
+    </div><!-- /contacts -->
+
+    <!-- ─── PAGE : ANALYTICS ──────────────────────────────────────── -->
+    <div class="page" id="page-analytics">
+
+      <div class="an-grid">
+        <!-- Donut -->
+        <div class="card">
+          <div class="card-head"><h3>Répartition par service</h3></div>
+          <div class="chart-box"><canvas id="chart-donut"></canvas></div>
+        </div>
+        <!-- Bar timeline -->
+        <div class="card">
+          <div class="card-head"><h3>Leads — 14 derniers jours</h3></div>
+          <div class="chart-box"><canvas id="chart-timeline"></canvas></div>
+        </div>
+      </div>
+
+      <!-- Progress bars -->
+      <div class="card">
+        <div class="card-head"><h3>Détail par formule</h3></div>
+        <div class="top-svcs" id="svc-bars">
+          <div class="loading-st"><div class="spinner"></div><p>Chargement…</p></div>
+        </div>
+      </div>
+
+    </div><!-- /analytics -->
+
+  </div><!-- /content-area -->
+</div><!-- /admin-wrap -->
+</div><!-- /app -->
+
+<!-- ── SCRIPTS ─────────────────────────────────────────────────────── -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="js/admin.js"></script>
 <script>
+/* ── AUTH ──────────────────────────────────────────────────────────── */
 async function login() {
-  const email = document.getElementById('email').value.trim();
-  const pwd   = document.getElementById('pwd').value.trim();
+  const email = document.getElementById('lg-email').value.trim();
+  const pwd   = document.getElementById('lg-pwd').value.trim();
   const err   = document.getElementById('login-err');
   const btn   = document.getElementById('login-btn');
-
   if (!email || !pwd) { err.style.display = 'block'; return; }
-
-  btn.textContent = 'Connexion…';
-  btn.disabled    = true;
-
-  const { error } = await sb.auth.signInWithPassword({ email, password: pwd });
-
+  btn.textContent = 'Connexion…'; btn.disabled = true;
+  const { data, error } = await sb.auth.signInWithPassword({ email, password: pwd });
   if (error) {
-    err.style.display   = 'block';
-    btn.textContent     = 'Accéder au dashboard →';
-    btn.disabled        = false;
-    return;
+    err.style.display = 'block';
+    btn.textContent   = 'Accéder au dashboard →';
+    btn.disabled      = false; return;
   }
-
   err.style.display = 'none';
   document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('app').style.display          = 'block';
-  document.getElementById('topbar-date').textContent    =
-    new Date().toLocaleDateString('fr-DZ', {
-      weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
-    });
-  loadData();
+  document.getElementById('app').style.display = 'block';
+  document.getElementById('topbar-date').textContent =
+    new Date().toLocaleDateString('fr-DZ',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  const u = data.user;
+  const initials = (u.email||'A').substring(0,2).toUpperCase();
+  document.getElementById('s-av').textContent = initials;
+  document.getElementById('s-name').textContent = u.email;
+  refreshAll();
 }
 
 async function logout() {
   await sb.auth.signOut();
-  document.getElementById('app').style.display          = 'none';
+  document.getElementById('app').style.display = 'none';
   document.getElementById('login-screen').style.display = 'flex';
-  document.getElementById('pwd').value   = '';
-  document.getElementById('email').value = '';
+  document.getElementById('lg-pwd').value = '';
+  document.getElementById('lg-email').value = '';
+  allData = [];
 }
 </script>
-
 </body>
 </html>
