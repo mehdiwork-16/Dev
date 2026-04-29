@@ -17,7 +17,7 @@ async function handleForm(e) {
   const email   = document.getElementById('f-email').value.trim();
   const phone   = document.getElementById('f-phone').value.trim();
   const service = document.getElementById('f-service').value;
-  const budget  = document.getElementById('f-budget').value;
+  const budget  = document.getElementById('f-budget')?.value ?? null;
   const message = document.getElementById('f-message').value.trim();
 
   // Validation
