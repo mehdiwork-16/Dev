@@ -1,5 +1,5 @@
 // ── Network-first strategy — toujours la version la plus récente ──────────
-const CACHE = 'developme-v3';
+const CACHE = 'developme-v5';
 
 self.addEventListener('install', e => {
   self.skipWaiting();
