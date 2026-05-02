@@ -1007,6 +1007,20 @@ body.rtl .flip-title-ar{display:none;}
     </div>
   </div>
   <div class="portfolio-grid">
+    <div class="pc reveal" data-cat="web" onclick="openPortfolio('ebony')">
+      <div class="pc-thumb">
+        <img src="https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?w=700&q=80" alt="Ebony Nightclub Krakow" onerror="this.src='';this.parentElement.style.background='linear-gradient(135deg,#1a0a2e,#2d1b4e)'"/>
+        <div class="pc-overlay"><div class="pc-overlay-btn">Voir le projet ↗</div></div>
+        <span class="pc-badge pb-real">✦ Réel</span>
+        <span style="position:absolute;top:0.6rem;right:0.6rem;background:rgba(0,0,0,0.65);backdrop-filter:blur(6px);color:#D4AF37;font-size:0.65rem;font-weight:700;letter-spacing:1px;padding:0.25rem 0.65rem;border-radius:100px;border:1px solid rgba(212,175,55,0.3);">🇵🇱 Pologne</span>
+      </div>
+      <div class="pc-body">
+        <div class="pc-tag">Site Web · Nightclub & Bar</div>
+        <h3 class="pc-title">Ebony — Krakow</h3>
+        <p class="pc-desc">Site premium pour un nightclub haut de gamme à Cracovie. Events filtrables, carte des cocktails, système de réservation.</p>
+        <div class="pc-chips"><span class="tc">UI Dark Luxe</span><span class="tc">Events</span><span class="tc">Menu</span><span class="tc">Réservation</span></div>
+      </div>
+    </div>
     <div class="pc reveal" data-cat="web" onclick="openPortfolio('car')">
       <div class="pc-thumb">
         <img src="/mnt/user-data/uploads/1775342586247_image.png" alt="Luxury Rent Algeria"/>
@@ -1563,6 +1577,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM();});
 
 /* PORTFOLIO MODAL */
 const pData={
+  ebony:{tag:'Site Web · Nightclub & Bar',title:'Ebony — Krakow',img:'https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?w=700&q=80',
+    desc:'Site premium pour un nightclub haut de gamme à Cracovie, Pologne. Design sombre et luxueux avec une palette violet/or. Pages : Accueil immersif, Events filtrables par genre musical (Hip Hop, Techno, Latin…), Carte cocktails & boissons, About, et Contact avec formulaire de réservation. Responsive et rapide.',
+    tech:['UI Dark Luxe','Events filtrables','Menu interactif','Système de réservation','Responsive','Krakow · Pologne']},
   car:{tag:'Site Web · Location de Voitures',title:'Luxury Rent Algeria',img:'/mnt/user-data/uploads/1775342586247_image.png',
     desc:'Site de réservation premium pour une agence de location de voitures de luxe. Interface bilingue FR/AR, système de réservation en ligne, affichage des tarifs en DA, section aéroport et livraison. Design sombre haut de gamme.',
     tech:['Booking System','Bilingue FR/AR','UI Luxe','Mobile-first','Support 24/7'],link:'https://luxury-rent-algeria.base44.app'},
