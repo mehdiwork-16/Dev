@@ -26,7 +26,7 @@ async function handleForm(e) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
     return showAlert('error', '⚠ Adresse email invalide.');
 
-  btn.innerHTML = '<span style="opacity:.65">Envoi en cours…</span>';
+  btn.innerHTML = '<span class="btn-label" style="opacity:.65;margin-right:0">Envoi en cours…</span>';
   btn.disabled  = true;
   hideAlert();
 

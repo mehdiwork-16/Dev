@@ -70,18 +70,30 @@ section{padding:6rem 5%;position:relative;}
 
 /* BUTTONS */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:0.45rem;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:0.9rem;border-radius:10px;padding:0.78rem 1.7rem;cursor:pointer;transition:all 0.22s;border:none;position:relative;overflow:hidden;white-space:nowrap;}
-.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,0);transition:background 0.2s;}
-.btn:hover::after{background:rgba(255,255,255,0.06);}
 .btn-solid{background:var(--accent);color:#fff;box-shadow:0 4px 18px rgba(67,56,202,0.35);}
 .btn-solid:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 8px 28px rgba(67,56,202,0.42);}
-.btn-solid:active{transform:translateY(0);box-shadow:0 2px 10px rgba(67,56,202,0.3);}
+.btn-solid:active .btn-chevron{transform:scale(0.95);}
 .btn-outline{background:transparent;color:var(--accent);border:2px solid var(--accent);}
 .btn-outline:hover{background:var(--accent-soft);transform:translateY(-2px);}
 .btn-ghost{background:var(--surface);color:var(--ink2);border:1.5px solid var(--line);}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);box-shadow:var(--sh);}
 .btn-lg{padding:0.92rem 2.2rem;font-size:1rem;border-radius:12px;}
-.btn .arrow{transition:transform 0.22s;}
-.btn:hover .arrow{transform:translateX(3px);}
+/* Chevron expand animation */
+.btn-label{display:inline-block;margin-right:1.5rem;transition:opacity 0.5s ease;}
+.btn:hover .btn-label{opacity:0;}
+.btn-chevron{
+  position:absolute;right:4px;top:4px;bottom:4px;
+  border-radius:6px;z-index:10;
+  display:grid;place-items:center;
+  width:calc(25% - 4px);
+  transition:width 0.5s ease;
+  font-style:normal;pointer-events:none;
+}
+.btn:hover .btn-chevron{width:calc(100% - 8px);}
+.btn:active .btn-chevron{transform:scale(0.95);}
+.btn-solid .btn-chevron{background:rgba(255,255,255,0.18);color:#fff;}
+.btn-outline .btn-chevron{background:rgba(67,56,202,0.12);color:var(--accent);}
+.btn-ghost .btn-chevron{background:var(--accent-soft);color:var(--accent);}
 
 /* ═══ HERO ═══ */
 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:3rem;padding-top:calc(64px + 3rem);padding-bottom:3rem;background:linear-gradient(145deg,#FAFBFF 0%,#EDEDFF 45%,#E5F4FF 100%);overflow:hidden;}
@@ -1843,5 +1855,25 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('/Dev/sw.js')
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/script.js?v=5"></script>
+<script>
+/* ── CHEVRON BUTTON ANIMATION ─────────────────────────────────────────── */
+(function(){
+  const CHEVRON_SVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>`;
+
+  function injectChevron(btn){
+    if(btn.querySelector('.btn-label')) return; // already done
+    if(btn.id === 'darkToggle') return;         // skip icon-only buttons
+    if(btn.classList.contains('ps-btn')) return; // skip pricing tabs
+    if(btn.classList.contains('lang-btn')) return;
+    if(btn.classList.contains('pwa-dismiss')) return;
+
+    const html = btn.innerHTML.trim();
+    btn.innerHTML = `<span class="btn-label">${html}</span><i class="btn-chevron">${CHEVRON_SVG}</i>`;
+  }
+
+  // Run on all .btn elements
+  document.querySelectorAll('.btn').forEach(injectChevron);
+})();
+</script>
 </body>
 </html>
