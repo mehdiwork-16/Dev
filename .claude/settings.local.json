@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Read(//usr/local/**)",
+      "Read(//usr/**)",
+      "Bash(command -v node)",
+      "PowerShell(node --version)",
+      "PowerShell(npm --version)",
+      "PowerShell(Get-Command node -ErrorAction SilentlyContinue; Get-Command npm -ErrorAction SilentlyContinue; ls \"C:\\\\Program Files\\\\nodejs\\\\\" -ErrorAction SilentlyContinue; ls \"$env:APPDATA\\\\npm\" -ErrorAction SilentlyContinue; ls \"$env:LOCALAPPDATA\\\\Programs\\\\nodejs\\\\\" -ErrorAction SilentlyContinue; $env:PATH -split ';' | Select-String -Pattern \"node\")",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(git add *)",
+      "Bash(git commit -m 'Add EBONY Lounge website — full static HTML/CSS/JS project *)"
+    ]
+  }
+}

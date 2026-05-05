@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --gold: #C9963C;
+  --gold-light: #E8B84B;
+  --gold-dark: #A07828;
+  --black: #0A0A0A;
+  --dark: #111111;
+  --card: #161616;
+  --border: #2A2A2A;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0A0A0A;
+  color: #F5F0E8;
+  font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #111111;
+}
+::-webkit-scrollbar-thumb {
+  background: #C9963C;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #E8B84B;
+}
+
+/* Gold text gradient */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #C9963C 0%, #E8B84B 50%, #A07828 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Shimmer text animation */
+.text-shimmer {
+  background: linear-gradient(90deg, #A07828 0%, #E8B84B 25%, #C9963C 50%, #E8B84B 75%, #A07828 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Gold divider */
+.gold-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #C9963C, transparent);
+}
+
+/* Noise texture overlay */
+.noise-overlay::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.04;
+}
+
+/* Glow button */
+.btn-gold {
+  background: linear-gradient(135deg, #C9963C, #E8B84B);
+  color: #0A0A0A;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-gold::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #E8B84B, #C9963C);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-gold:hover::before {
+  opacity: 1;
+}
+
+.btn-gold:hover {
+  box-shadow: 0 0 30px rgba(201, 150, 60, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-outline-gold {
+  border: 1px solid #C9963C;
+  color: #C9963C;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-gold:hover {
+  background: rgba(201, 150, 60, 0.1);
+  box-shadow: 0 0 20px rgba(201, 150, 60, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Card styles */
+.glass-card {
+  background: rgba(22, 22, 22, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(201, 150, 60, 0.15);
+  transition: all 0.4s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(201, 150, 60, 0.4);
+  box-shadow: 0 0 30px rgba(201, 150, 60, 0.15);
+}
+
+/* Page transition wrapper */
+.page-transition {
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Section title style */
+.section-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* Input styles */
+.input-dark {
+  background: rgba(22, 22, 22, 0.9);
+  border: 1px solid #2A2A2A;
+  color: #F5F0E8;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 2px;
+}
+
+.input-dark:focus {
+  outline: none;
+  border-color: #C9963C;
+  box-shadow: 0 0 0 3px rgba(201, 150, 60, 0.1);
+}
+
+.input-dark::placeholder {
+  color: #6B6B6B;
+}
